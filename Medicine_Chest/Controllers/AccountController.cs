@@ -54,7 +54,7 @@ namespace Medicine_Chest.Controllers
             }
             return View(model);
         }
-        [Authorize]
+        
         public IActionResult Register()
         {
             return View();
