@@ -1,0 +1,26 @@
+﻿using ENTITIES;
+using Microsoft.EntityFrameworkCore;
+using System;
+using System.Collections.Generic;
+
+using System.Text;
+
+namespace DATA.Concrete
+{
+
+    public class WebContext : DbContext
+    {
+        public DbSet<MEDICINE> MEDICINE { get; set; }
+        public DbSet<PHARMACIES> PHARMACIES { get; set; }
+        public DbSet<PRESCRIPTIONS> PRESCRIPTIONS { get; set; }
+        public DbSet<STOCK> STOCK { get; set; }
+        public DbSet<USERS> USERS { get; set; }
+
+        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+        {
+            optionsBuilder.UseSqlServer("Server=DESKTOP-B28EHI3;Database=Eczane;User Id=sa;Password=berra123;");
+        }
+
+    }
+}
+
