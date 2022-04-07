@@ -96,14 +96,14 @@ License: For each use you must have a valid license purchased only from above li
                         <!--begin::Heading-->
                         <!--begin::Input group-->
                         @*<div class="fv-row mb-10">
-                            @if (TempData["message"] != null)
-                            {
-                                var message = JsonConvert.DeserializeObject<AlertMessage>(TempData["message"] as String);
-                                <div class="fw-bold fs-3 mb-15 mt-15 alert alert-@message.MessageType" style="display:flex;justify-content:center;">
-                                    @message.MessageText
-                                </div>
-                            }
-                        </div>*@
+            @if (TempData["message"] != null)
+            {
+                var message = JsonConvert.DeserializeObject<AlertMessage>(TempData["message"] as String);
+                <div class="fw-bold fs-3 mb-15 mt-15 alert alert-@message.MessageType" style="display:flex;justify-content:center;">
+                    @message.MessageText
+                </div>
+            }
+        </div>*@
                         <!--end::Input group-->
                         <!--begin::Hidden Input-->
                         <input type="hidden" name="ReturnUrl" value="@Model.ReturnUrl" />
@@ -152,6 +152,7 @@ License: For each use you must have a valid license purchased only from above li
                             </button>
                             <!--end::Submit button-->
                         </div>
+                      
                         <!--end::Actions-->
                     </form>
                     <!--end::Form-->
