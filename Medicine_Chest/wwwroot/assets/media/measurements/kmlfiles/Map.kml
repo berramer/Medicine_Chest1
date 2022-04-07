@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="utf-8"?>
+<kml xmlns="http://www.opengis.net/kml/2.2">
+  <Document>
+    <Placemark id="Nokta1">
+      <name>Nokta1</name>
+      <Point>
+        <coordinates>41.024700000000003,41.024700000000003,0</coordinates>
+      </Point>
+    </Placemark>
+    <Placemark id="Nokta2">
+      <name>Nokta2</name>
+      <Point>
+        <coordinates>29.9252,41.024700000000003,0</coordinates>
+      </Point>
+    </Placemark>
+    <Placemark id="Nokta3">
+      <name>Nokta3</name>
+      <Point>
+        <coordinates>30.9252,41.024700000000003,0</coordinates>
+      </Point>
+    </Placemark>
+    <Placemark id="M2">
+      <name>M2</name>
+      <Point>
+        <coordinates>28.9252,41.024700000000003,0</coordinates>
+      </Point>
+    </Placemark>
+    <Placemark id="M2">
+      <name>M2</name>
+      <Point>
+        <coordinates>28.9252,41.024700000000003,0</coordinates>
+      </Point>
+    </Placemark>
+    <Placemark id="BBB">
+      <name>BBB</name>
+      <Point>
+        <coordinates>28.9252,41.024700000000003,0</coordinates>
+      </Point>
+    </Placemark>
+    <Placemark id="N1">
+      <name>N1</name>
+      <Point>
+        <coordinates>28.9757,41.0197,0</coordinates>
+      </Point>
+    </Placemark>
+    <Placemark id="10">
+      <name>10</name>
+      <Point>
+        <coordinates>28.9252,41.0197,0</coordinates>
+      </Point>
+    </Placemark>
+    <Placemark id="aa">
+      <name>aa</name>
+      <Point>
+        <coordinates>41.200000000000003,42.100000000000001,0</coordinates>
+      </Point>
+    </Placemark>
+    <Placemark id="M100">
+      <name>M100</name>
+      <Point>
+        <coordinates>29.132999999999999,41.025599999999997,0</coordinates>
+      </Point>
+    </Placemark>
+    <Placemark id="N-1">
+      <name>N-1</name>
+      <Point>
+        <coordinates>42.439999999999998,28.25,0</coordinates>
+      </Point>
+    </Placemark>
+  </Document>
+</kml>

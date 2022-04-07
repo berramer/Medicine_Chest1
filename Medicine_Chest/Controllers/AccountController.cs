@@ -1,4 +1,5 @@
-﻿using Medicine_Chest.Identity;
+﻿using Medicine_Chest.EmailServices;
+using Medicine_Chest.Identity;
 using Medicine_Chest.Models;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
@@ -14,10 +15,12 @@ namespace Medicine_Chest.Controllers
     {
         private UserManager<User> _userManager;
         private SignInManager<User> _signInManager;
-        public AccountController(UserManager<User> userManager, SignInManager<User> signInManager)
+        private IEmailSender _emailSender;
+        public AccountController(UserManager<User> userManager, SignInManager<User> signInManager, IEmailSender emailSender)
         {
             _userManager = userManager;
             _signInManager = signInManager;
+            _emailSender = emailSender;
         }
         public IActionResult login(string ReturnUrl)
         {
@@ -90,6 +93,8 @@ namespace Medicine_Chest.Controllers
                     userId = user.Id,
                     token = token
                 });
+
+                await _emailSender.SendEmailAsync(model.Email, "Hesabınızı onaylayınız", $"Lütfen email hesabınızı onaylamak için linke <a href='https://localhost:44303{url}'> tıklayınız.</a>");
                 return RedirectToAction("login", "Account");
             }
             return View(model);
@@ -107,6 +112,7 @@ namespace Medicine_Chest.Controllers
             if (String.IsNullOrEmpty(userId) || String.IsNullOrEmpty(token))
             {
                 //error tempdata 
+                return View();
             }
             var user = await _userManager.FindByIdAsync(userId);
             if (user == null)
@@ -121,6 +127,7 @@ namespace Medicine_Chest.Controllers
                 return View();
 
             }
+            return View();
         }
     }
         }

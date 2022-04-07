@@ -12,6 +12,8 @@ using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Http;
+using Medicine_Chest.EmailServices;
+
 
 namespace Medicine_Chest
 {
@@ -72,6 +74,14 @@ namespace Medicine_Chest
                 };
 
             });
+            //email injection
+            services.AddScoped<IEmailSender, EMailSender>(i => new EMailSender(
+                Configuration["EmailSender:Host"],
+                Configuration.GetValue<int>("EmailSender:Port"),
+                Configuration.GetValue<bool>("EmailSender:EnableSSL"),
+                Configuration["EmailSender:UserName"],
+                Configuration["EmailSender:Password"]
+                ));
 
         }
 

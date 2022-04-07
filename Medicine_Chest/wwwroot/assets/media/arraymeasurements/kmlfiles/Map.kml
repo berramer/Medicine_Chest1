@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<kml xmlns="http://www.opengis.net/kml/2.2">
+  <Document>
+    <Placemark id="m0">
+      <name>m0</name>
+      <Point>
+        <coordinates>27.999995299999998,38.0000024,0</coordinates>
+      </Point>
+    </Placemark>
+    <Placemark id="m1">
+      <name>m1</name>
+      <Point>
+        <coordinates>28.000007499999999,38.0009035,0</coordinates>
+      </Point>
+    </Placemark>
+    <Placemark id="m2">
+      <name>m2</name>
+      <Point>
+        <coordinates>28.0009753,37.9995434,0</coordinates>
+      </Point>
+    </Placemark>
+    <Placemark id="m3">
+      <name>m3</name>
+      <Point>
+        <coordinates>27.999002900000001,37.999560199999998,0</coordinates>
+      </Point>
+    </Placemark>
+    <Placemark id="m4">
+      <name>m4</name>
+      <Point>
+        <coordinates>28.000019699999999,38.001804700000001,0</coordinates>
+      </Point>
+    </Placemark>
+    <Placemark id="m5">
+      <name>m5</name>
+      <Point>
+        <coordinates>28.001955500000001,37.999084400000001,0</coordinates>
+      </Point>
+    </Placemark>
+    <Placemark id="m6">
+      <name>m6</name>
+      <Point>
+        <coordinates>27.998010499999999,37.999118000000003,0</coordinates>
+      </Point>
+    </Placemark>
+  </Document>
+</kml>

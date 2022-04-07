@@ -1,0 +1,239 @@
+<?xml version="1.0" encoding="utf-8"?>
+<kml xmlns="http://www.opengis.net/kml/2.2">
+  <Document>
+    <Placemark id="M0">
+      <name>A-1 , M0</name>
+      <Point>
+        <coordinates>28.4999836,38.3886234,0</coordinates>
+      </Point>
+    </Placemark>
+    <Placemark id="M1">
+      <name>A-1 , M1</name>
+      <Point>
+        <coordinates>28.4999854,38.388713500000001,0</coordinates>
+      </Point>
+    </Placemark>
+    <Placemark id="M2">
+      <name>A-1 , M2</name>
+      <Point>
+        <coordinates>28.5000818,38.388577099999999,0</coordinates>
+      </Point>
+    </Placemark>
+    <Placemark id="M3">
+      <name>A-1 , M3</name>
+      <Point>
+        <coordinates>28.499883499999999,38.3885796,0</coordinates>
+      </Point>
+    </Placemark>
+    <Placemark id="M4">
+      <name>A-1 , M4</name>
+      <Point>
+        <coordinates>28.499987300000001,38.388803600000003,0</coordinates>
+      </Point>
+    </Placemark>
+    <Placemark id="M5">
+      <name>A-1 , M5</name>
+      <Point>
+        <coordinates>28.50018,38.388530699999997,0</coordinates>
+      </Point>
+    </Placemark>
+    <Placemark id="M6">
+      <name>A-1 , M6</name>
+      <Point>
+        <coordinates>28.499783499999999,38.3885358,0</coordinates>
+      </Point>
+    </Placemark>
+    <Placemark id="M0">
+      <name>A-2 , M0</name>
+      <Point>
+        <coordinates>28.4999836,38.3886234,0</coordinates>
+      </Point>
+    </Placemark>
+    <Placemark id="M1">
+      <name>A-2 , M1</name>
+      <Point>
+        <coordinates>28.4999854,38.388713500000001,0</coordinates>
+      </Point>
+    </Placemark>
+    <Placemark id="M2">
+      <name>A-2 , M2</name>
+      <Point>
+        <coordinates>28.5000818,38.388577099999999,0</coordinates>
+      </Point>
+    </Placemark>
+    <Placemark id="M3">
+      <name>A-2 , M3</name>
+      <Point>
+        <coordinates>28.499883499999999,38.3885796,0</coordinates>
+      </Point>
+    </Placemark>
+    <Placemark id="M4">
+      <name>A-2 , M4</name>
+      <Point>
+        <coordinates>28.499987300000001,38.388803600000003,0</coordinates>
+      </Point>
+    </Placemark>
+    <Placemark id="M5">
+      <name>A-2 , M5</name>
+      <Point>
+        <coordinates>28.50018,38.388530699999997,0</coordinates>
+      </Point>
+    </Placemark>
+    <Placemark id="M6">
+      <name>A-2 , M6</name>
+      <Point>
+        <coordinates>28.499783499999999,38.3885358,0</coordinates>
+      </Point>
+    </Placemark>
+    <Placemark id="M0">
+      <name>A-3 , M0</name>
+      <Point>
+        <coordinates>28.4999836,38.3886234,0</coordinates>
+      </Point>
+    </Placemark>
+    <Placemark id="M1">
+      <name>A-3 , M1</name>
+      <Point>
+        <coordinates>28.4999854,38.388713500000001,0</coordinates>
+      </Point>
+    </Placemark>
+    <Placemark id="M2">
+      <name>A-3 , M2</name>
+      <Point>
+        <coordinates>28.5000818,38.388577099999999,0</coordinates>
+      </Point>
+    </Placemark>
+    <Placemark id="M3">
+      <name>A-3 , M3</name>
+      <Point>
+        <coordinates>28.499883499999999,38.3885796,0</coordinates>
+      </Point>
+    </Placemark>
+    <Placemark id="M4">
+      <name>A-3 , M4</name>
+      <Point>
+        <coordinates>28.499987300000001,38.388803600000003,0</coordinates>
+      </Point>
+    </Placemark>
+    <Placemark id="M5">
+      <name>A-3 , M5</name>
+      <Point>
+        <coordinates>28.50018,38.388530699999997,0</coordinates>
+      </Point>
+    </Placemark>
+    <Placemark id="M6">
+      <name>A-3 , M6</name>
+      <Point>
+        <coordinates>28.499783499999999,38.3885358,0</coordinates>
+      </Point>
+    </Placemark>
+    <Placemark id="M0">
+      <name>A-4 , M0</name>
+      <Point>
+        <coordinates>28.4999836,38.3886234,0</coordinates>
+      </Point>
+    </Placemark>
+    <Placemark id="M1">
+      <name>A-4 , M1</name>
+      <Point>
+        <coordinates>28.4999854,38.388713500000001,0</coordinates>
+      </Point>
+    </Placemark>
+    <Placemark id="M2">
+      <name>A-4 , M2</name>
+      <Point>
+        <coordinates>28.5000818,38.388577099999999,0</coordinates>
+      </Point>
+    </Placemark>
+    <Placemark id="M3">
+      <name>A-4 , M3</name>
+      <Point>
+        <coordinates>28.499883499999999,38.3885796,0</coordinates>
+      </Point>
+    </Placemark>
+    <Placemark id="M4">
+      <name>A-4 , M4</name>
+      <Point>
+        <coordinates>28.499987300000001,38.388803600000003,0</coordinates>
+      </Point>
+    </Placemark>
+    <Placemark id="M5">
+      <name>A-4 , M5</name>
+      <Point>
+        <coordinates>28.50018,38.388530699999997,0</coordinates>
+      </Point>
+    </Placemark>
+    <Placemark id="M6">
+      <name>A-4 , M6</name>
+      <Point>
+        <coordinates>28.499783499999999,38.3885358,0</coordinates>
+      </Point>
+    </Placemark>
+    <Placemark id="M0">
+      <name>A-5 , M0</name>
+      <Point>
+        <coordinates>-175.50001639999999,38.3886234,0</coordinates>
+      </Point>
+    </Placemark>
+    <Placemark id="M1">
+      <name>A-5 , M1</name>
+      <Point>
+        <coordinates>-175.50001459999999,38.388713500000001,0</coordinates>
+      </Point>
+    </Placemark>
+    <Placemark id="M2">
+      <name>A-5 , M2</name>
+      <Point>
+        <coordinates>-175.4999182,38.388577099999999,0</coordinates>
+      </Point>
+    </Placemark>
+    <Placemark id="M3">
+      <name>A-5 , M3</name>
+      <Point>
+        <coordinates>-175.50011649999999,38.3885796,0</coordinates>
+      </Point>
+    </Placemark>
+    <Placemark id="M4">
+      <name>A-5 , M4</name>
+      <Point>
+        <coordinates>-175.50001270000001,38.388803600000003,0</coordinates>
+      </Point>
+    </Placemark>
+    <Placemark id="M5">
+      <name>A-5 , M5</name>
+      <Point>
+        <coordinates>-175.49982,38.388530699999997,0</coordinates>
+      </Point>
+    </Placemark>
+    <Placemark id="M6">
+      <name>A-5 , M6</name>
+      <Point>
+        <coordinates>-175.50021649999999,38.3885358,0</coordinates>
+      </Point>
+    </Placemark>
+    <Placemark id="M0">
+      <name>A-6 , M0</name>
+      <Point>
+        <coordinates>28.4999836,38.3886234,0</coordinates>
+      </Point>
+    </Placemark>
+    <Placemark id="M1">
+      <name>A-6 , M1</name>
+      <Point>
+        <coordinates>28.4999854,38.388713500000001,0</coordinates>
+      </Point>
+    </Placemark>
+    <Placemark id="M2">
+      <name>A-6 , M2</name>
+      <Point>
+        <coordinates>28.5000818,38.388577099999999,0</coordinates>
+      </Point>
+    </Placemark>
+    <Placemark id="M3">
+      <name>A-6 , M3</name>
+      <Point>
+        <coordinates>28.499883499999999,38.3885796,0</coordinates>
+      </Point>
+    </Placemark>
+  </Document>
+</kml>
