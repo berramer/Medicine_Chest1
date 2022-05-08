@@ -1,4 +1,6 @@
-﻿using System;
+﻿using Medicine_Chest.Identity;
+using Microsoft.AspNetCore.Identity;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
@@ -6,8 +8,10 @@ using System.Threading.Tasks;
 
 namespace Medicine_Chest.Models
 {
-    public class RegisterModel
+    public class KullaniciIslemViewModel
     {
+
+        public string Id { get; set; }
         [Required]
         public string Name { get; set; }
 
@@ -39,6 +43,13 @@ namespace Medicine_Chest.Models
         [DataType(DataType.Password)]
         [Compare("Password")]
         public string RePassword { get; set; }
+        public string IslemTuru { get; set; }
+   
+    public KullaniciIslemViewModel()
+        {
 
+        }
+
+  
     }
 }

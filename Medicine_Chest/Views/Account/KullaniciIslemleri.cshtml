@@ -1,0 +1,232 @@
+﻿
+@model KullaniciViewModel
+@{
+  
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@section Scripts{
+    <script>
+        // grid üzerinde herhangi bir kaydın silinmesi için tıklandığında
+        // hidden field'a kaydın id'sini basıp
+        // diyaloğun açılmasını sağlayan metottur.
+        function SilHazirlik(kodTankTuru) {
+            $("#hdnKodTankTuruIdIslemler").val(kodTankTuru);
+            $("#dialogSil").data("kendoDialog").open();
+        }
+
+        // grid üzerinde silinmiş herhangi bir kaydın aktif hale getirilmesi için tıklandığında
+        // hidden field'a kaydın id'sini basıp
+        // diyaloğun açılmasını sağlayan metottur.
+        function AktiflestirHazirlik(kodTankTuru) {
+            $("#hdnKodTankTuruIdIslemler").val(kodTankTuru);
+            $("#dialogAktiflestir").data("kendoDialog").open();
+        }
+
+        // grid üzerinde herhangi bir kaydın kilitlenmesi için tıklandığında
+        // hidden field'a kaydın id'sini basıp
+        // diyaloğun açılmasını sağlayan metottur.
+        function KilitleHazirlik(kodTankTuru) {
+            $("#hdnKodTankTuruIdIslemler").val(kodTankTuru);
+            $("#dialogKilitle").data("kendoDialog").open();
+        }
+
+        // silme diyaloğunda tamam tuşuna basıldığında
+        // hidden field'daki id bilgisini kullanarak kaydın silinmesini
+        // ve gridin refresh edilmesini sağlayan butondur
+        function Sil() {
+            $("#loading").show();
+            // burada aktif formun tüm elemanları aşağıdaki kod satırı ile alınıyor
+            var iisAdresi = $("#hdnIISAdresi").data('value').toString();
+            $.ajax({
+                type: "POST",
+                url: iisAdresi + "/SistemAyarlariTankTuru/KodTankTuruSil",
+                data: { kodTankTuruId: $("#hdnKodTankTuruIdIslemler").val() },
+                dataType: 'json',
+                success: function (data) {
+                    $("#loading").hide();
+                    if (data.HataMi === false) {
+                        Lobibox.notify('success', { size: 'mini', msg: 'MesajSabitler.IslemBasarili' });
+                        // sonrasında ilgili ajax metodu buradan çağrılıyor
+                        $("#gridKodTankTuru").data("kendoGrid").dataSource.read();
+                    } else {
+                        Lobibox.notify('error', { size: 'large', msg: data.Mesaj });
+                        // sonrasında ilgili ajax metodu buradan çağrılıyor
+                        $("#gridKodTankTuru").data("kendoGrid").dataSource.read();
+                        event.preventDefault();
+                        return false;
+                    }
+                },
+                error: function (error) {
+                    $("#loading").hide();
+                    Lobibox.notify('error', { size: 'large', msg: 'MesajSabitler.IslemBasarisiz' });
+                    // sonrasında ilgili ajax metodu buradan çağrılıyor
+                    $("#gridKodTankTuru").data("kendoGrid").dataSource.read();
+                }
+            });
+        };
+
+        // aktifleştirme diyaloğunda tamam tuşuna basıldığında
+        // hidden field'daki id bilgisini kullanarak kaydın aktif hale getirilmesini
+        // ve gridin refresh edilmesini sağlayan butondur
+        function Aktiflestir() {
+            $("#loading").show();
+            // burada aktif formun tüm elemanları aşağıdaki kod satırı ile alınıyor
+            var iisAdresi = $("#hdnIISAdresi").data('value').toString();
+            $.ajax({
+                type: "POST",
+                url: iisAdresi + "/SistemAyarlariTankTuru/KodTankTuruAktiflestir",
+                data: { kodTankTuruId: $("#hdnKodTankTuruIdIslemler").val() },
+                dataType: 'json',
+                success: function (data) {
+                    $("#loading").hide();
+                    if (data.HataMi === false) {
+                        Lobibox.notify('success', { size: 'mini', msg: 'MesajSabitler.IslemBasarili' });
+                        // sonrasında ilgili ajax metodu buradan çağrılıyor
+                        $("#gridKodTankTuru").data("kendoGrid").dataSource.read();
+                    } else {
+                        Lobibox.notify('error', { size: 'large', msg: data.Mesaj });
+                        // sonrasında ilgili ajax metodu buradan çağrılıyor
+                        $("#gridKodTankTuru").data("kendoGrid").dataSource.read();
+                        event.preventDefault();
+                        return false;
+                    }
+                },
+                error: function (error) {
+                    $("#loading").hide();
+                    Lobibox.notify('error', { size: 'large', msg: 'MesajSabitler.IslemBasarisiz' });
+                    // sonrasında ilgili ajax metodu buradan çağrılıyor
+                    $("#gridKodTankTuru").data("kendoGrid").dataSource.read();
+                }
+            });
+        };
+
+        // kilitleme diyaloğunda tamam tuşuna basıldığında
+        // hidden field'daki id bilgisini kullanarak kaydın kilitlenmesini
+        // ve gridin refresh edilmesini sağlayan butondur
+        function Kilitle() {
+            $("#loading").show();
+            // burada aktif formun tüm elemanları aşağıdaki kod satırı ile alınıyor
+            var iisAdresi = $("#hdnIISAdresi").data('value').toString();
+            $.ajax({
+                type: "POST",
+                url: iisAdresi + "/SistemAyarlariTankTuru/KodTankTuruKilitle",
+                data: { kodTankTuruId: $("#hdnKodTankTuruIdIslemler").val() }, // parametre olarak mevcut formumuz gönderiliyor
+                dataType: 'json',
+                success: function (data) {
+                    $("#loading").hide();
+                    if (data.HataMi === false) {
+                        Lobibox.notify('success', { size: 'mini', msg: 'MesajSabitler.IslemBasarili' });
+                        // sonrasında ilgili ajax metodu buradan çağrılıyor
+                        $("#gridKodTankTuru").data("kendoGrid").dataSource.read();
+                    } else {
+                        Lobibox.notify('error', { size: 'large', msg: data.Mesaj });
+                        // sonrasında ilgili ajax metodu buradan çağrılıyor
+                        $("#gridKodTankTuru").data("kendoGrid").dataSource.read();
+                        event.preventDefault();
+                        return false;
+                    }
+                },
+                error: function (error) {
+                    $("#loading").hide();
+                    Lobibox.notify('error', { size: 'large', msg: 'MesajSabitler.IslemBasarisiz' });
+                    // sonrasında ilgili ajax metodu buradan çağrılıyor
+                    $("#gridKodTankTuru").data("kendoGrid").dataSource.read();
+                }
+            });
+        };
+
+        // grid üzerindeki yeni kayıt butonuna tıklandığında
+        // hesap planı ekleyebilmek için gerekli ekranın açılmasını sağlayacak metottur.
+        function KayitEkraniAc(kodTankTuru, islem) {
+            $("#loading").show();
+        
+            $.ajax({
+                type: "GET",
+                url: "/Account/KullaniciIslemi",
+                datatype: "Json",
+                data: { Id: kodTankTuru, islemTuru: islem },
+                success: function (data) {
+                    // burada dinamik olarak bir detay div'i oluşturuluyor
+                    $('body').append($('<div id="divKayitPopup"></div>'));
+                    // bu div'a partial view üzerinden gelen veriler basılıyor
+                    $("#divKayitPopup").html(data);
+                    //$("#divKayitPopup").css("z-index", 9999999);
+                    //$("#kodTankTuruKayit").css("z-index", 9999999);
+                    $('#KullaniciKayit').modal('show');
+                    $("#loading").hide();
+                    event.preventDefault();
+                    return false;
+                },
+                error: function (error) {
+                    $("#loading").hide();
+                    Lobibox.notify('error', { size: 'large', msg: "Arıza Türü Kayıt Ekranı Açma İşlemi Başarısız" });
+                    event.preventDefault();
+                    return false;
+                }
+            });
+        };
+
+        function FiltreEkraniAc() {
+            $('#exampleModal1').modal('show');
+        }
+
+    </script>
+}
+
+<div class="block block-bordered">
+    <div class="block-header bg-gray-lighter" style="text-align: right">
+        <h3 class="block-title" style="text-align: center">@ViewBag.Header</h3>
+        <div class="row">
+            <div class="block-options-simple col-6">
+                <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal1"><i class="fa fa-filter"></i> FiltreIslemi</button>
+            </div>
+
+            <div class="block-options-simple col-6">
+                <button class="btn btn-sm btn-success" type="button" id="btnYeniKayit" onclick="KayitEkraniAc(null, 'Ekleme')"><i class="fa fa-plus"></i> YeniKayit</button>
+             
+         
+
+            </div>
+        </div>
+    </div>
+</div>
+    <div class="modal fade" id="exampleModal1" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Fatura Ödeme</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+
+                    <div class="row">
+                        <div class="col-sm-6">
+                            <label>Yeni şifre</label>
+                            <input class="form-control w-75 offset-1 " type="text" id="sifre1" />
+                        </div>
+                        <div class="col-sm-6">
+                            <label>Yeni şifre Tekrar</label>
+                            <input class="form-control w-75 offset-1 " type="text" id="sifre2" />
+                        </div>
+
+
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Kapat</button>
+                    <button type="button" onclick="sifre_yenile()" class="btn btn-primary">Kaydet</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="block-content" id="divGrid" style="position: initial; height:100vh; overflow: auto;">
+        @{
+            Html.RenderPartial("_KullaniciListesi", Model.UserList);
+        }
+    </div>
+
+
