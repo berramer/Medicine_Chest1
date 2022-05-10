@@ -6,9 +6,9 @@ namespace ENTITIES
 {
     public class PRESCRIPTIONS : EntityBase
     {
-        string PrescriptionCode { get; set; }
-        DateTime ValidityDate { get; set; }
-        string MedicineID { get; set; }
-        string UserID { get; set; }
+        public string PrescriptionCode { get; set; }
+        public DateTime ValidityDate { get; set; }
+        public string MedicineID { get; set; }
+        public string UserID { get; set; }
     }
 }

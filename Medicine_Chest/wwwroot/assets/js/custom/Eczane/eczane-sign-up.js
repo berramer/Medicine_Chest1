@@ -7,13 +7,7 @@ var KTSignupGeneral = function () {
         init: function () {
             e = document.querySelector("#kt_sign_up_form"), t = document.querySelector("#kt_sign_up_submit"), s = KTPasswordMeter.getInstance(e.querySelector('[data-kt-password-meter="true"]')), a = FormValidation.formValidation(e, {
                 fields: {
-                    "UserName": {
-                        validators: {
-                            notEmpty: {
-                                message: "Kullanıcı adı alanı boş geçilemez."
-                            }
-                        }
-                    },
+                  
                     "Name": {
                         validators: {
                             notEmpty: {
@@ -21,57 +15,26 @@ var KTSignupGeneral = function () {
                             }
                         }
                     },
-                    "SurName": {
+                   
+               
+                    "Address": {
                         validators: {
                             notEmpty: {
-                                message: "Soyad alanı boş geçilemez."
-                            }
-                        }
-                    }, 
-                    Email: {
-                        validators: {
-                            notEmpty: {
-                                message: "Email alanı boş geçilemez."
+                                message: "Adres alanı boş geçilemez."
                             },
                             emailAddress: {
-                                message: "Geçerli bir mail adresi giriniz."
+                                message: "Geçerli bir adres  giriniz."
                             }
                         }
                     },
-                    PhoneNumber: {
+                   "PhoneNumber": {
                         validators: {
                             notEmpty: {
                                 message: "Telefon numarası alanı boş geçilemez."
                             }
                         }
                     },
-                    Password: {
-                        validators: {
-                            notEmpty: {
-                                message: "Şifre alanı boş geçilemez."
-                            },
-                            callback: {
-                                message: "Geçerli bir şifre giriniz.",
-                                callback: function (e) {
-                                    if (e.value.length > 0) return r()
-                                }
-                            }
-                        }
-                    },
-                    "RePassword": {
-                        validators: {
-                            notEmpty: {
-                                message: "Şifre doğrulama alanı boş geçilemez."
-                            },
-                            identical: {
-                                compare: function () {
-                                    return e.querySelector('[name="Password"]').value
-                                },
-                                message: "Şifre eşleşmiyor."
-                            }
-                        }
-                    }
-                },
+                   
                 plugins: {
                     trigger: new FormValidation.plugins.Trigger({
                         event: {
@@ -85,7 +48,7 @@ var KTSignupGeneral = function () {
                     })
                 }
             }), t.addEventListener("click", (function (r) {
-                r.preventDefault(), a.revalidateField("Password"), a.validate().then((function (a) {
+                r.preventDefault(), a.validate().then((function (a) {
                     "Valid" == a ?
                         Swal.fire({
                             title: "Kaydetmek istediğinizden emin misiniz?",

@@ -13,7 +13,7 @@ namespace DATA.Concrete
         public DbSet<MEDICINE> MEDICINE { get; set; }
         public DbSet<PHARMACIES> PHARMACIES { get; set; }
         public DbSet<PRESCRIPTIONS> PRESCRIPTIONS { get; set; }
-        public DbSet<STOCK> STOCK { get; set; }
+        //public DbSet<STOCK> STOCK { get; set; }
         public DbSet<USERS> USERS { get; set; }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)

@@ -6,10 +6,10 @@ namespace ENTITIES
 {
     public class MEDICINE : EntityBase
     {
-        string Name { get; set; }
-        DateTime ExpireDate { get; set; }
-        double BasisWeight { get; set; }
-        string Producer { get; set; }
+       public string Name { get; set; }
+        public DateTime ExpireDate { get; set; }
+        public double BasisWeight { get; set; }
+        public string Producer { get; set; }
 
     }
 }
