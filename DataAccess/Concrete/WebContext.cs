@@ -18,7 +18,7 @@ namespace DATA.Concrete
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
-            optionsBuilder.UseSqlServer("Server=DESKTOP-B28EHI3;Database=Eczane;User Id=sa;Password=berra123;");
+            optionsBuilder.UseSqlServer("Server=LAPTOP-VISABIIJ;Database=Eczane;User Id=sa;Password=berra123;");
         }
 
     }
