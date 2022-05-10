@@ -38,11 +38,11 @@ namespace Medicine_Chest
             services.Configure<IdentityOptions>(options =>
             {
                 //password
-                options.Password.RequireDigit = true; //parola içinde sayýsal deðer olmalýdýr
-                options.Password.RequireLowercase = true; // parola içinde küçük harf olmak zorunda
-                options.Password.RequireUppercase = true;
-                options.Password.RequiredLength = 8; // parola min. kaç karakter olacaðý
-                options.Password.RequireNonAlphanumeric = true; // parola içinde bir karakter olmalýdýr
+                options.Password.RequireDigit = false; //parola içinde sayýsal deðer olmalýdýr
+                options.Password.RequireLowercase = false; // parola içinde küçük harf olmak zorunda
+                options.Password.RequireUppercase = false;
+                options.Password.RequiredLength = 5; // parola min. kaç karakter olacaðý
+                options.Password.RequireNonAlphanumeric = false; // parola içinde bir karakter olmalýdýr
 
                 //Locaoutssss
                 options.Lockout.MaxFailedAccessAttempts = 5; //parolanýn max 5 defa yanlýþ girebilir

@@ -78,25 +78,25 @@ namespace Medicine_Chest.Controllers
 
 
 
-                if (!string.IsNullOrEmpty(model.Name))
+                if (!string.IsNullOrEmpty(model.NameSorgu))
                 {
-                    kullanicilar=kullanicilar.Where(user => user.Name == model.Name);
+                    kullanicilar=kullanicilar.Where(user => user.Name == model.NameSorgu);
                 }
-                if (!string.IsNullOrEmpty(model.Surname))
+                if (!string.IsNullOrEmpty(model.SurnameSorgu))
                 {
-                    kullanicilar = kullanicilar.Where(user => user.Surname == model.Surname);
+                    kullanicilar = kullanicilar.Where(user => user.Surname == model.SurnameSorgu);
                 }
-                if (!string.IsNullOrEmpty(model.IdentificationNo))
+                if (!string.IsNullOrEmpty(model.IdentificationNoSorgu))
                 {
-                    kullanicilar = kullanicilar.Where(user => user.IdentificationNo == model.IdentificationNo);
+                    kullanicilar = kullanicilar.Where(user => user.IdentificationNo == model.IdentificationNoSorgu);
                 }
-                if (!string.IsNullOrEmpty(model.UserName))
+                if (!string.IsNullOrEmpty(model.UserNameSorgu))
                 {
-                    kullanicilar = kullanicilar.Where(user => user.UserName == model.UserName);
+                    kullanicilar = kullanicilar.Where(user => user.UserName == model.UserNameSorgu);
                 }
 
                 model.UserList = kullanicilar;
-                return PartialView("_KullaniciListe", model.UserList);
+                return View("KullaniciIslemleri", model);
             }
             catch (Exception exception)
             {
@@ -154,7 +154,10 @@ namespace Medicine_Chest.Controllers
                 else
                 {
 
-                    return PartialView("_KullaniciIslemi", new KullaniciIslemViewModel());
+                    return PartialView("_KullaniciIslemi", new KullaniciIslemViewModel()
+                    {
+                        IslemTuru = islemTuru,
+                    });
             } }
             catch (Exception exception)
             {
@@ -226,10 +229,10 @@ namespace Medicine_Chest.Controllers
                     });
 
                     await _emailSender.SendEmailAsync(model.Email, "Hesabınızı onaylayınız", $"Lütfen email hesabınızı onaylamak için linke <a href='https://localhost:44303{url}'> tıklayınız.</a>");
-                    return RedirectToAction("login", "Account");
+                    return RedirectToAction("KullaniciIslemleri", "Account");
                 }
             }
-            return PartialView("_KullaniciIslemi", model);
+            return View("KullaniciIslemleri", model);
         }
 
         [Authorize]

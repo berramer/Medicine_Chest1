@@ -15,27 +15,27 @@ namespace Medicine_Chest.Models
             public int ToplamKayitSayisi { get; set; }
 
         #region Sorgulama Alanları
-        public string Name { get; set; }
+        public string NameSorgu { get; set; }
 
 
-        public string Surname { get; set; }
+        public string SurnameSorgu { get; set; }
 
       
 
-        public string IdentificationNo { get; set; }
+        public string IdentificationNoSorgu { get; set; }
 
 
-        public string Address { get; set; }
+        public string AddressSorgu { get; set; }
 
  
         [DataType(DataType.PhoneNumber)]
-        public string PhoneNumber { get; set; }
+        public string PhoneNumberSorgu { get; set; }
 
    
         [DataType(DataType.EmailAddress)]
-        public string Email { get; set; }
+        public string EmailSorgu { get; set; }
         [Display(Name = "Kullanıcı Adı:")]
-        public string UserName { get; set; }
+        public string UserNameSorgu { get; set; }
         public IEnumerable<User> UserList { get; set; }
         public bool SorgulandiMi { get; set; }
             /// <summary>

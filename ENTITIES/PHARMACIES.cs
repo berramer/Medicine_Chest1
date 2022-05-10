@@ -7,10 +7,10 @@ namespace ENTITIES
     public class PHARMACIES : EntityBase
     {
 
-        string Name { get; set; }
-        string Address { get; set; }
-        string PhoneNumber { get; set; }
-        int IsOnDuty { get; set; }
+       public string Name { get; set; }
+        public string Address { get; set; }
+        public string PhoneNumber { get; set; }
+       public int IsOnDuty { get; set; }
 
 
     }
