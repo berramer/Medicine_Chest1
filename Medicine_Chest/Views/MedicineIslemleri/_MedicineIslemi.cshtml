@@ -1,0 +1,197 @@
+﻿@using Medicine_Chest.Models.MedicineIslemleri
+
+
+@model MedicineIslemViewModel
+@{
+    //var islemTuru = Model.IslemTuru;
+    //// kaydı silebilmek için burada bu değişken tanımlandı
+
+    //Layout = "~/Views/Shared/_Layout.cshtml";
+    ViewBag.Header = "Ekip Personel İşlemleri";
+}
+
+
+
+
+
+@section Scripts
+{
+    <script src="~/assets/js/custom/Medicine/medicine-sign-up.js"></script>
+    <script src="/modules/jquery-validation/dist/jquery.validate.min.js"></script>
+    <script src="/modules/jquery-validation-unobtrusive/dist/jquery.validate.unobtrusive.min.js"></script>
+}
+<script>
+
+
+    // ekrandaki verilerin girilip girilmediği kontrol ediliyor
+    // eğer tüm zorunlu alanlar doldurulmuşsa
+    // kayıt işlemine yönlendiriyor
+    // değilse, gizlenmiş submit butonunu çağırıyor
+    // ki validation mesajlar görüntülensin
+    function EkranKontrol() {
+        Lobibox.notify('success', { size: 'mini', msg: 'Başarılı' });
+    }
+
+    // session'da ve hidden field'da tutulan BoEkipPersonel id'ye sahip kaydın silinebilmesi için gerekli metot
+    function SilPartial() {
+        $("#loading").show();
+        //// burada aktif formun tüm elemanları aşağıdaki kod satırı ile alınıyor
+        //var iisAdresi = $("#hdnIISAdresi").data('value').toString();
+        $.ajax({
+            type: "POST",
+            url: "/MedicineIslemleri/MedicineSil",
+            data: { boEkipPersonelId: $("#hdnBoEkipPersonelIdPartial").val() },
+            dataType: 'json',
+            success: function (data) {
+                Kapat();
+                $("#loading").hide();
+                if (data.HataMi === false) {
+                    Lobibox.notify('success', { size: 'mini', msg: 'Başarılı' });
+                    window.location.href = '@Url.Action("BoEkipPersonelIslemleri", "BoEkipPersonel")';
+                } else {
+                    Lobibox.notify('error', { size: 'large', msg: data.Mesaj });
+                    window.location.href = '@Url.Action("BoEkipPersonelIslemleri", "BoEkipPersonel")';
+                    event.preventDefault();
+                    return false;
+                }
+            },
+            error: function (error) {
+                Kapat();
+                $("#loading").hide();
+                Lobibox.notify('error', { size: 'large', msg: 'Başarısız' });
+                window.location.href = '@Url.Action("BoEkipPersonelIslemleri", "BoEkipPersonel")';
+            }
+        });
+    };
+
+    // ekrandaki verileri kaydederek
+    // gridin tekrardan dolmasını
+    // ve bilgi mesajının görüntülenmesini sağlayan metottur
+    function KayitIslemiPartial() {
+        $("#loading").show();
+        $("#btnKaydet2").click();
+    };
+
+
+    function IslemBasarisiz(data) {
+        Kapat();
+        $("#loading").hide();
+        //Lobibox.notify('error', { size: 'large', msg: data.responseJSON.Mesaj });
+        Lobibox.notify('error', { size: 'large', msg: data.Mesaj });
+        @* window.location.href = '@Url.Action("BoEkipPersonelIslemleri", "BoEkipPersonel")';*@
+    }
+
+
+
+
+
+</script>
+
+
+
+<div class="modal draggable fade" id="MedicineKayit" tabindex="-1" data-backdrop="static" data-keyboard="false" role="dialog" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-popin modal-l">
+        <div class="modal-content">
+            <div class="block block-bordered">
+                <div class="block-header bg-gray-lighter">
+                    <ul class="block-options">
+                        <li>
+
+                            <button data-dismiss="modal" data-toggle="tooltip" data-placement="right" title="Kapat" class="closePopupButton" type="button"><i class="si si-close"></i></button>
+                        </li>
+                    </ul>
+                    <h3 class="block-title">@ViewBag.Header</h3>
+                </div>
+                <div class="block-content">
+
+                    <div class="post d-flex flex-column-fluid" id="kt_post">
+                        <!--begin::Wrapper-->
+                        <div class="w-lg-600px bg-white rounded shadow-sm p-10 p-lg-15 mx-auto">
+                            <!--begin::Form-->
+                            <form class="form w-100" novalidate="novalidate" id="kt_sign_up_form" asp-controller="MedicineIslemleri" asp-action="MedicineIslemi" method="post" enctype="multipart/form-data">
+                                <!--begin::Heading-->
+                                <div class="mb-10 text-center">
+                                    <!--begin::Title-->
+                                    <h1 class="text-dark mb-3">Yeni Kullanıcı Ekle</h1>
+                                    <!--end::Title-->
+                                </div>
+                                <!--end::Heading-->
+                                <div class="fv-row mb-7">
+                                    <div asp-validation-summary="All" class="text-danger"></div>
+                                </div>
+
+                                <!--begin::Input group-->
+                                <div class="row fv-row mb-7">
+                                    <!--begin::Col-->
+                                    <div class="col-xl-6">
+                                        <label class="form-label fw-bolder text-dark fs-6">Ad</label>
+                                        <input class="form-control form-control-lg form-control-solid" type="text" placeholder="" name="Name" asp-for="Name" autocomplete="off" />
+                                    </div>
+                                    <!--end::Col-->
+
+                                </div>
+                                <!--end::Input group-->
+                                <!--begin::Input group-->
+                                <div class="fv-row mb-7">
+                                    <label class="form-label fw-bolder text-dark fs-6">Expire Date</label>
+                                    <input class="form-control form-control-lg form-control-solid" type="text" placeholder="" name="ExpireDate" asp-for="ExpireDate" autocomplete="off" />
+                                    <span asp-validation-for="ExpireDate" class="text-danger"></span>
+                                </div>
+                                <!--end::Input group-->
+                                <!--begin::Input group-->
+                                <div class="fv-row mb-7">
+                                    <label class="form-label fw-bolder text-dark fs-6">Basis Weight</label>
+                                    <input class="form-control form-control-lg form-control-solid PhoneMask" type="text" placeholder="" name="BasisWeight" asp-for="BasisWeight" autocomplete="off" />
+                                </div>
+                                <!--end::Input group-->
+                                <!--begin::Input group-->
+                                <!--end::Input group-->
+                                 <div class="fv-row mb-7">
+                                    <label class="form-label fw-bolder text-dark fs-6">Producer</label>
+                                    <input class="form-control form-control-lg form-control-solid PhoneMask" type="text" placeholder="" name="Producer" asp-for="Producer" autocomplete="off" />
+                                </div>
+
+                                <div class="fv-row mb-5">
+
+                                    <input class="form-control form-control-lg form-control-solid" type="hidden" placeholder="" name="IslemTuru" asp-for="IslemTuru" autocomplete="off" />
+                                </div>
+                                <div class="fv-row mb-5">
+
+                                    <input class="form-control form-control-lg form-control-solid" type="hidden" placeholder="" name="Id" asp-for="Id" autocomplete="off" />
+                                </div>
+                                <!--begin::Actions-->
+                                <div class="text-center">
+                                    <button type="submit" class="btn btn-primary">Register</button>
+                                    @*<button type="submit" id="kt_sign_up_submit" class="btn btn-lg btn-primary">
+                                        <span class="indicator-label">kaydet</span>
+                                    </button>*@
+                                </div>
+                                <!--end::Actions-->
+                            </form>
+                            <!--end::Form-->
+                        </div>
+                        <!--end::Wrapper-->
+                    </div>
+                </div>
+
+
+                <div class="modal-footer">
+                    @*<button id="btnSil" type="button" onclick="SilHazirlikPartial()" class="btn btn-sm btn-danger pull-left"><i class="fa fa-trash-o"></i>&nbsp;ArayuzSabitler.Sil</button>*@
+
+                    @*<button class="btn btn-sm btn-primary" type="button" id="btnKaydet" name="btnKaydet" value="Kaydet" onclick="EkranKontrol()">
+                        <i class="fa fa-save"></i> Kaydet
+                    </button>*@
+                    @*<button class="btn btn-sm btn-primary" type="submit" id="btnKaydet2" name="btnKaydet2" value="Kaydet" >
+                            <i class="fa fa-save"></i> Kaydet
+                        </button>*@
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+<script src="~/assets/js/custom/authentication/sign-up/general.js"></script>
+<script src="/modules/jquery-validation/dist/jquery.validate.min.js"></script>
+<script src="/modules/jquery-validation-unobtrusive/dist/jquery.validate.unobtrusive.min.js"></script>

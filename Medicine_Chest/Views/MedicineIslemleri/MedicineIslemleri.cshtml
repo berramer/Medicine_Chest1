@@ -1,0 +1,185 @@
+﻿@using Medicine_Chest.Models.MedicineIslemleri
+
+@model MedicineViewModel
+@{
+
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@section Scripts{
+    <script>
+        // grid üzerinde herhangi bir kaydın silinmesi için tıklandığında
+        // hidden field'a kaydın id'sini basıp
+        // diyaloğun açılmasını sağlayan metottur.
+
+
+
+
+        // grid üzerinde herhangi bir kaydın kilitlenmesi için tıklandığında
+        // hidden field'a kaydın id'sini basıp
+        // diyaloğun açılmasını sağlayan metottur.
+        function KilitleHazirlik(kodTankTuru) {
+            $("#hdnKodTankTuruIdIslemler").val(kodTankTuru);
+            $("#dialogKilitle").data("kendoDialog").open();
+        }
+
+        // silme diyaloğunda tamam tuşuna basıldığında
+        // hidden field'daki id bilgisini kullanarak kaydın silinmesini
+        // ve gridin refresh edilmesini sağlayan butondur
+        function Sil(kodId) {
+            $("#loading").show();
+
+            $.ajax({
+                type: "POST",
+                url: "/MedicineIslemleri/Sil",
+                data: { Id: kodId},
+                dataType: 'json',
+                success: function (data) {
+                         window.location.href = '@Url.Action("MedicineIslemleri", "MedicineIslemleri")';
+                },
+                error: function (error) {
+                    $("#loading").hide();
+                    Lobibox.notify('error', { size: 'large', msg: 'MesajSabitler.IslemBasarisiz' });
+                    // sonrasında ilgili ajax metodu buradan çağrılıyor
+                    $("#gridKodTankTuru").data("kendoGrid").dataSource.read();
+                }
+            });
+        };
+
+
+
+
+        // grid üzerindeki yeni kayıt butonuna tıklandığında
+        // hesap planı ekleyebilmek için gerekli ekranın açılmasını sağlayacak metottur.
+        function KayitEkraniAc(kodTankTuru, islem) {
+            $("#loading").show();
+
+            $.ajax({
+                type: "GET",
+                url: "/MedicineIslemleri/MedicineIslemi",
+                datatype: "Json",
+                data: { Id: kodTankTuru, islemTuru: islem },
+                success: function (data) {
+                    // burada dinamik olarak bir detay div'i oluşturuluyor
+                    $('body').append($('<div id="divKayitPopup"></div>'));
+                    // bu div'a partial view üzerinden gelen veriler basılıyor
+                    $("#divKayitPopup").html(data);
+                    //$("#divKayitPopup").css("z-index", 9999999);
+                    //$("#kodTankTuruKayit").css("z-index", 9999999);
+                    $('#MedicineKayit').modal('show');
+                    $("#loading").hide();
+                    event.preventDefault();
+                    return false;
+                },
+                error: function (error) {
+                    $("#loading").hide();
+                    Lobibox.notify('error', { size: 'large', msg: "Arıza Türü Kayıt Ekranı Açma İşlemi Başarısız" });
+                    event.preventDefault();
+                    return false;
+                }
+            });
+        };
+
+        function FiltreEkraniAc() {
+            $('#exampleModal1').modal('show');
+        }
+
+    </script>
+}
+
+<div class="block block-bordered">
+    <div class="block-header bg-gray-lighter" style="text-align: right">
+        <h3 class="block-title" style="text-align: center">@ViewBag.Header</h3>
+
+        <div class="block-options-simple ">
+            <button type="button" class="btn btn-sm btn-danger" data-toggle="modal" data-target="#exampleModal1"><i class="fa fa-filter"></i> FiltreIslemi</button>
+            <button class="btn btn-sm btn-success" type="button" id="btnYeniKayit" onclick="KayitEkraniAc(null, 'Ekleme')"><i class="fa fa-plus"></i> YeniKayit</button>
+
+        </div>
+    </div>
+</div>
+<div class="modal fade" id="exampleModal1" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Filtrele</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+
+                <div class="block block-bordered">
+
+                    <div class="block-content">
+
+                        <div class="post d-flex flex-column-fluid" id="kt_post">
+                            <!--begin::Wrapper-->
+                            <div class="w-lg-600px bg-white rounded shadow-sm p-10 p-lg-15 mx-auto">
+                                <!--begin::Form-->
+                                <form class="form w-100" novalidate="novalidate" id="kt_sign_up_form1" asp-controller="MedicineIslemleri" asp-action="FiltreleMedicine" method="post" enctype="multipart/form-data">
+                                    <!--begin::Heading-->
+                                
+                                    <!--begin::Input group-->
+                                    <div class="row fv-row mb-7">
+                                        <!--begin::Col-->
+                                        <div class="col-xl-6">
+                                            <label class="form-label fw-bolder text-dark fs-6">Ad</label>
+                                            <input class="form-control form-control-lg form-control-solid" type="text" placeholder="" name="NameSorgu" asp-for="NameSorgu" autocomplete="off" />
+                                        </div>
+                                        <!--end::Col-->
+                                        <!--begin::Col-->
+                                        <div class="col-xl-6">
+                                            <label class="form-label fw-bolder text-dark fs-6">Expire Date</label>
+                                            <input class="form-control form-control-lg form-control-solid" type="text" placeholder="" name="ExpireDateSorgu" asp-for="ExpireDateSorgu" autocomplete="off" />
+                                        </div>
+                                        <!--end::Col-->
+                                    </div>
+                                    <!--end::Input group-->
+                                    <!--begin::Input group-->
+                                    <!--end::Input group-->
+                                    <!--begin::Input group-->
+                                    <div class="fv-row mb-7">
+                                        <label class="form-label fw-bolder text-dark fs-6">BasisWeight</label>
+                                        <input class="form-control form-control-lg form-control-solid PhoneMask" type="text" placeholder="" name="BasisWeightSorgu" asp-for="BasisWeightSorgu" autocomplete="off" />
+                                    </div>
+
+
+                                    <!--begin::Input group-->
+                                    <div class="fv-row mb-7">
+                                        <label class="form-label fw-bolder text-dark fs-6">Producer</label>
+                                        <input class="form-control form-control-lg form-control-solid" type="email" placeholder="" name="ProducerSorgu" asp-for="ProducerSorgu" autocomplete="off"  />
+                                        <span asp-validation-for="ProducerSorgu" class="text-danger"></span>
+                                    </div>
+                                    <!--end::Input group-->
+                                    <!--begin::Actions-->
+                                    <div class="text-center">
+                                        @*<button type="submit" class="btn btn-primary">Register</button>*@
+                                        <button type="submit" id="kt_sign_up_submit1" class="btn btn-lg btn-primary">
+                                            <span class="indicator-label">Sorgula</span>
+                                        </button>
+                                    </div>
+                                    <!--end::Actions-->
+                                </form>
+                                <!--end::Form-->
+                            </div>
+                            <!--end::Wrapper-->
+                        </div>
+                    </div>
+
+                </div>
+
+            </div>
+
+
+        </div>
+    </div>
+</div>
+
+<div class="block-content" id="divGrid" style="position: initial; height:100vh; overflow: auto;">
+    @{
+        Html.RenderPartial("_MedicineListesi", Model.MedicineList);
+    }
+</div>
+
+
