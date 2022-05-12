@@ -5,9 +5,8 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 
-namespace DATA.Concrete
-{
-    public class PRESCRIPTIONSDAL : IRepositoryBase<PRESCRIPTION, WebContext>, IRepository<PRESCRIPTION>
+namespace DATA.Concrete { 
+    public class PRESCRIPTIONDAL : IRepositoryBase<PRESCRIPTION, WebContext>, IRepository<PRESCRIPTION>
     {
     }
 }

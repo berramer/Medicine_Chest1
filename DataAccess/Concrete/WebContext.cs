@@ -12,7 +12,7 @@ namespace DATA.Concrete
     {
         public DbSet<MEDICINE> MEDICINE { get; set; }
         public DbSet<PHARMACIES> PHARMACIES { get; set; }
-        public DbSet<PRESCRIPTIONS> PRESCRIPTIONS { get; set; }
+        public DbSet<PRESCRIPTION> PRESCRIPTIONS { get; set; }
 
 
         //public DbSet<STOCK> STOCK { get; set; }

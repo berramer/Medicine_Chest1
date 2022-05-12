@@ -1,7 +1,7 @@
-﻿@using Medicine_Chest.Models.MedicineIslemleri
+﻿@using Medicine_Chest.Models.PrescriptionIslemleri
 
 
-@model MedicineIslemViewModel
+@model PrescriptionIslemViewModel
 @{
     //var islemTuru = Model.IslemTuru;
     //// kaydı silebilmek için burada bu değişken tanımlandı
@@ -16,9 +16,9 @@
 
 @section Scripts
 {
-    <script src="~/assets/js/custom/Medicine/medicine-sign-up.js"></script>
-    <script src="/modules/jquery-validation/dist/jquery.validate.min.js"></script>
-    <script src="/modules/jquery-validation-unobtrusive/dist/jquery.validate.unobtrusive.min.js"></script>
+   @* <script src="~/assets/js/custom/Prescription/Prescription-sign-up.js"></script>*@
+   @* <script src="/modules/jquery-validation/dist/jquery.validate.min.js"></script>
+    <script src="/modules/jquery-validation-unobtrusive/dist/jquery.validate.unobtrusive.min.js"></script>*@
 }
 <script>
 
@@ -39,7 +39,7 @@
         //var iisAdresi = $("#hdnIISAdresi").data('value').toString();
         $.ajax({
             type: "POST",
-            url: "/MedicineIslemleri/MedicineSil",
+            url: "/PrescriptionIslemleri/PrescriptionSil",
             data: { boEkipPersonelId: $("#hdnBoEkipPersonelIdPartial").val() },
             dataType: 'json',
             success: function (data) {
@@ -89,7 +89,7 @@
 
 
 
-<div class="modal draggable fade" id="MedicineKayit" tabindex="-1" data-backdrop="static" data-keyboard="false" role="dialog" aria-hidden="true">
+<div class="modal draggable fade" id="PrescriptionKayit" tabindex="-1" data-backdrop="static" data-keyboard="false" role="dialog" aria-hidden="true">
     <div class="modal-dialog modal-dialog-popin modal-l">
         <div class="modal-content">
             <div class="block block-bordered">
@@ -108,7 +108,7 @@
                         <!--begin::Wrapper-->
                         <div class="w-lg-600px bg-white rounded shadow-sm p-10 p-lg-15 mx-auto">
                             <!--begin::Form-->
-                            <form class="form w-100" novalidate="novalidate" id="kt_sign_up_form" asp-controller="MedicineIslemleri" asp-action="MedicineIslemi" method="post" enctype="multipart/form-data">
+                            <form class="form w-100" novalidate="novalidate" id="kt_sign_up_form" asp-controller="PrescriptionIslemleri" asp-action="PrescriptionIslemi" method="post" enctype="multipart/form-data">
                                 <!--begin::Heading-->
                                 <div class="mb-10 text-center">
                                     <!--begin::Title-->
@@ -124,8 +124,8 @@
                                 <div class="row fv-row mb-7">
                                     <!--begin::Col-->
                                     <div class="col-xl-6">
-                                        <label class="form-label fw-bolder text-dark fs-6">Ad</label>
-                                        <input class="form-control form-control-lg form-control-solid" type="text" placeholder="" name="Name" asp-for="Name" autocomplete="off" />
+                                        <label class="form-label fw-bolder text-dark fs-6">Prescription Code</label>
+                                        <input class="form-control form-control-lg form-control-solid" type="text" placeholder="" name="PrescriptionCode" asp-for="PrescriptionCode" autocomplete="off" />
                                     </div>
                                     <!--end::Col-->
 
@@ -133,22 +133,22 @@
                                 <!--end::Input group-->
                                 <!--begin::Input group-->
                                 <div class="fv-row mb-7">
-                                    <label class="form-label fw-bolder text-dark fs-6">Expire Date</label>
-                                    <input class="form-control form-control-lg form-control-solid" type="text" placeholder="" name="ExpireDate" asp-for="ExpireDate" autocomplete="off" />
-                                    <span asp-validation-for="ExpireDate" class="text-danger"></span>
+                                    <label class="form-label fw-bolder text-dark fs-6">User ID</label>
+                                    <input class="form-control form-control-lg form-control-solid" type="text" placeholder="" name="ExpireDate" asp-for="UserID" autocomplete="off" />
+                                    <span asp-validation-for="UserID" class="text-danger"></span>
                                 </div>
                                 <!--end::Input group-->
                                 <!--begin::Input group-->
                                 <div class="fv-row mb-7">
-                                    <label class="form-label fw-bolder text-dark fs-6">Basis Weight</label>
-                                    <input class="form-control form-control-lg form-control-solid PhoneMask" type="text" placeholder="" name="BasisWeight" asp-for="BasisWeight" autocomplete="off" />
+                                    <label class="form-label fw-bolder text-dark fs-6">Validity Date</label>
+                                    <input class="form-control form-control-lg form-control-solid PhoneMask" type="text" placeholder="" name="ValidityDate" asp-for="ValidityDate" autocomplete="off" />
                                 </div>
                                 <!--end::Input group-->
                                 <!--begin::Input group-->
                                 <!--end::Input group-->
                                  <div class="fv-row mb-7">
-                                    <label class="form-label fw-bolder text-dark fs-6">Producer</label>
-                                    <input class="form-control form-control-lg form-control-solid PhoneMask" type="text" placeholder="" name="Producer" asp-for="Producer" autocomplete="off" />
+                                    <label class="form-label fw-bolder text-dark fs-6">Prescription ID</label>
+                                    <input class="form-control form-control-lg form-control-solid PhoneMask" type="text" placeholder="" name="MedicineID" asp-for="MedicineID" autocomplete="off" />
                                 </div>
 
                                 <div class="fv-row mb-5">
