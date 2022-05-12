@@ -4,7 +4,7 @@ using System.Text;
 
 namespace ENTITIES
 {
-    public class PRESCRIPTIONS : EntityBase
+    public class PRESCRIPTION : EntityBase
     {
         public string PrescriptionCode { get; set; }
         public DateTime ValidityDate { get; set; }
