@@ -1,7 +1,9 @@
+using Medicine_Chest.Identity;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
@@ -28,6 +30,7 @@ namespace WebApi
         {
 
             services.AddControllers();
+            services.AddDbContext<ApplicationContext>(options => options.UseSqlServer("Server=DESKTOP-B28EHI3;Database=Eczane;User Id=sa;Password=berra123;"));
             services.AddSwaggerGen(c =>
             {
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "WebApi", Version = "v1" });
