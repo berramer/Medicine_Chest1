@@ -8,7 +8,7 @@ namespace ENTITIES
     {
        public string Name { get; set; }
         public DateTime ExpireDate { get; set; }
-        public double BasisWeight { get; set; }
+        public decimal BasisWeight { get; set; }
         public string Producer { get; set; }
 
     }
