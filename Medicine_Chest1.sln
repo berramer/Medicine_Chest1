@@ -11,7 +11,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Medicine_Chest", "Medicine_
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Core", "Core\Core.csproj", "{BEF24FB2-02F5-4FD1-AC27-EA365B57189D}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Business", "Business\Business.csproj", "{58159C37-041F-4DC9-85E0-0F5D92DBB313}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Business", "Business\Business.csproj", "{58159C37-041F-4DC9-85E0-0F5D92DBB313}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WebApi", "WebApi\WebApi.csproj", "{9EF2873C-381F-4B66-9E70-BC1E66C43570}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -39,6 +41,10 @@ Global
 		{58159C37-041F-4DC9-85E0-0F5D92DBB313}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{58159C37-041F-4DC9-85E0-0F5D92DBB313}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{58159C37-041F-4DC9-85E0-0F5D92DBB313}.Release|Any CPU.Build.0 = Release|Any CPU
+		{9EF2873C-381F-4B66-9E70-BC1E66C43570}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9EF2873C-381F-4B66-9E70-BC1E66C43570}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9EF2873C-381F-4B66-9E70-BC1E66C43570}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9EF2873C-381F-4B66-9E70-BC1E66C43570}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
