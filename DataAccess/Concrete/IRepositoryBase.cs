@@ -6,6 +6,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
 using System.Text;
+using System.Threading.Tasks;
 
 namespace DataAcces.Concrete
 {
@@ -22,6 +23,17 @@ namespace DataAcces.Concrete
             }
         }
 
+        public async Task AddAsync(Tentity tentity)
+        {
+            using (Tcontext tcontext = new Tcontext())
+            {
+                var addedEntity = tcontext.Entry(tentity);
+                addedEntity.State = EntityState.Added;
+               await tcontext.SaveChangesAsync();
+            }
+
+        }
+
         public void Delete(Tentity tentity)
         {
             using (Tcontext tcontext = new Tcontext())
@@ -32,17 +44,28 @@ namespace DataAcces.Concrete
             }
         }
 
-        public List<Tentity> getAll(Expression<Func<Tentity, bool>> filter = null)
+        public async Task DeleteAsync(Tentity tentity)
+        {
+            using (Tcontext tcontext = new Tcontext())
+            {
+                var deletedEntity = tcontext.Entry(tentity);
+                deletedEntity.State = EntityState.Deleted;
+                await tcontext.SaveChangesAsync();
+            }
+
+        }
+
+        public  async Task<List<Tentity>> getAll(Expression<Func<Tentity, bool>> filter = null)
         {
             using (Tcontext tcontext = new Tcontext())
             {
                 if (filter == null)
                 {
-                    return tcontext.Set<Tentity>().ToList();
+                    return await tcontext.Set<Tentity>().ToListAsync();
                 }
                 else
                 {
-                    return tcontext.Set<Tentity>().Where(filter).ToList();
+                    return await tcontext.Set<Tentity>().Where(filter).ToListAsync();
                 }
             }
         }
@@ -54,6 +77,16 @@ namespace DataAcces.Concrete
                 var UpdatetedEntity = tcontext.Entry(tentity);
                 UpdatetedEntity.State = EntityState.Modified;
                 tcontext.SaveChanges();
+            }
+        }
+
+        public async Task UpdateAsync(Tentity tentity)
+        {
+            using(Tcontext tcontext = new Tcontext())
+            {
+                var UpdatetedEntity = tcontext.Entry(tentity);
+                UpdatetedEntity.State = EntityState.Modified;
+              await  tcontext.SaveChangesAsync();
             }
         }
     }

@@ -75,25 +75,25 @@ namespace Medicine_Chest.Controllers
         }
 
         [HttpPost]
-        public JsonResult Sil(string Id)
+        public async Task<JsonResult> Sil(string Id)
         {
-            var eczane = _pharmaciesManager.getAll(x => x.ID == Id).FirstOrDefault();
+            var eczane = (await _pharmaciesManager.getAll(x => x.ID == Id)).FirstOrDefault();
             if (eczane != null)
             {
                 _pharmaciesManager.delete(eczane);
-                    }
+            }
             return Json("Başarılı");
         }
 
 
-        public IActionResult EczaneIslemleri()
+        public async Task<IActionResult> EczaneIslemleri()
         {
             //// AJAX metodlarında IIS adresi bize lazım olacağından
             //// burada ilk değer atamasında bulunuyoruz
             //Session["IISAdresi"] = System.Configuration.ConfigurationManager.AppSettings["IISAdresi"];
 
             var model = new EczaneViewModel();
-            model.PharmaciesList = (IEnumerable<PHARMACIES>)_pharmaciesManager.getAll();
+            model.PharmaciesList = (IEnumerable<PHARMACIES>)(await _pharmaciesManager.getAll());
             return View(model);
         }
 
@@ -111,7 +111,7 @@ namespace Medicine_Chest.Controllers
                 //LogIslem.EkleLog(LogAnaTurId, LogAltTurId, LogIslemTuruId, LogMesaj, dict, Request, ControllerContext);
                 if (islemTuru != IslemTurSabitler.IslemTuruKayitEkleme || !string.IsNullOrEmpty(Id))
                 {
-                    var eczane =  _pharmaciesManager.getAll(x=> x.ID ==Id).FirstOrDefault();
+                    var eczane = (await _pharmaciesManager.getAll(x=> x.ID ==Id)).FirstOrDefault();
                     if (eczane != null)
                     {
 
@@ -162,7 +162,7 @@ namespace Medicine_Chest.Controllers
             }
             if (model.IslemTuru != IslemTurSabitler.IslemTuruKayitEkleme)
             {
-                var eczane =_pharmaciesManager.getAll(x => x.ID == model.Id).FirstOrDefault();
+                var eczane =(await _pharmaciesManager.getAll(x => x.ID == model.Id)).FirstOrDefault();
                 if (eczane != null)
                 {
                     eczane.Name = model.Name;

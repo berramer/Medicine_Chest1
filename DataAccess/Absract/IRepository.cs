@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq.Expressions;
 using System.Text;
+using System.Threading.Tasks;
 
 namespace DATA.Absract
 {
@@ -10,7 +11,9 @@ namespace DATA.Absract
         public void Add(Tentity tentity);
         public void Delete(Tentity tentity);
         public void Update(Tentity tentity);
-
-        public List<Tentity> getAll(Expression<Func<Tentity, bool>> filter = null);
+       public Task  AddAsync(Tentity tentity);
+       public Task UpdateAsync(Tentity tentity);
+        public Task DeleteAsync(Tentity tentity);
+        public Task<List<Tentity>> getAll(Expression<Func<Tentity, bool>> filter = null);
     }
 }

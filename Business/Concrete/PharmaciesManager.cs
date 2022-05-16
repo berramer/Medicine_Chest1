@@ -48,10 +48,10 @@ namespace Business.Concrete
         }
 
 
-        public List<PHARMACIES> getAll(Expression<Func<PHARMACIES, bool>> filter = null)
+        public async Task<List<PHARMACIES>> getAll(Expression<Func<PHARMACIES, bool>> filter = null)
         {
 
-            return _pharmaciesDal.getAll(filter);
+            return await  _pharmaciesDal.getAll(filter);
 
 
         }

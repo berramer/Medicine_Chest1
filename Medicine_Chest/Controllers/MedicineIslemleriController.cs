@@ -78,9 +78,9 @@ namespace Medicine_Chest.Controllers
         }
 
         [HttpPost]
-        public JsonResult Sil(string Id)
+        public async Task<JsonResult> Sil(string Id)
         {
-            var medicine = _medicineManager.getAll(x => x.ID == Id).FirstOrDefault();
+            var medicine = (await _medicineManager.getAll(x => x.ID == Id)).FirstOrDefault();
             if (medicine != null)
             {
                 _medicineManager.delete(medicine);
@@ -89,14 +89,14 @@ namespace Medicine_Chest.Controllers
         }
 
 
-        public IActionResult MedicineIslemleri()
+        public async Task< IActionResult> MedicineIslemleri()
         {
             //// AJAX metodlarında IIS adresi bize lazım olacağından
             //// burada ilk değer atamasında bulunuyoruz
             //Session["IISAdresi"] = System.Configuration.ConfigurationManager.AppSettings["IISAdresi"];
 
             var model = new MedicineViewModel();
-            model.MedicineList = (IEnumerable<MEDICINE>)_medicineManager.getAll();
+            model.MedicineList = (IEnumerable<MEDICINE>)(await _medicineManager.getAll());
             return View(model);
         }
 
@@ -114,7 +114,7 @@ namespace Medicine_Chest.Controllers
                 //LogIslem.EkleLog(LogAnaTurId, LogAltTurId, LogIslemTuruId, LogMesaj, dict, Request, ControllerContext);
                 if (islemTuru != IslemTurSabitler.IslemTuruKayitEkleme || !string.IsNullOrEmpty(Id))
                 {
-                    var medicine = _medicineManager.getAll(x => x.ID == Id).FirstOrDefault();
+                    var medicine = (await _medicineManager.getAll(x => x.ID == Id)).FirstOrDefault();
                     if (medicine != null)
                     {
 
@@ -167,7 +167,7 @@ namespace Medicine_Chest.Controllers
             }
             if (model.IslemTuru != IslemTurSabitler.IslemTuruKayitEkleme)
             {
-                var medicine = _medicineManager.getAll(x => x.ID == model.Id).FirstOrDefault();
+                var medicine =(await _medicineManager.getAll(x => x.ID == model.Id)).FirstOrDefault();
                 if (medicine != null)
                 {
                     medicine.Name = model.Name;

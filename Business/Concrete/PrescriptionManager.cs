@@ -49,10 +49,10 @@ namespace Business.Concrete
         }
 
 
-        public List<PRESCRIPTION> getAll(Expression<Func<PRESCRIPTION, bool>> filter = null)
+        public async Task<List<PRESCRIPTION>> getAll(Expression<Func<PRESCRIPTION, bool>> filter = null)
         {
 
-            return _prescriptionDal.getAll(filter);
+            return await _prescriptionDal.getAll(filter);
 
 
         }

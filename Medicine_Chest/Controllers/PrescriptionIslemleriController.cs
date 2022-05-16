@@ -77,9 +77,9 @@ namespace Medicine_Chest.Controllers
         }
 
         [HttpPost]
-        public JsonResult Sil(string Id)
+        public async Task<JsonResult> Sil(string Id)
         {
-            var prescription = _prescriptionManager.getAll(x => x.ID == Id).FirstOrDefault();
+            var prescription =(await _prescriptionManager.getAll(x => x.ID == Id)).FirstOrDefault();
             if (prescription != null)
             {
                 _prescriptionManager.delete(prescription);
@@ -88,14 +88,14 @@ namespace Medicine_Chest.Controllers
         }
 
 
-        public IActionResult PrescriptionIslemleri()
+        public async Task<IActionResult> PrescriptionIslemleri()
         {
             //// AJAX metodlarında IIS adresi bize lazım olacağından
             //// burada ilk değer atamasında bulunuyoruz
             //Session["IISAdresi"] = System.Configuration.ConfigurationManager.AppSettings["IISAdresi"];
 
             var model = new PrescriptionViewModel();
-            model.PrescriptionList = (IEnumerable<PRESCRIPTION>)_prescriptionManager.getAll();
+            model.PrescriptionList = (IEnumerable<PRESCRIPTION>)(await _prescriptionManager.getAll());
             return View(model);
         }
 
@@ -113,7 +113,7 @@ namespace Medicine_Chest.Controllers
                 //LogIslem.EkleLog(LogAnaTurId, LogAltTurId, LogIslemTuruId, LogMesaj, dict, Request, ControllerContext);
                 if (islemTuru != IslemTurSabitler.IslemTuruKayitEkleme || !string.IsNullOrEmpty(Id))
                 {
-                    var prescription = _prescriptionManager.getAll(x => x.ID == Id).FirstOrDefault();
+                    var prescription =(await  _prescriptionManager.getAll(x => x.ID == Id)).FirstOrDefault();
                     if (prescription != null)
                     {
 
@@ -164,7 +164,7 @@ namespace Medicine_Chest.Controllers
             }
             if (model.IslemTuru != IslemTurSabitler.IslemTuruKayitEkleme)
             {
-                var prescription = _prescriptionManager.getAll(x => x.ID == model.Id).FirstOrDefault();
+                var prescription =(await _prescriptionManager.getAll(x => x.ID == model.Id)).FirstOrDefault();
                 if (prescription != null)
                 {
                     

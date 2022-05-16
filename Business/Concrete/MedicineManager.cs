@@ -24,6 +24,13 @@ namespace Business.Concrete
         }
 
 
+        public async Task addAsync(MEDICINE MEDICINE)
+        {
+
+           await _medicineDal.AddAsync(MEDICINE);
+
+
+        }
 
         public void add(MEDICINE MEDICINE)
         {
@@ -32,6 +39,14 @@ namespace Business.Concrete
 
 
         }
+        public async Task updateAsync(MEDICINE MEDICINE)
+        {
+
+           await _medicineDal.UpdateAsync(MEDICINE);
+
+
+        }
+
         public void update(MEDICINE MEDICINE)
         {
 
@@ -46,12 +61,18 @@ namespace Business.Concrete
 
 
         }
-
-
-        public List<MEDICINE> getAll(Expression<Func<MEDICINE, bool>> filter = null)
+        public async Task deleteasync(MEDICINE MEDICINE)
         {
 
-            return _medicineDal.getAll(filter);
+            await _medicineDal.DeleteAsync(MEDICINE);
+
+
+        }
+
+        public async Task<List<MEDICINE>> getAll(Expression<Func<MEDICINE, bool>> filter = null)
+        {
+
+            return await _medicineDal.getAll(filter);
 
 
         }
