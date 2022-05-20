@@ -30,7 +30,7 @@ namespace WebApi
         {
 
             services.AddControllers();
-            services.AddDbContext<ApplicationContext>(options => options.UseSqlServer("Server=DESKTOP-B28EHI3;Database=Eczane;User Id=sa;Password=berra123;"));
+            services.AddDbContext<ApplicationContext>(options => options.UseSqlServer("Server=DESKTOP-L9VVCQO;Database=Eczane;User Id=sa;Password=a123@456;"));
             services.AddSwaggerGen(c =>
             {
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "WebApi", Version = "v1" });

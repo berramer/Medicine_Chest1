@@ -18,7 +18,7 @@ namespace DATA.Concrete
         //public DbSet<STOCK> STOCK { get; set; }
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
-            optionsBuilder.UseSqlServer("Server=DESKTOP-B28EHI3;Database=Eczane;User Id=sa;Password=berra123;");
+            optionsBuilder.UseSqlServer("Server=DESKTOP-L9VVCQO;Database=Eczane;User Id=sa;Password=a123@456;");
         }
 
     }
