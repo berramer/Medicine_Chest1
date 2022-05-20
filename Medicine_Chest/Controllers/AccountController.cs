@@ -60,6 +60,31 @@ namespace Medicine_Chest.Controllers
             }
             return View(model);
         }
+        public async Task<IActionResult> UserDetailModel(string Id)
+        {
+            var user = await _userManager.FindByIdAsync(Id);
+            if (user != null)
+            {
+
+                return View("UserDetailModel", new KullaniciIslemViewModel()
+                {
+                    Id = user.Id,
+                    UserName = user.UserName,
+                    Name = user.Name,
+                    Surname = user.Surname,
+                    Email = user.Email,
+                    //EmailConfirmed = user.EmailConfirmed,
+                    PhoneNumber = user.PhoneNumber,
+                    Address= user.Address
+                    //IsDelete = user.IsDelete,
+                    //SelectedRoles = selectedRoles
+              
+
+                });
+            }
+            return View("UserDetailModel", new KullaniciIslemViewModel());
+        }
+        
 
 
         /// <summary>

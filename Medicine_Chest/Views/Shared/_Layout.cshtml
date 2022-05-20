@@ -1028,8 +1028,9 @@ License: For each use you must have a valid license purchased only from above li
                                             </div>
                                             <!--end::Menu item-->
                                             <!--begin::Menu item-->
-                                            <div class="menu-item px-5 my-1">
-                                                <a href="#" class="menu-link px-5">Hesap Ayarları</a>
+                                            <div class="menu-item px-5 my-1"> 
+                                                <a href='@Url.Action("UserDetailModel", "Account", new {
+                        Id = user.Id})' class="menu-link px-5">Hesap Ayarları</a>
                                             </div>
                                             <!--end::Menu item-->
                                             <!--begin::Menu item-->
