@@ -82,6 +82,7 @@ namespace Medicine_Chest
                 Configuration["EmailSender:UserName"],
                 Configuration["EmailSender:Password"]
                 ));
+            services.AddHttpContextAccessor();
 
         }
 

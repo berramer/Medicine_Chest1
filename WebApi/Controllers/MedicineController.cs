@@ -45,7 +45,7 @@ namespace WebApi.Controllers
                 await _medicineManager.deleteasync(medicine);
 
 
-                return Ok();
+                return Ok("success");
             }
             return NotFound();
         }
