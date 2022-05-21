@@ -125,6 +125,7 @@ namespace Medicine_Chest.Controllers
                             ExpireDate = medicine.ExpireDate,
                             BasisWeight=medicine.BasisWeight,
                             Producer = medicine.Producer,
+                            Price=medicine.Price,
 
                             
 

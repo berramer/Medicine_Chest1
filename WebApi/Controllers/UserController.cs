@@ -54,12 +54,18 @@ namespace WebApi.Controllers
         }
 
         [HttpPost]
-        public  IActionResult login(LoginModel model)
+        public async Task<IActionResult> login(LoginModel model)
         {
-
-            var userList = _userManager.Users;
-            var user = userList.Where(x => x.UserName == model.UserName).FirstOrDefault();
-            if (user != null)
+            
+            var user = await _userManager.FindByNameAsync(model.UserName);
+            if (user == null)
+            {
+                ModelState.AddModelError("UserName", "Bu kullanıcı adı ile daha önce hesap oluşturulmamış");
+                return NotFound(model);
+            }
+         
+            var result = await _signInManager.PasswordSignInAsync(user, model.Password, false, false);
+            if (result.Succeeded)
             {
                 return Ok(model);
             }
