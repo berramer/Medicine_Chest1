@@ -14,8 +14,9 @@ namespace DATA.Concrete
         public DbSet<PHARMACIES> PHARMACIES { get; set; }
         public DbSet<PRESCRIPTION> PRESCRIPTIONS { get; set; }
 
-        public DbSet<ORDER> ORDER { get; set; }
 
+        public DbSet<BUCKET> BUCKET { get; set; }
+        public DbSet<ORDER> ORDER { get; set; }
         public DbSet<STOCK> STOCK { get; set; }
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
