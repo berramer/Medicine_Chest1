@@ -1,6 +1,7 @@
 ﻿using Business.Concrete;
 using Medicine_Chest.EmailServices;
 using Medicine_Chest.Identity;
+using Medicine_Chest.Models;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using System;
@@ -11,7 +12,7 @@ using System.Threading.Tasks;
 namespace WebApi.Controllers
 {
     [ApiController]
-    [Route("api/[controller]")]
+    [Route("api/{controller}/{action}")]
     public class UserController : ControllerBase
     {
         private UserManager<User> _userManager;
@@ -46,12 +47,24 @@ namespace WebApi.Controllers
                 });
 
                 //await _emailSender.SendEmailAsync(model.Email, "Hesabınızı onaylayınız", $"Lütfen email hesabınızı onaylamak için linke <a href='https://localhost:44303{url}'> tıklayınız.</a>");
-                return Ok();
+                return Ok(user);
             }
         
-            return Ok();
+            return Ok(user);
         }
 
+        [HttpPost]
+        public  IActionResult login(LoginModel model)
+        {
+
+            var userList = _userManager.Users;
+            var user = userList.Where(x => x.UserName == model.UserName).FirstOrDefault();
+            if (user != null)
+            {
+                return Ok(model);
+            }
+            return NotFound(model);
+        }
 
         [HttpPut]
         public async Task<IActionResult> Update(User user)
