@@ -12,17 +12,16 @@ namespace Medicine_Chest.Models.PrescriptionIslemleri
     {
 
         public string Id { get; set; }
-        [Required]
+ 
         public string PrescriptionCode { get; set; }
 
-        [Required]
+        
         public string UserID { get; set; }
-        [Required]
+
         public DateTime ValidityDate { get; set; }
 
-        [Required]
+
         public string MedicineID { get; set; }
-        [Required]
 
         public string IslemTuru { get; set; }
         public PrescriptionIslemViewModel()
