@@ -16,15 +16,18 @@ namespace WebApi.Controllers
 
         [HttpGet]
         public async Task<IActionResult> Get()
+
         {
-            return Ok(await _bucketManager.getAll());
+             List < BUCKET > a= await _bucketManager.getAll();
+
+            return Ok(a);
         }
 
         [HttpPost]
         public async Task<IActionResult> Create(BUCKET bucket)
 
         {
-            bucket.ID = new Guid().ToString();
+            bucket.ID = System.Guid.NewGuid().ToString();
             await _bucketManager.addAsync(bucket);
             return Ok(bucket);
         }

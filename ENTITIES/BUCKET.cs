@@ -8,10 +8,10 @@ namespace ENTITIES
 {
    public class BUCKET:EntityBase
     {
-        public string MedicineId;
-        public string UserId;
-        public decimal Price;
-        public int Item;
+        public string MedicineId { get; set; }
+        public string UserId { get; set; }
+        public decimal Price { get; set; }
+        public int Item { get; set; }
 
     }
 }
