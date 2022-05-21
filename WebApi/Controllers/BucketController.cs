@@ -22,7 +22,9 @@ namespace WebApi.Controllers
 
         [HttpPost]
         public async Task<IActionResult> Create(BUCKET bucket)
+
         {
+            bucket.ID = new Guid().ToString();
             await _bucketManager.addAsync(bucket);
             return Ok(bucket);
         }
