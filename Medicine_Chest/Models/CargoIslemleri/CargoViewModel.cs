@@ -6,34 +6,25 @@ using System.ComponentModel.DataAnnotations;
 using Medicine_Chest.Identity;
 using ENTITIES;
 
-
-
-namespace Medicine_Chest.Models.OrderIslemleri
+namespace Medicine_Chest.Models.CargoIslemleri
 {
-    public class OrderViewModel
+    public class CargoViewModel
     {
-
-        /// <summary>
-        /// Kullanıcı Listesindeki Toplam Kayıt Sayısını Getiren Metottur
-        /// </summary>
         public int ToplamKayitSayisi { get; set; }
 
         #region Sorgulama Alanları
 
 
-        [Required]
-        public string UserIDSorgu { get; set; }
-        public string UserNameSorgu { get; set; }
-        public string UserSurnameSorgu { get; set; }
-        public string AddressSorgu { get; set; }
-        public string PhonenumberSorgu { get; set; }
-        public string MailAddressSorgu { get; set; }
-        public string PharmaciesIDSorgu { get; set; }
-        public string MedicineIDSorgu { get; set; }
-        public decimal? PriceSorgu { get; set; }
+        public string OrderIdSorgu { get; set; }
 
 
-        public IEnumerable<ORDER> OrderList { get; set; }
+        public int? IsDeliveredSorgu { get; set; }
+
+        public int ScoreSorgu { get; set; }
+
+        public DateTime? OrderDateCSorgu { get; set; }
+
+        public IEnumerable<CARGO> CargoList { get; set; }
         public bool SorgulandiMi { get; set; }
         /// <summary>
         /// Kaçıncı Sayfanın Grid üzerinde gösterileceği bilgisi
@@ -50,7 +41,7 @@ namespace Medicine_Chest.Models.OrderIslemleri
         /// Kullanıcı Ana Sayfasında Gösterilecek Verilerin Ayarlandığı
         /// Model Yapıcı Metodudur.
         /// </summary>
-        public OrderViewModel()
+        public CargoViewModel()
         {
             ToplamKayitSayisi = 0;
             SorgulandiMi = false;

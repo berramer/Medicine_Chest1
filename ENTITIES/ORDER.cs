@@ -16,6 +16,6 @@ namespace ENTITIES
 
         public string PharmaciesID { get; set; }
         public string MedicineID { get; set; }
-        public string Price { get; set; }
+        public decimal  Price { get; set; }
     }
 }

@@ -45,7 +45,7 @@ namespace Medicine_Chest.Controllers
                 }
                 if (!string.IsNullOrEmpty(model.AddressSorgu))
                 {
-                    kullanicilar = kullanicilar.Where(order => order.Adress == model.AdressSorgu);
+                    kullanicilar = kullanicilar.Where(order => order.Adress == model.AddressSorgu);
                 }
                 if (!string.IsNullOrEmpty(model.PhonenumberSorgu))
                 {
@@ -63,7 +63,7 @@ namespace Medicine_Chest.Controllers
                 {
                     kullanicilar = kullanicilar.Where(order => order.MedicineID == model.MedicineIDSorgu);
                 }
-                if (!string.IsNullOrEmpty(model.PriceSorgu))
+                if (model.PriceSorgu!= null)
                 {
                     kullanicilar = kullanicilar.Where(order => order.Price == model.PriceSorgu);
                 }
