@@ -45,7 +45,7 @@ namespace Medicine_Chest.Controllers
                 }
                 if (!string.IsNullOrEmpty(model.AddressSorgu))
                 {
-                    kullanicilar = kullanicilar.Where(order => order.Address == model.AddressSorgu);
+                    kullanicilar = kullanicilar.Where(order => order.Adress == model.AdressSorgu);
                 }
                 if (!string.IsNullOrEmpty(model.PhonenumberSorgu))
                 {

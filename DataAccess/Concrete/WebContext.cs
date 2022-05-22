@@ -16,7 +16,7 @@ namespace DATA.Concrete
 
 
         public DbSet<BUCKET> BUCKET { get; set; }
-        public DbSet<ORDER> ORDER { get; set; }
+        public DbSet<ORDER> ORDERS { get; set; }
         public DbSet<STOCK> STOCK { get; set; }
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
