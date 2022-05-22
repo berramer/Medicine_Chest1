@@ -23,47 +23,47 @@ namespace Business.Concrete
         }
 
 
-        public async Task addAsync(ORDER ORDER)
+        public async Task addAsync(ORDER order)
         {
 
-            await _orderDal.AddAsync(ORDER);
+            await _orderDal.AddAsync(order);
 
 
         }
 
-        public void add(ORDER ORDER)
+        public void add(ORDER order)
         {
 
-            _orderDal.Add(ORDER);
+            _orderDal.Add(order);
 
 
         }
-        public async Task updateAsync(ORDER ORDER)
+        public async Task updateAsync(ORDER order)
         {
 
-            await _orderDal.UpdateAsync(ORDER);
+            await _orderDal.UpdateAsync(order);
 
 
         }
 
-        public void update(ORDER ORDER)
+        public void update(ORDER order)
         {
 
-            _orderDal.Update(ORDER);
+            _orderDal.Update(order);
 
 
         }
-        public void delete(ORDER ORDER)
+        public void delete(ORDER order)
         {
 
-            _orderDal.Delete(ORDER);
+            _orderDal.Delete(order);
 
 
         }
-        public async Task deleteasync(ORDER ORDER)
+        public async Task deleteasync(ORDER order)
         {
 
-            await _orderDal.DeleteAsync(ORDER);
+            await _orderDal.DeleteAsync(order);
 
 
         }
