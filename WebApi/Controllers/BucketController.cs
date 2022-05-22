@@ -1,5 +1,7 @@
 ﻿using Business.Concrete;
 using ENTITIES;
+using Medicine_Chest.Identity;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
@@ -12,8 +14,9 @@ namespace WebApi.Controllers
     [Route("api/[controller]")]
     public class BucketController : ControllerBase
     {
-        private BucketManager _bucketManager = new BucketManager(new DATA.Concrete.BUCKETDAL());
 
+        private BucketManager _bucketManager = new BucketManager(new DATA.Concrete.BUCKETDAL());
+       
         [HttpGet]
         public async Task<IActionResult> Get()
 
@@ -23,10 +26,21 @@ namespace WebApi.Controllers
             return Ok(a);
         }
 
+        [HttpGet]
+        [Route("{id}")]
+        public async Task<IActionResult> GetbyId(string id)
+
+        {
+            List<BUCKET> a = await _bucketManager.getAll(x=>x.UserId==id);
+
+            return Ok(a);
+        }
+
         [HttpPost]
         public async Task<IActionResult> Create(BUCKET bucket)
 
         {
+
             bucket.ID = System.Guid.NewGuid().ToString();
             await _bucketManager.addAsync(bucket);
             return Ok(bucket);

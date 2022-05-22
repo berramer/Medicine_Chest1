@@ -10,7 +10,7 @@ namespace ENTITIES
         public string UserID { get; set; }
         public string UserName { get; set; }
         public string UserSurname { get; set; }
-        public string Address { get; set; }
+        public string Adress { get; set; }
         public string Phonenumber { get; set; }
         public string MailAddress { get; set; }
 
