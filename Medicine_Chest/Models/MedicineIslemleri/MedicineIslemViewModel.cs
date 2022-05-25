@@ -1,6 +1,8 @@
 ﻿
+using ENTITIES;
 using Medicine_Chest.Identity;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Mvc.Rendering;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
@@ -29,6 +31,8 @@ namespace Medicine_Chest.Models.MedicineIslemleri
 
         [Required]
         public decimal Price { get; set; }
+
+        public List<SelectListItem> MedicineList { get; set; }
 
         public string IslemTuru { get; set; } 
         public MedicineIslemViewModel()

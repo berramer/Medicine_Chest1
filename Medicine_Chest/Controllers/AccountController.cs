@@ -75,10 +75,10 @@ namespace Medicine_Chest.Controllers
                     Email = user.Email,
                     //EmailConfirmed = user.EmailConfirmed,
                     PhoneNumber = user.PhoneNumber,
-                    Address= user.Address
+                    Address= user.Address,
                     //IsDelete = user.IsDelete,
                     //SelectedRoles = selectedRoles
-              
+                   
 
                 });
             }
@@ -214,6 +214,7 @@ namespace Medicine_Chest.Controllers
                     user.Email = model.Email;
                     //user.EmailConfirmed = model.EmailConfirmed;
                     user.PhoneNumber = model.PhoneNumber;
+                    user.PharmaciesId = model.PharmaciesId;
                     //user.IsDelete = model.IsDelete;
                     var result = await _userManager.UpdateAsync(user);
                     if (result.Succeeded)
@@ -237,7 +238,9 @@ namespace Medicine_Chest.Controllers
                     Address = model.Address,
                     PhoneNumber = model.PhoneNumber,
                     Email = model.Email,
-                    UserName = model.UserName
+                    UserName = model.UserName,
+                    PharmaciesId = model.PharmaciesId,
+
                 };
 
                 var result = await _userManager.CreateAsync(user, model.Password);

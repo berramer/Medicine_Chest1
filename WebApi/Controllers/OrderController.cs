@@ -23,8 +23,10 @@ namespace WebApi.Controllers
         [HttpPost]
         public async Task<IActionResult> Create(ORDER order)
         {
+
+            order.ID = System.Guid.NewGuid().ToString();
             await _orderManager.addAsync(order);
-            return Ok();
+            return Ok(order);
         }
 
 

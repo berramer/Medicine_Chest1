@@ -15,5 +15,6 @@ namespace Medicine_Chest.Identity
 
         public string Address { get; set; }
 
+        public string PharmaciesId { get; set; }
     }
 }

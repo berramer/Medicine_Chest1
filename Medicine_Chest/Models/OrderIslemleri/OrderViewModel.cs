@@ -30,7 +30,7 @@ namespace Medicine_Chest.Models.OrderIslemleri
         public string MailAddressSorgu { get; set; }
         public string PharmaciesIDSorgu { get; set; }
         public string MedicineIDSorgu { get; set; }
-        public string PriceSorgu { get; set; }
+        public decimal? PriceSorgu { get; set; }
 
 
         public IEnumerable<ORDER> OrderList { get; set; }

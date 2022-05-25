@@ -40,9 +40,18 @@ namespace WebApi.Controllers
         public async Task<IActionResult> Create(BUCKET bucket)
 
         {
+            var bucketList =( await _bucketManager.getAll(x => x.UserId == bucket.UserId && x.MedicineId ==bucket.MedicineId)).FirstOrDefault();
+            if (bucketList != null)
+            {
+                bucketList.Item += bucket.Item;
+                await _bucketManager.updateAsync(bucketList);
+            }
+            else
+            {
 
-            bucket.ID = System.Guid.NewGuid().ToString();
-            await _bucketManager.addAsync(bucket);
+                bucket.ID = System.Guid.NewGuid().ToString();
+                await _bucketManager.addAsync(bucket);
+            }
             return Ok(bucket);
         }
 
@@ -50,6 +59,9 @@ namespace WebApi.Controllers
         [HttpPut]
         public async Task<IActionResult> Update(BUCKET bucket)
         {
+          
+
+
             await _bucketManager.updateAsync(bucket);
             return Ok();
         }

@@ -11,6 +11,7 @@ using Medicine_Chest.Models.MedicineIslemleri;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Rendering;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -112,6 +113,13 @@ namespace Medicine_Chest.Controllers
                 //// işlem türü de burada seçiliyor
                 //LogIslemTuruId = SessionManagement.LogIslemTuruListesi.First(j => j.Kod == LogIslemTur.DetayGoruntuleme.GetHashCode()).Id;
                 //LogIslem.EkleLog(LogAnaTurId, LogAltTurId, LogIslemTuruId, LogMesaj, dict, Request, ControllerContext);
+                var medicinelist= (await _medicineManager.getAll())
+                           .Select(a => new SelectListItem()
+                           {
+                               Value = a.ID,
+                               Text = a.Name
+                           })
+                           .ToList();
                 if (islemTuru != IslemTurSabitler.IslemTuruKayitEkleme || !string.IsNullOrEmpty(Id))
                 {
                     var medicine = (await _medicineManager.getAll(x => x.ID == Id)).FirstOrDefault();
@@ -123,18 +131,18 @@ namespace Medicine_Chest.Controllers
                             Id = medicine.ID,
                             Name = medicine.Name,
                             ExpireDate = medicine.ExpireDate,
-                            BasisWeight=medicine.BasisWeight,
+                            BasisWeight = medicine.BasisWeight,
                             Producer = medicine.Producer,
-                            Price=medicine.Price,
+                            Price = medicine.Price,
 
-                            
+                            MedicineList = medicinelist,
 
                             //EmailConfirmed = medicine.EmailConfirmed,
                             //IsDelete = medicine.IsDelete,
                             //SelectedRoles = selectedRoles
                             IslemTuru = islemTuru,
 
-                        });
+                        }); 
                     }
                     return PartialView("_MedicineIslemi", new MedicineIslemViewModel());
                 }
@@ -143,6 +151,7 @@ namespace Medicine_Chest.Controllers
 
                     return PartialView("_MedicineIslemi", new MedicineIslemViewModel()
                     {
+                        MedicineList=medicinelist,
                         IslemTuru = islemTuru,
                     });
                 }

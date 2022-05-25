@@ -36,6 +36,9 @@ namespace Medicine_Chest.Models
         [Required]
         public  string UserName { get; set; }
 
+        public string PharmaciesId { get; set; }
+
+
         [Required]
         [DataType(DataType.Password)]
         public  string Password { get; set; }

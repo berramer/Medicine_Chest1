@@ -10,8 +10,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Medicine_Chest.Migrations
 {
     [DbContext(typeof(ApplicationContext))]
-    [Migration("20220330122846_MyFirstMigration")]
-    partial class MyFirstMigration
+    [Migration("20220524150513_MyFirstMigration6")]
+    partial class MyFirstMigration6
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -64,6 +64,9 @@ namespace Medicine_Chest.Migrations
                         .HasColumnType("nvarchar(256)");
 
                     b.Property<string>("PasswordHash")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("PharmaciesId")
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("PhoneNumber")

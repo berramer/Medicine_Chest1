@@ -63,7 +63,7 @@ namespace Medicine_Chest.Controllers
                 {
                     kullanicilar = kullanicilar.Where(order => order.MedicineID == model.MedicineIDSorgu);
                 }
-                if (!string.IsNullOrEmpty(model.PriceSorgu))
+                if (model.PriceSorgu!=null)
                 {
                     kullanicilar = kullanicilar.Where(order => order.Price == model.PriceSorgu);
                 }
