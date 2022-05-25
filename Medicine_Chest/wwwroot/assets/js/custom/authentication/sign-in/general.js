@@ -8,14 +8,14 @@
             form,
             {
                 fields: {
-                    'UserName': {
+                    'email': {
                         validators: {
                             notEmpty: {
-                                message: 'Kullanıcı adı alanının doldurulması zorunludur.'
+                                message: 'E-Mail alanının doldurulması zorunludur.'
                             },
-                            //emailAddress: {
-                            //    message: "Lütfen geçerli bir E-Mail adresi giriniz."
-                            //}
+                            emailAddress: {
+                                message: "Lütfen geçerli bir E-Mail adresi giriniz."
+                            }
                         }
                     },
                     'password': {

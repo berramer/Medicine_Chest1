@@ -14,14 +14,14 @@ var KTSignupGeneral = function () {
                             }
                         }
                     },
-                    "Name": {
+                    "FirstName": {
                         validators: {
                             notEmpty: {
                                 message: "Ad alanı boş geçilemez."
                             }
                         }
                     },
-                    "SurName": {
+                    "LastName": {
                         validators: {
                             notEmpty: {
                                 message: "Soyad alanı boş geçilemez."
