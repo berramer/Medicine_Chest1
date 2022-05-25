@@ -24,7 +24,7 @@ namespace WebApi.Controllers
         public async Task<IActionResult> Create(MEDICINE medicine)
         {
             await _medicineManager.addAsync(medicine);
-            return Ok();
+            return Ok(medicine);
         }
 
 
@@ -45,7 +45,7 @@ namespace WebApi.Controllers
                 await _medicineManager.deleteasync(medicine);
 
 
-                return Ok();
+                return Ok("success");
             }
             return NotFound();
         }

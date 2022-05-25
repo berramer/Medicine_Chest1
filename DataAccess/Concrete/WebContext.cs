@@ -14,11 +14,13 @@ namespace DATA.Concrete
         public DbSet<PHARMACIES> PHARMACIES { get; set; }
         public DbSet<PRESCRIPTION> PRESCRIPTIONS { get; set; }
 
-
-        //public DbSet<STOCK> STOCK { get; set; }
+        public DbSet<CARGO> CARGO { get; set; }
+        public DbSet<BUCKET> BUCKET { get; set; }
+        public DbSet<ORDER> ORDERS { get; set; }
+        public DbSet<STOCK> STOCK { get; set; }
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
-            optionsBuilder.UseSqlServer("Server=DESKTOP-B28EHI3;Database=Eczane;User Id=sa;Password=berra123;");
+            optionsBuilder.UseSqlServer("Server=LAPTOP-VISABIIJ;Database=Eczane;User Id=sa;Password=berra123;");
         }
 
     }

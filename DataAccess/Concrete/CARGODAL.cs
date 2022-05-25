@@ -7,7 +7,7 @@ using System.Text;
 
 namespace DATA.Concrete
 {
-    public class STOCKDAL : IRepositoryBase<STOCK, WebContext>, IRepository<STOCK>
+    public class CARGODAL : IRepositoryBase<CARGO, WebContext>, IRepository<CARGO>
     {
     }
 }

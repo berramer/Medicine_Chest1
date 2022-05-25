@@ -26,6 +26,10 @@ namespace Medicine_Chest.Models.MedicineIslemleri
         [Required]
         public string Producer { get; set; }
 
+
+        [Required]
+        public decimal Price { get; set; }
+
         public string IslemTuru { get; set; } 
         public MedicineIslemViewModel()
         {
