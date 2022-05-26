@@ -28,6 +28,12 @@ namespace Medicine_Chest.Models.MedicineIslemleri
         [Required]
         public string Producer { get; set; }
 
+        [Required]
+
+        public string EczaneId { get; set; }
+
+        [Required]
+        public int Miktar { get; set; }
 
         [Required]
         public decimal Price { get; set; }

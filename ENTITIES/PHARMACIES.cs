@@ -6,12 +6,15 @@ namespace ENTITIES
 {
     public class PHARMACIES : EntityBase
     {
-
-       public string Name { get; set; }
-        public string Address { get; set; }
-        public string PhoneNumber { get; set; }
-       public int IsOnDuty { get; set; }
-
+    public string EczaneAdi {get;set;}
+    public string Adresi {get;set;}
+    public string Semt {get;set;}
+    public string YolTarifi {get;set;}
+    public string Telefon {get;set;}
+    public string Sehir {get;set;}
+    public string ilce {get;set;}
+    // public Double latitude=0.0;
+   //  public Double longitude=0.0;
 
     }
 }

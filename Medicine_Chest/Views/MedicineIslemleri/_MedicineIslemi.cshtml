@@ -2,12 +2,16 @@
 
 
 @model MedicineIslemViewModel
+@using Microsoft.AspNetCore.Identity
+@inject SignInManager<Medicine_Chest.Identity.User> SignInManager
+@inject UserManager<Medicine_Chest.Identity.User> UserManager
 @{
-    //var islemTuru = Model.IslemTuru;
-    //// kaydı silebilmek için burada bu değişken tanımlandı
+    var islemTuru = Model.IslemTuru;
+    // kaydı silebilmek için burada bu değişken tanımlandı
 
     //Layout = "~/Views/Shared/_Layout.cshtml";
     ViewBag.Header = "Yeni Kayıt İşlemleri";
+    var user = await UserManager.GetUserAsync(User);
 }
 
 
@@ -90,7 +94,7 @@
 
 
 
-<div class="modal draggable fade" id="MedicineKayit" tabindex="-1" data-backdrop="static" data-keyboard="false" role="dialog" aria-hidden="true">
+<div class="modal draggable fade" id="MedicineKayit" @*tabindex="-1"*@ data-backdrop="static" data-keyboard="false" role="dialog" aria-hidden="true">
     <div class="modal-dialog modal-dialog-popin modal-l">
         <div class="modal-content">
             <div class="block block-bordered">
@@ -120,13 +124,26 @@
                                 <div class="fv-row mb-7">
                                     <div asp-validation-summary="All" class="text-danger"></div>
                                 </div>
+                                <div class="form-group row fv-row">
+                                    <label class="col-xl-3 col-lg-3 col-form-label">İlaç ADI</label>
+                                    <div class="col-lg-9 col-xl-9">
+                                        <div class="input-group input-group-solid" style="flex-wrap:nowrap;">
+                                            <!--begin::Select-->
+                                            <select name="Id" id="ddlCustomers" class="form-select form-select-solid" asp-for="Id" asp-items="@Model.MedicineList">
+                                            </select>
+                                            <!--end::Select-->
+
+                                        </div>
+
+                                    </div>
+                                </div>
 
                                 <!--begin::Input group-->
                                 <div class="row fv-row mb-7">
                                     <!--begin::Col-->
                                     <div class="col-xl-6">
                                         <label class="form-label fw-bolder text-dark fs-6">Ad</label>
-                                        <input class="form-control form-control-lg form-control-solid" type="text" placeholder="" name="Name" asp-for="Name" autocomplete="off" />
+                                        <input class="form-control form-control-lg form-control-solid" type="text" placeholder="" name="Name" asp-for="Name" id="Name" autocomplete="off" />
                                     </div>
                                     <!--end::Col-->
 
@@ -149,31 +166,24 @@
                                 <!--end::Input group-->
                                 <div class="fv-row mb-7">
                                     <label class="form-label fw-bolder text-dark fs-6">Producer</label>
-                                    <input class="form-control form-control-lg form-control-solid PhoneMask" type="text" placeholder="" name="Producer" asp-for="Producer" autocomplete="off" />
+                                    <input class="form-control form-control-lg form-control-solid " type="text" placeholder="" name="Producer" asp-for="Producer" autocomplete="off" />
                                 </div>
                                 <div class="fv-row mb-7">
                                     <label class="form-label fw-bolder text-dark fs-6">Price</label>
-                                    <input class="form-control form-control-lg form-control-solid PhoneMask" type="text" placeholder="" name="Price" asp-for="Price" autocomplete="off" />
+                                    <input class="form-control form-control-lg form-control-solid " type="text" placeholder="" name="Price" asp-for="Price" autocomplete="off" />
                                 </div>
                                 <div class="fv-row mb-7">
-                                    <label>Lucky Employee</label>
-                                    <select id="select-state" asp-for="Id" asp-items="@Model.MedicineList">
+                                    <label class="form-label fw-bolder text-dark fs-6">Miktar</label>
+                                    <input class="form-control form-control-lg form-control-solid " type="text" placeholder="" name="Miktar" asp-for="Miktar" autocomplete="off" />
+                                </div>
 
-                                        <option>Please select one</option>
-                                    </select>
-                                </div>
-                                <div class="form-group row fv-row">
-                                    <label class="col-xl-3 col-lg-3 col-form-label">Zemin Türü</label>
-                                    <div class="col-lg-9 col-xl-9">
-                                        <!--begin::Select-->
-                                        <select name="Id" data-control="select2" class="form-select form-select-solid" asp-for="Id" asp-items="@Model.MedicineList" data-hide-search="true">
-                                        </select>
-                                        <!--end::Select-->
-                                    </div>
-                                </div>
                                 <div class="fv-row mb-5">
 
                                     <input class="form-control form-control-lg form-control-solid" type="hidden" placeholder="" name="IslemTuru" asp-for="IslemTuru" autocomplete="off" />
+                                </div>
+                                <div class="fv-row mb-5">
+
+                                    <input class="form-control form-control-lg form-control-solid" type="hidden" placeholder="" name="EczaneId" asp-for="EczaneId" value="@user.PharmaciesId"autocomplete="off" />
                                 </div>
                                 <div class="fv-row mb-5">
 
@@ -213,6 +223,36 @@
 
 
 
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/select2@4.0.13/dist/css/select2.min.css" />
 
-<script src="~/assets/plugins/custom/select2/select2.js"></script>
+<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/select2@4.0.13/dist/js/select2.min.js"></script>
+<script type="text/javascript">
+    $(function () {
+        $("#ddlCustomers").select2();
+
+    });
+
+
+    $("[name='Id']").on("change", function () {
+        $.ajax({
+            type: "POST",
+            url: "/MedicineIslemleri/Getir",
+            datatype: "Json",
+            data: { Id: $(this).val() },
+            success: function (data) {
+
+                document.getElementById("Name").value = data.name;
+                document.getElementById("ExpireDate").value = data.expireDate;
+                document.getElementById("BasisWeight").value = data.basisWeight;
+                document.getElementById("Producer").value = data.producer;
+
+                document.getElementById("Price").value = data.price;
+
+            }
+
+
+        });
+
+    });
+</script>
 

@@ -22,12 +22,12 @@ namespace Medicine_Chest.Controllers
     {
         private OrderManager _orderManager = new OrderManager(new DATA.Concrete.ORDERDAL());
         [HttpPost]
-        public ActionResult FiltreleOrder(OrderViewModel model)
+        public async Task<ActionResult> FiltreleOrder(OrderViewModel model)
         {
             try
             {
 
-                var kullanicilar = (IEnumerable<ORDER>)_orderManager.getAll();
+                var kullanicilar = (IEnumerable<ORDER>)(await _orderManager.getAll());
 
 
 

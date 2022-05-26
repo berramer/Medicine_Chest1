@@ -1,5 +1,6 @@
 ﻿using Business.Concrete;
 using ENTITIES;
+using ENTITIES.Dtos;
 using Medicine_Chest.EmailServices;
 using Medicine_Chest.Helpers;
 using Medicine_Chest.Identity;
@@ -24,13 +25,14 @@ namespace Medicine_Chest.Controllers
 {
     public class MedicineIslemleriController : Controller
     {
-
+        private UserManager<User> _userManager;
         private MedicineManager _medicineManager = new MedicineManager(new DATA.Concrete.MEDICINEDAL());
-        //public EczaneIslemleriController(MedicineManager pharmaciesManager)
-        //{
-        //    _medicineManager = pharmaciesManager;
+        private StockManager _stockManager = new StockManager(new DATA.Concrete.STOCKDAL());
+        public MedicineIslemleriController(UserManager<User> userManager)
+        {
+            _userManager = userManager;
 
-        //}
+        }
 
 
 
@@ -43,12 +45,12 @@ namespace Medicine_Chest.Controllers
         /// <returns></returns>
         /// 
         [HttpPost]
-        public ActionResult FiltreleMedicine(MedicineViewModel model)
+        public async Task<ActionResult> FiltreleMedicine(MedicineViewModel model)
         {
             try
             {
 
-                var kullanicilar = (IEnumerable<MEDICINE>)_medicineManager.getAll();
+                var kullanicilar = (IEnumerable<MedicineDto>)(await _medicineManager.getList());
 
 
 
@@ -69,7 +71,7 @@ namespace Medicine_Chest.Controllers
                     kullanicilar = kullanicilar.Where(medicine => medicine.Producer == model.ProducerSorgu);
                 }
 
-                model.MedicineList = (IEnumerable<MEDICINE>)kullanicilar;
+                model.MedicineList = (IEnumerable<MedicineDto>)kullanicilar;
                 return View("MedicineIslemleri", model);
             }
             catch (Exception exception)
@@ -81,10 +83,11 @@ namespace Medicine_Chest.Controllers
         [HttpPost]
         public async Task<JsonResult> Sil(string Id)
         {
-            var medicine = (await _medicineManager.getAll(x => x.ID == Id)).FirstOrDefault();
+            var user = await _userManager.GetUserAsync(User);
+            var medicine = (await _stockManager.getAll()).Where(x => x.MedicineID == Id && x.PharmID == user.PharmaciesId).FirstOrDefault();
             if (medicine != null)
             {
-                _medicineManager.delete(medicine);
+                _stockManager.delete(medicine);
             }
             return Json("Başarılı");
         }
@@ -97,7 +100,8 @@ namespace Medicine_Chest.Controllers
             //Session["IISAdresi"] = System.Configuration.ConfigurationManager.AppSettings["IISAdresi"];
 
             var model = new MedicineViewModel();
-            model.MedicineList = (IEnumerable<MEDICINE>)(await _medicineManager.getAll());
+            var user = await _userManager.GetUserAsync(User);
+            model.MedicineList = (IEnumerable<MedicineDto>)(await _medicineManager.getList()).Where(x=>x.PharmID==user.PharmaciesId);
             return View(model);
         }
 
@@ -105,7 +109,7 @@ namespace Medicine_Chest.Controllers
         public async Task<ActionResult> MedicineIslemi(string Id, string islemTuru)
         {
             var dict = new Dictionary<string, string>();
-
+            var user = await _userManager.GetUserAsync(User);
             var mesaj = "";
             try
             {
@@ -122,19 +126,22 @@ namespace Medicine_Chest.Controllers
                            .ToList();
                 if (islemTuru != IslemTurSabitler.IslemTuruKayitEkleme || !string.IsNullOrEmpty(Id))
                 {
-                    var medicine = (await _medicineManager.getAll(x => x.ID == Id)).FirstOrDefault();
+                    var medicine = (await _medicineManager.getList()).Where(x => x.MedicineID == Id && x.PharmID == user.PharmaciesId).FirstOrDefault();
+                
                     if (medicine != null)
-                    {
+                    {    
+                   
 
                         return PartialView("_MedicineIslemi", new MedicineIslemViewModel()
                         {
-                            Id = medicine.ID,
+                            Id = medicine.MedicineID,
                             Name = medicine.Name,
                             ExpireDate = medicine.ExpireDate,
                             BasisWeight = medicine.BasisWeight,
                             Producer = medicine.Producer,
                             Price = medicine.Price,
-
+                            Miktar=medicine.Stock,
+                            
                             MedicineList = medicinelist,
 
                             //EmailConfirmed = medicine.EmailConfirmed,
@@ -144,7 +151,9 @@ namespace Medicine_Chest.Controllers
 
                         }); 
                     }
-                    return PartialView("_MedicineIslemi", new MedicineIslemViewModel());
+                    return PartialView("_MedicineIslemi", new MedicineIslemViewModel() {
+                        MedicineList = medicinelist,
+                    });
                 }
                 else
                 {
@@ -177,54 +186,39 @@ namespace Medicine_Chest.Controllers
             }
             if (model.IslemTuru != IslemTurSabitler.IslemTuruKayitEkleme)
             {
-                var medicine =(await _medicineManager.getAll(x => x.ID == model.Id)).FirstOrDefault();
-                if (medicine != null)
+                //var medicine =(await _medicineManager.getAll(x => x.ID == model.Id)).FirstOrDefault();
+                var stock =(await _stockManager.getAll(x => x.MedicineID == model.Id && x.PharmID == model.EczaneId)).FirstOrDefault();
+                if (stock != null)
                 {
-                    medicine.Name = model.Name;
-                    medicine.ExpireDate = model.ExpireDate;
-                    medicine.BasisWeight = model.BasisWeight;
-                    medicine.Producer = model.Producer;
-                    //medicine.IsDelete = model.IsDelete;
-                    _medicineManager.update(medicine);
-                    //if (result.Succeeded)
-                    //{
-                    //    //var eczaneRoles = await _eczaneManager.GetRolesAsync(medicine);
-                    //    //selectedRoles = selectedRoles ?? new string[] { };
-                    //    //await _eczaneManager.AddToRolesAsync(medicine, selectedRoles.Except(eczaneRoles).ToArray<string>());
-                    //    //await _eczaneManager.RemoveFromRolesAsync(medicine, eczaneRoles.Except(selectedRoles).ToArray<string>());
-
-                    //}
+                    stock.Stock = model.Miktar;
+                    _stockManager.update(stock);
                 }
             }
             else
             {
 
-                var medicine = new MEDICINE
+                //var medicine = new MEDICINE
+                //{
+                //    ID = System.Guid.NewGuid().ToString(),
+                //    Name = model.Name,
+                //    ExpireDate = model.ExpireDate,
+                //    BasisWeight = model.BasisWeight,
+                //    Producer = model.Producer,
+
+                //};
+
+                //_medicineManager.add(medicine);
+      
+                var stock = new STOCK
                 {
                     ID = System.Guid.NewGuid().ToString(),
-                    Name = model.Name,
-                    ExpireDate = model.ExpireDate,
-                    BasisWeight = model.BasisWeight,
-                    Producer = model.Producer,
+                    MedicineID=model.Id,
+                    PharmID=model.EczaneId,
+                    Stock=model.Miktar
 
                 };
+                _stockManager.add(stock);
 
-                _medicineManager.add(medicine);
-
-                //if (result.Succeeded)
-                //{
-
-                //    //generate token
-                //    var token = await _eczaneManager.GenerateEmailConfirmationTokenAsync(medicine);
-                //    var url = Url.Action("ConfirmEmail", "Account", new
-                //    {
-                //        eczaneId = medicine.Id,
-                //        token = token
-                //    });
-
-                //    await _emailSender.SendEmailAsync(model.Email, "Hesabınızı onaylayınız", $"Lütfen email hesabınızı onaylamak için linke <a href='https://localhost:44303{url}'> tıklayınız.</a>");
-                //    return RedirectToAction("EczaneIslemleri", "Account");
-                //}
             }
             return RedirectToAction("MedicineIslemleri", "MedicineIslemleri");
         }
@@ -236,5 +230,35 @@ namespace Medicine_Chest.Controllers
             return PartialView("_MedicineListesi", _medicineManager.getAll());
 
         }
+
+        [HttpPost]
+
+        public async Task<JsonResult> Getir(string Id)
+        {
+
+            var sozlesme =(await _medicineManager.getAll(x=>x.ID==Id)).FirstOrDefault();
+                if (sozlesme != null)
+                {
+                    var data = new
+                    {
+                        Name=sozlesme.Name,
+
+                        ExpireDate=sozlesme.ExpireDate,
+                        BasisWeight =sozlesme.BasisWeight,
+                        Price=sozlesme.Price,
+                        Producer=sozlesme.Producer
+     
+                       };
+
+                    return Json(data);
+                }
+                else
+                {
+                    return Json(new JsonSonuc { HataMi = true, Mesaj = "Fire Zamanı ve Fire Oranı Bilgisi alınamadı." } );
+                }
+            }
+          
+
+        
     }
 }

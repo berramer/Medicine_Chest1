@@ -14,115 +14,22 @@
 
 
 
-@section Scripts
-{
-
-    <script src="~/assets/js/custom/authentication/sign-up/general.js"></script>
-    <script src="/modules/jquery-validation/dist/jquery.validate.min.js"></script>
-    <script src="/modules/jquery-validation-unobtrusive/dist/jquery.validate.unobtrusive.min.js"></script>
-}
-<script>
-
-
-    // ekrandaki verilerin girilip girilmediği kontrol ediliyor
-    // eğer tüm zorunlu alanlar doldurulmuşsa
-    // kayıt işlemine yönlendiriyor
-    // değilse, gizlenmiş submit butonunu çağırıyor
-    // ki validation mesajlar görüntülensin
-    function EkranKontrol() {
-        Lobibox.notify('success', { size: 'mini', msg: 'Başarılı' });
-    }
-
-    // session'da ve hidden field'da tutulan BoEkipPersonel id'ye sahip kaydın silinebilmesi için gerekli metot
-    function SilPartial() {
-        $("#loading").show();
-        //// burada aktif formun tüm elemanları aşağıdaki kod satırı ile alınıyor
-        //var iisAdresi = $("#hdnIISAdresi").data('value').toString();
-        $.ajax({
-            type: "POST",
-            url: "/Account/KullaniciSil",
-            data: { boEkipPersonelId: $("#hdnBoEkipPersonelIdPartial").val() },
-            dataType: 'json',
-            success: function (data) {
-                Kapat();
-                $("#loading").hide();
-                if (data.HataMi === false) {
-                    Lobibox.notify('success', { size: 'mini', msg: 'Başarılı' });
-                    window.location.href = '@Url.Action("BoEkipPersonelIslemleri", "BoEkipPersonel")';
-                } else {
-                    Lobibox.notify('error', { size: 'large', msg: data.Mesaj });
-                    window.location.href = '@Url.Action("BoEkipPersonelIslemleri", "BoEkipPersonel")';
-                    event.preventDefault();
-                    return false;
-                }
-            },
-            error: function (error) {
-                Kapat();
-                $("#loading").hide();
-                Lobibox.notify('error', { size: 'large', msg: 'Başarısız' });
-                window.location.href = '@Url.Action("BoEkipPersonelIslemleri", "BoEkipPersonel")';
-            }
-        });
-    };
-
-    // ekrandaki verileri kaydederek
-    // gridin tekrardan dolmasını
-    // ve bilgi mesajının görüntülenmesini sağlayan metottur
-    function KayitIslemiPartial() {
-        $("#loading").show();
-        $("#btnKaydet2").click();
-    };
-
-    function IslemBasarili(data) {
-        $("#loading").hide();
-        if (data.HataMi === false) {
-            if (data.Id !== null) {
-                Lobibox.notify('success', { size: 'mini', msg: 'Başarılı' });
-                $("#gridBoEkipPersonel").data("kendoGrid").dataSource.read();
-            }
-            else {
-                Kapat();
-                Lobibox.notify('success', { size: 'mini', msg: 'MesajSabitler.IslemBasarili' });
-                $("#gridBoEkipPersonel").data("kendoGrid").dataSource.read();
-            }
-        } else {
-            //Kapat();
-            Lobibox.notify('error', { size: 'large', msg: data.Mesaj });
-            @* window.location.href = '@Url.Action("BoEkipPersonelIslemleri", "BoEkipPersonel")';*@
-            event.preventDefault();
-            return false;
-        }
-    }
-
-    function IslemBasarisiz(data) {
-        Kapat();
-        $("#loading").hide();
-        //Lobibox.notify('error', { size: 'large', msg: data.responseJSON.Mesaj });
-        Lobibox.notify('error', { size: 'large', msg: data.Mesaj });
-        @* window.location.href = '@Url.Action("BoEkipPersonelIslemleri", "BoEkipPersonel")';*@
-    }
 
 
 
-
-
-</script>
-
-
-
-<div class="modal draggable fade" id="KullaniciKayit" tabindex="-1" data-backdrop="static" data-keyboard="false" role="dialog" aria-hidden="true">
+<div class="modal draggable fade" id="KullaniciKayit" @*tabindex="-1"*@ data-backdrop="static" data-keyboard="false" role="dialog" aria-hidden="true">
     <div class="modal-dialog modal-dialog-popin modal-l">
         <div class="modal-content">
             <div class="block block-bordered">
-                <div class="block-header bg-gray-lighter">
-                    <ul class="block-options">
+                <!--<div class="block-header bg-gray-lighter">-->
+                    @*<ul class="block-options">
                         <li>
 
                             <button data-dismiss="modal" data-toggle="tooltip" data-placement="right" title="Kapat" class="closePopupButton" type="button"><i class="si si-close"></i></button>
                         </li>
-                    </ul>
-                    <h3 class="block-title">@ViewBag.Header</h3>
-                </div>
+                    </ul>*@
+                    <!--<h3 class="block-title">@ViewBag.Header</h3>
+                </div>-->
                 <div class="block-content">
 
                     <div class="post d-flex flex-column-fluid" id="kt_post">
@@ -234,10 +141,19 @@
 
                                 @if (User.IsInRole("admin"))
                                 {
-                                    <div class="fv-row mb-5">
-                                        <label class="form-label fw-bolder text-dark fs-6">Eczane</label>
-                                        <input class="form-control form-control-lg form-control-solid" type="text" placeholder="" name="PharmaciesId" asp-for="PharmaciesId" autocomplete="off" />
+                            <div class="form-group row fv-row">
+                                <label class="form-label fw-bolder text-dark fs-6">Eczane Adı</label>
+                                <div class="form-control form-control-lg form-control-solid">
+                                    <div class="input-group input-group-solid" style="flex-wrap:nowrap;">
+                                        <!--begin::Select-->
+                                        <select name="PharmaciesId" id="ddlCustomers" class="form-select form-select-solid" asp-for="PharmaciesId" asp-items="@Model.EczaneList">
+                                        </select>
+                                        <!--end::Select-->
+
                                     </div>
+
+                                </div>
+                            </div>
                                 }
                                 else
                                 {
@@ -262,23 +178,21 @@
                 </div>
 
 
-                <div class="modal-footer">
-                    @*<button id="btnSil" type="button" onclick="SilHazirlikPartial()" class="btn btn-sm btn-danger pull-left"><i class="fa fa-trash-o"></i>&nbsp;ArayuzSabitler.Sil</button>*@
-
-                    <button class="btn btn-sm btn-primary" type="button" id="btnKaydet" name="btnKaydet" value="Kaydet" onclick="EkranKontrol()">
-                        <i class="fa fa-save"></i> Kaydet
-                    </button>
-                    @*<button class="btn btn-sm btn-primary" type="submit" id="btnKaydet2" name="btnKaydet2" value="Kaydet" >
-                            <i class="fa fa-save"></i> Kaydet
-                        </button>*@
-                </div>
             </div>
         </div>
     </div>
 </div>
 
-
-
 <script src="~/assets/js/custom/authentication/sign-up/general.js"></script>
 <script src="/modules/jquery-validation/dist/jquery.validate.min.js"></script>
 <script src="/modules/jquery-validation-unobtrusive/dist/jquery.validate.unobtrusive.min.js"></script>
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/select2@4.0.13/dist/css/select2.min.css" />
+
+<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/select2@4.0.13/dist/js/select2.min.js"></script>
+<script type="text/javascript">
+    $(function () {
+        $("#ddlCustomers").select2();
+
+    });
+</script>

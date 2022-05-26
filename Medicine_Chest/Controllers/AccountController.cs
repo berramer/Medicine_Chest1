@@ -1,10 +1,12 @@
-﻿using Medicine_Chest.EmailServices;
+﻿using Business.Concrete;
+using Medicine_Chest.EmailServices;
 using Medicine_Chest.Helpers;
 using Medicine_Chest.Identity;
 using Medicine_Chest.Models;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Rendering;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -19,6 +21,7 @@ namespace Medicine_Chest.Controllers
         private UserManager<User> _userManager;
         private SignInManager<User> _signInManager;
         private IEmailSender _emailSender;
+        private PharmaciesManager _pharmaciesManager = new PharmaciesManager(new DATA.Concrete.PHARMACIESDAL());
         public AccountController(UserManager<User> userManager, SignInManager<User> signInManager, IEmailSender emailSender)
         {
             _userManager = userManager;
@@ -130,14 +133,23 @@ namespace Medicine_Chest.Controllers
         }
 
      
-        public IActionResult KullaniciIslemleri()
+        public async Task<IActionResult> KullaniciIslemleri()
         {
             //// AJAX metodlarında IIS adresi bize lazım olacağından
             //// burada ilk değer atamasında bulunuyoruz
             //Session["IISAdresi"] = System.Configuration.ConfigurationManager.AppSettings["IISAdresi"];
-           
+        
             var model = new KullaniciViewModel();
-            model.UserList = _userManager.Users;
+            var user = await _userManager.GetUserAsync(User);
+            if (User.IsInRole("admin"))
+            {
+                model.UserList = _userManager.Users;
+            }
+            else
+            {
+                model.UserList = _userManager.Users.Where(x => x.PharmaciesId == user.PharmaciesId);
+
+            }
             return View(model);
         }
 
@@ -149,6 +161,13 @@ namespace Medicine_Chest.Controllers
             var mesaj = "";
             try
             {
+                var medicinelist = (await _pharmaciesManager.getAll())
+                          .Select(a => new SelectListItem()
+                          {
+                              Value = a.ID,
+                              Text = a.EczaneAdi
+                          })
+                          .ToList();
                 //LogMesaj = SessionManagement.AktifKullanici.Id + " id'li kullanıcı" + kodRafineriTuruId + " idli Kod Arıza Türü ile ilgili bilgileri getirdi";
                 //// işlem türü de burada seçiliyor
                 //LogIslemTuruId = SessionManagement.LogIslemTuruListesi.First(j => j.Kod == LogIslemTur.DetayGoruntuleme.GetHashCode()).Id;
@@ -166,13 +185,17 @@ namespace Medicine_Chest.Controllers
                             Name = user.Name,
                             Surname = user.Surname,
                             Email = user.Email,
+                            Address= user.Address,
+                            IdentificationNo=user.IdentificationNo,
+                          
                             //EmailConfirmed = user.EmailConfirmed,
                             PhoneNumber = user.PhoneNumber,
                             //IsDelete = user.IsDelete,
                             //SelectedRoles = selectedRoles
                             IslemTuru = islemTuru,
-
-                        }) ;
+                            PharmaciesId = user.PharmaciesId,
+                            EczaneList = medicinelist
+                        }); 
                     }
                     return PartialView("_KullaniciIslemi", new KullaniciIslemViewModel());
                 }
@@ -181,6 +204,7 @@ namespace Medicine_Chest.Controllers
 
                     return PartialView("_KullaniciIslemi", new KullaniciIslemViewModel()
                     {
+                        EczaneList= medicinelist,
                         IslemTuru = islemTuru,
                     });
             } }
@@ -223,7 +247,7 @@ namespace Medicine_Chest.Controllers
                         //selectedRoles = selectedRoles ?? new string[] { };
                         //await _userManager.AddToRolesAsync(user, selectedRoles.Except(userRoles).ToArray<string>());
                         //await _userManager.RemoveFromRolesAsync(user, userRoles.Except(selectedRoles).ToArray<string>());
-                     
+                        return RedirectToAction("KullaniciIslemleri", "Account");
                     }
                 }
             }
@@ -260,7 +284,7 @@ namespace Medicine_Chest.Controllers
                     return RedirectToAction("KullaniciIslemleri", "Account");
                 }
             }
-            return View("KullaniciIslemleri", model);
+           return View("KullaniciIslemleri", model);
         }
 
         [Authorize]

@@ -17,10 +17,10 @@ using System.Threading.Tasks;
 using Uno.Expressions;
 
 namespace Medicine_Chest.Controllers
-{
+{    [Authorize(Roles="admin")]
     public class EczaneIslemleriController : Controller
     {
-
+    
         private PharmaciesManager _pharmaciesManager = new PharmaciesManager(new DATA.Concrete.PHARMACIESDAL());
         //public EczaneIslemleriController(PharmaciesManager pharmaciesManager)
         //{
@@ -39,31 +39,28 @@ namespace Medicine_Chest.Controllers
         /// <returns></returns>
         /// 
         [HttpPost]
-        public ActionResult FiltreleEczane(EczaneViewModel model)
+        public async Task<ActionResult> FiltreleEczane(EczaneViewModel model)
         {
             try
             {
 
-                var kullanicilar = (IEnumerable<PHARMACIES>)_pharmaciesManager.getAll();
+                var kullanicilar = (IEnumerable<PHARMACIES>)(await _pharmaciesManager.getAll());
 
 
 
-                if (!string.IsNullOrEmpty(model.NameSorgu))
+                if (!string.IsNullOrEmpty(model.EczaneAdiSorgu))
                 {
-                    kullanicilar = kullanicilar.Where(eczane => eczane.Name == model.NameSorgu);
+                    kullanicilar = kullanicilar.Where(eczane => eczane.EczaneAdi == model.EczaneAdiSorgu);
                 }
-                if (!string.IsNullOrEmpty(model.AddressSorgu))
+                if (!string.IsNullOrEmpty(model.AdresiSorgu))
                 {
-                    kullanicilar = kullanicilar.Where(eczane => eczane.Address == model.AddressSorgu);
+                    kullanicilar = kullanicilar.Where(eczane => eczane.Adresi == model.AdresiSorgu);
                 }
-                if (!string.IsNullOrEmpty(model.PhoneNumberSorgu))
+                if (!string.IsNullOrEmpty(model.TelefonSorgu))
                 {
-                    kullanicilar = kullanicilar.Where(eczane => eczane.PhoneNumber == model.PhoneNumberSorgu);
+                    kullanicilar = kullanicilar.Where(eczane => eczane.Telefon == model.TelefonSorgu);
                 }
-                if (model.IsOnDutySorgu != null)
-                {
-                    kullanicilar =kullanicilar.Where(eczane => eczane.IsOnDuty == model.IsOnDutySorgu);
-                }
+               
 
                 model.PharmaciesList = (IEnumerable<PHARMACIES>)kullanicilar;
                 return View("EczaneIslemleri", model);
@@ -118,12 +115,14 @@ namespace Medicine_Chest.Controllers
                         return PartialView("_EczaneIslemi", new PharmaciesIslemViewModel()
                         {
                             Id = eczane.ID,
-                            Address = eczane.Address,
-                            Name = eczane.Name,
-                            IsOnDuty = eczane.IsOnDuty,
-                           
+                            EczaneAdi = eczane.EczaneAdi,
+                            Adresi = eczane.Adresi,
+                            Semt = eczane.Semt,
+                            Telefon=eczane.Telefon,
+                            Sehir = eczane.Sehir,
+                            ilce = eczane.ilce,
                             //EmailConfirmed = eczane.EmailConfirmed,
-                            PhoneNumber = eczane.PhoneNumber,
+                          
                             //IsDelete = eczane.IsDelete,
                             //SelectedRoles = selectedRoles
                             IslemTuru = islemTuru,
@@ -165,11 +164,13 @@ namespace Medicine_Chest.Controllers
                 var eczane =(await _pharmaciesManager.getAll(x => x.ID == model.Id)).FirstOrDefault();
                 if (eczane != null)
                 {
-                    eczane.Name = model.Name;
-                    eczane.Address = model.Address;
-                    eczane.IsOnDuty = model.IsOnDuty??0;
-        
-                    eczane.PhoneNumber = model.PhoneNumber;
+
+                    eczane.EczaneAdi = model.EczaneAdi;
+                    eczane.Adresi = model.Adresi;
+                    eczane.Semt = model.Semt;
+                    eczane.Telefon = model.Telefon;
+                    eczane.Sehir = model.Sehir;
+                    eczane.ilce = model.ilce;
                     //eczane.IsDelete = model.IsDelete;
                     _pharmaciesManager.update(eczane);
                     //if (result.Succeeded)
@@ -187,12 +188,13 @@ namespace Medicine_Chest.Controllers
 
                 var eczane = new PHARMACIES
                 {  ID = System.Guid.NewGuid().ToString(),
-                Name = model.Name,
-                    Address = model.Address,
-                   
-                    PhoneNumber = model.PhoneNumber,
-                    IsOnDuty = 0,
-             
+
+                    EczaneAdi = model.EczaneAdi,
+                    Adresi = model.Adresi,
+                    Semt = model.Semt,
+                    Telefon = model.Telefon,
+                    Sehir = model.Sehir,
+                    ilce = model.ilce,
                 };
 
                 _pharmaciesManager.add(eczane);

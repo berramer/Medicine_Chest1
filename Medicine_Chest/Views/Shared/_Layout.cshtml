@@ -64,7 +64,7 @@
     var user = await UserManager.GetUserAsync(User);
     if (user.PharmaciesId != null)
     {
-        eczane = (await PharmaciesManager.getAll(x => x.ID == user.PharmaciesId)).FirstOrDefault().Name;
+        eczane = (await PharmaciesManager.getAll(x => x.ID == user.PharmaciesId)).FirstOrDefault().EczaneAdi;
     }
 }
 <!DOCTYPE html>
@@ -407,8 +407,8 @@ License: For each use you must have a valid license purchased only from above li
                         <!--begin::Mobile logo-->
                         <div class="d-flex align-items-center flex-grow-1 flex-lg-grow-0">
                             <div class="fw-bolder d-flex align-items-lg-start fs-5">
-                              @eczane
-                               
+                                @eczane
+
                             </div>
                         </div>
                         <!--end::Mobile logo-->
@@ -4011,7 +4011,7 @@ License: For each use you must have a valid license purchased only from above li
     <script src="~/assets/js/custom/widgets.js"></script>
     <script src="~/assets/js/custom/apps/chat/chat.js"></script>
     <script src="~/assets/plugins/custom/moneymask/moneymask.js"></script>
-    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    @*<script src="~/lib/jquery/dist/jquery.min.js"></script>*@
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
     <!--end::Page Custom Javascript-->
     <!--end::Javascript-->

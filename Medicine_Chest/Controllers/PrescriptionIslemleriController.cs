@@ -41,12 +41,12 @@ namespace Medicine_Chest.Controllers
         /// <returns></returns>
         /// 
         [HttpPost]
-        public ActionResult FiltrelePrescription(PrescriptionViewModel model)
+        public async Task<ActionResult> FiltrelePrescription(PrescriptionViewModel model)
         {
             try
             {
 
-                var kullanicilar = (IEnumerable<PRESCRIPTION>)_prescriptionManager.getAll();
+                var kullanicilar = (IEnumerable<PRESCRIPTION>)(await _prescriptionManager.getAll());
 
 
 

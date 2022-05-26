@@ -5,31 +5,26 @@ using System.Threading.Tasks;
 using System.ComponentModel.DataAnnotations;
 using Medicine_Chest.Identity;
 using ENTITIES;
-using ENTITIES.Dtos;
 
-namespace Medicine_Chest.Models.MedicineIslemleri
+namespace Medicine_Chest.Models.CargoIslemleri
 {
-    public class MedicineViewModel
+    public class CargoViewModel
     {
-        /// <summary>
-        /// Kullanıcı Listesindeki Toplam Kayıt Sayısını Getiren Metottur
-        /// </summary>
         public int ToplamKayitSayisi { get; set; }
 
         #region Sorgulama Alanları
 
 
-        [Required]
-        public string NameSorgu { get; set; }
+        public string OrderIdSorgu { get; set; }
 
 
-        [Required]
-        public DateTime? ExpireDateSorgu { get; set; }
+        public int? IsDeliveredSorgu { get; set; }
 
-        public decimal? BasisWeightSorgu { get; set; }
-        public string ProducerSorgu { get; set; }
-     
-        public IEnumerable<MedicineDto> MedicineList { get; set; }
+        public int ScoreSorgu { get; set; }
+
+        public DateTime? OrderDateCSorgu { get; set; }
+
+        public IEnumerable<CARGO> CargoList { get; set; }
         public bool SorgulandiMi { get; set; }
         /// <summary>
         /// Kaçıncı Sayfanın Grid üzerinde gösterileceği bilgisi
@@ -46,7 +41,7 @@ namespace Medicine_Chest.Models.MedicineIslemleri
         /// Kullanıcı Ana Sayfasında Gösterilecek Verilerin Ayarlandığı
         /// Model Yapıcı Metodudur.
         /// </summary>
-        public MedicineViewModel()
+        public CargoViewModel()
         {
             ToplamKayitSayisi = 0;
             SorgulandiMi = false;

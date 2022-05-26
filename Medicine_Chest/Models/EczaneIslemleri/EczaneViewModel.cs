@@ -16,20 +16,13 @@ namespace Medicine_Chest.Models
         public int ToplamKayitSayisi { get; set; }
 
         #region Sorgulama Alanları
-
-
-        [Required]
-        public string NameSorgu { get; set; }
-
-
-        [Required]
-        public string AddressSorgu { get; set; }
-
-        [Required]
-        [DataType(DataType.PhoneNumber)]
-        public string PhoneNumberSorgu { get; set; }
-        public int? IsOnDutySorgu { get; set; }
-        public IEnumerable<PHARMACIES> PharmaciesList { get; set; }
+      public string EczaneAdiSorgu {get;set;}
+      public string AdresiSorgu {get;set;}
+      public string SemtSorgu {get;set;}
+      public string YolTarifiSorgu {get;set;}
+      public string TelefonSorgu {get;set;}
+      public string SehirSorgu {get;set;}
+      public string ilceSorgu {get;set;}
         public bool SorgulandiMi { get; set; }
         /// <summary>
         /// Kaçıncı Sayfanın Grid üzerinde gösterileceği bilgisi
@@ -40,6 +33,7 @@ namespace Medicine_Chest.Models
         /// Silinmiş kayıtların getirilip getirilmeyeceği bilgisi
         /// </summary>
         public bool SilinmisKayitlarGelsin { get; set; }
+        public IEnumerable<PHARMACIES> PharmaciesList { get; internal set; }
         #endregion
 
         /// <summary>

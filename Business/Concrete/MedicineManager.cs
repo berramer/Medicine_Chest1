@@ -1,5 +1,6 @@
 ﻿using DATA.Concrete;
 using ENTITIES;
+using ENTITIES.Dtos;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -75,6 +76,11 @@ namespace Business.Concrete
             return await _medicineDal.getAll(filter);
 
 
+        }
+        public async Task<List<MedicineDto>> getList()
+        {
+            var value = await _medicineDal.GetListMedicine();
+            return value;
         }
     }
 }

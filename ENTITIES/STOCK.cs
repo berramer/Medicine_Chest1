@@ -8,11 +8,9 @@ using System.Threading.Tasks;
 
 namespace ENTITIES
 {
-    public class STOCK
+    public class STOCK:EntityBase
     {
-        [Key]
-        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
-        public string ID { get; set; }
+     
         public string MedicineID { get; set; }
         public string PharmID { get; set; }
         public int Stock { get; set; }

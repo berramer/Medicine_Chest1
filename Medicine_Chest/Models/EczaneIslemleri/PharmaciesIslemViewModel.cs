@@ -13,26 +13,18 @@ namespace Medicine_Chest.Models
     {
 
         public string Id { get; set; }
-        [Required]
-        public string Name { get; set; }
-
-
-
-
-        [Required]
-        public string Address { get; set; }
-
-        [Required]
-        [DataType(DataType.PhoneNumber)]
-        public string PhoneNumber { get; set; }
-
+        public string EczaneAdi {get;set;}
+        public string Adresi {get;set;}
+        public string Semt {get;set;}
+        public string YolTarifi {get;set;}
+        public string Telefon {get;set;}
+        public string Sehir {get;set;}
+        public string ilce {get;set;}
      
 
  
 
-       
-         public int? IsOnDuty { get; set; }
-        //public string Password { get; set; }
+   
 
 
         public string IslemTuru { get; set; }

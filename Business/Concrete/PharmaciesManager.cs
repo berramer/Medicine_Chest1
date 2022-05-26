@@ -25,27 +25,52 @@ namespace Business.Concrete
 
 
 
-        public void add(PHARMACIES pharmacies)
+
+        public async Task addAsync(PHARMACIES PHARMACIES)
         {
 
-            _pharmaciesDal.Add(pharmacies);
+            await _pharmaciesDal.AddAsync(PHARMACIES);
 
 
         }
-        public void update(PHARMACIES pharmacies)
+
+        public void add(PHARMACIES PHARMACIES)
         {
 
-            _pharmaciesDal.Update(pharmacies);
+            _pharmaciesDal.Add(PHARMACIES);
 
 
         }
-        public void delete(PHARMACIES pharmacies)
+        public async Task updateAsync(PHARMACIES PHARMACIES)
         {
 
-            _pharmaciesDal.Delete(pharmacies);
+            await _pharmaciesDal.UpdateAsync(PHARMACIES);
 
 
         }
+
+        public void update(PHARMACIES PHARMACIES)
+        {
+
+            _pharmaciesDal.Update(PHARMACIES);
+
+
+        }
+        public void delete(PHARMACIES PHARMACIES)
+        {
+
+            _pharmaciesDal.Delete(PHARMACIES);
+
+
+        }
+        public async Task deleteasync(PHARMACIES PHARMACIES)
+        {
+
+            await _pharmaciesDal.DeleteAsync(PHARMACIES);
+
+
+        }
+
 
 
         public async Task<List<PHARMACIES>> getAll(Expression<Func<PHARMACIES, bool>> filter = null)
