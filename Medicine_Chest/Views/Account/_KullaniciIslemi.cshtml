@@ -8,7 +8,7 @@
     // kaydı silebilmek için burada bu değişken tanımlandı
 
     //Layout = "~/Views/Shared/_Layout.cshtml";
-    ViewBag.Header = "Yeni Kayıt İşlemleri";
+    ViewBag.Header = "";
     var user = await UserManager.GetUserAsync(User);
 }
 
@@ -165,8 +165,9 @@
                                 <!--begin::Actions-->
                                 <div class="text-center">
                                     @*<button type="submit" class="btn btn-primary">Register</button>*@
+                                    <br></br>
                                     <button type="button" id="kt_sign_up_submit" class="btn btn-lg btn-primary">
-                                        <span class="indicator-label">kaydet</span>
+                                        <span class="indicator-label">Kaydet</span>
                                     </button>
                                 </div>
                                 <!--end::Actions-->

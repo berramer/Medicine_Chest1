@@ -49,7 +49,7 @@
                     <!--begin::Toolbar-->
                     <div class="d-flex justify-content-end" data-kt-role-table-toolbar="base">
                         <!--begin::Add product-->
-                        <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#kt_modal_add_role">
+                        <button type="button" class="btn btn-primary" style="margin-left: 830px" data-bs-toggle="modal" data-bs-target="#kt_modal_add_role">
                             <!--begin::Svg Icon | path: icons/duotone/Navigation/Plus.svg-->
                             <span class="svg-icon svg-icon-2">
                                 <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="24px" height="24px" viewBox="0 0 24 24" version="1.1">
@@ -84,7 +84,7 @@
                         </thead>
                         <!--end::Table head-->
                         <!--begin::Table body-->
-                        <tbody class="fw-bold text-gray-600">
+                        <tbody class="fw-bold text-gray-800">
                             @foreach (var role in Model)
                             {
                 <tr>
@@ -94,7 +94,7 @@
 
                     <td class="text-end">
                         <!--begin::Edit-->
-                        <a href="/Admin/RoleEdit/@role.Id" class="btn btn-icon btn-active-light-primary w-30px h-30px me-3">
+                        <a href="/Admin/RoleEdit/@role.Id" class="btn btn-icon btn-active-light-primary w-30px h-30px me-3" style="margin-left:700px">
                             <span data-bs-toggle="tooltip" data-bs-trigger="hover" title="Düzenle">
                                 <!--begin::Svg Icon | path: icons/duotone/Communication/Write.svg-->
                                 <span class="svg-icon svg-icon-3">
