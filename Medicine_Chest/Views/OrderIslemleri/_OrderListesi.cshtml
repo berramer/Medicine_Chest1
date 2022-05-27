@@ -153,7 +153,11 @@
                                         </td>*@
                                     <td class="text-end">
                                         <!--begin::Edit-->
-                                        <a href='#' onclick="KayitEkraniAc('@order.ID', 'Guncelleme')"> Detay </a>
+                                        <a href='@Url.Action("OrderDetail", "OrderIslemleri", new
+                    {
+                        id =  @order.ID
+                       
+                    })' > Detay </a>
 
                                         <!--end::Edit-->
                                     </td>

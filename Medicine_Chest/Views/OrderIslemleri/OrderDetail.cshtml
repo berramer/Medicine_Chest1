@@ -1,0 +1,196 @@
+﻿@using Medicine_Chest.Models.OrderIslemleri
+@model OrderDetailViewModel
+@{ ViewData["Title"] = "OrderEdit"; }
+
+
+<style>
+    .form-group {
+        margin-bottom: 1.75em;
+    }
+</style>
+begin::Toolbar-->
+<div class="toolbar" id="kt_toolbar">
+    <!--begin::Container-->
+    <div id="kt_toolbar_container" class="container-fluid d-flex flex-stack">
+        <!--begin::Page title-->
+        <div data-kt-place="true" data-kt-place-mode="prepend" data-kt-place-parent="{default: '#kt_content_container', 'lg': '#kt_toolbar_container'}" class="page-title d-flex align-items-center me-3 flex-wrap mb-5 mb-lg-0 lh-1">
+            <!--begin::Title-->
+            <h1 class="d-flex align-items-center text-dark fw-bolder my-1 fs-3">Siparişler</h1>
+            <!--end::Title-->
+            <!--begin::Separator-->
+            <span class="h-20px border-gray-200 border-start mx-4"></span>
+            <!--end::Separator-->
+            <!--begin::Breadcrumb-->
+            <ul class="breadcrumb breadcrumb-separatorless fw-bold fs-7 my-1">
+                <!--begin::Item-->
+                <li class="breadcrumb-item text-muted">
+                    <a href="/Admin/UserList" class="text-muted text-hover-primary">Kullanıcılar</a>
+                </li>
+                <!--end::Item-->
+                <!--begin::Item-->
+                <li class="breadcrumb-item">
+                    <span class="bullet bg-gray-200 w-5px h-2px"></span>
+                </li>
+                <!--end::Item-->
+                <!--begin::Item-->
+                <li class="breadcrumb-item text-dark">Siparişlerim</li>
+                <!--end::Item-->
+            </ul>
+            <!--end::Breadcrumb-->
+        </div>
+        <!--end::Page title-->
+
+    </div>
+    <!--end::Container-->
+</div>
+<!--end::Toolbar-->
+<!--begin::Post-->
+<div class="post d-flex flex-column-fluid" id="kt_post">
+    <!--begin::Container-->
+    <div class="container">
+        <!--begin::Card-->
+        <div class="card card-custom">
+            <div class="card-body p-0">
+                <div class="wizard wizard-1" id="kt_projects_add" data-wizard-state="step-first" data-wizard-clickable="true">
+                    <!--begin::Wizard Body-->
+                    <div class="row justify-content-center my-10 px-8 my-lg-15 px-lg-10">
+                        <div class="col-xl-12 col-xxl-7">
+                            <!--begin::Form Wizard-->
+                            <!--begin::Step 1-->
+                            <div class="pb-5" data-wizard-type="step-content" data-wizard-state="current">
+                                <h3 class="mb-10 font-weight-bold text-dark">Profil Bilgilerim:</h3>
+                                <div class="row">
+
+                                    <div class="col-xl-12">
+                                        <div class="form-group row fv-row">
+                                            <label class="col-xl-3 col-lg-3 col-form-label">Kullanıcı Adı</label>
+                                            <div class="col-lg-9 col-xl-9">
+                                                <input type="text" class="form-control form-control-lg form-control-solid" readonly asp-for="UserName" placeholder="" name="UserName" />
+                                            </div>
+                                        </div>
+                                        <div class="form-group row fv-row">
+                                            <label class="col-xl-3 col-lg-3 col-form-label">Soyad</label>
+                                            <div class="col-lg-9 col-xl-9">
+                                                <input type="text" class="form-control form-control-lg form-control-solid" readonly asp-for="UserSurname" placeholder="" name="UserSurname" />
+                                            </div>
+                                        </div>
+                                        <div class="form-group row fv-row">
+                                            <label class="col-xl-3 col-lg-3 col-form-label">Adres</label>
+                                            <div class="col-lg-9 col-xl-9">
+                                                <input type="text" class="form-control form-control-lg form-control-solid" readonly asp-for="Address" placeholder="" name="Address" />
+                                            </div>
+                                        </div>
+                                        <div class="form-group row fv-row">
+                                            <label class="col-xl-3 col-lg-3 col-form-label">Email</label>
+                                            <div class="col-lg-9 col-xl-9">
+                                                <input type="email" class="form-control form-control-lg form-control-solid" readonly asp-for="MailAddress" placeholder="" name="MailAddress" />
+                                            </div>
+                                        </div>
+                                        <div class="form-group row fv-row">
+                                            <label class="col-xl-3 col-lg-3 col-form-label">Telefon</label>
+                                            <div class="col-lg-9 col-xl-9">
+                                                <input type="text" class="form-control form-control-lg form-control-solid PhoneMask" readonly asp-for="Phonenumber" placeholder="" name="Phonenumber" />
+                                            </div>
+                                        </div>
+
+                                        <div class="form-group row fv-row">
+                                            <label class="col-xl-3 col-lg-3 col-form-label">Ücret</label>
+                                            <div class="col-lg-9 col-xl-9">
+                                                <input type="text" class="form-control form-control-lg form-control-solid PhoneMask" readonly asp-for="Price" placeholder="" name="Price" />
+                                            </div>
+                                        </div>
+
+
+                                    </div>
+
+                                </div>
+                            </div>
+                            <!--end::Step 1-->
+                            <!--begin::Actions-->
+                            <!--end::Actions-->
+                            <!--end::Form Wizard-->
+                        </div>
+                    </div>
+                    <!--end::Wizard Body-->
+                </div>
+            </div>
+        </div>
+        <!--end::Card-->
+    </div>
+    <!--end::Container-->
+</div>
+
+<div class="card-body pt-0">
+    <form id="UserListForm">
+        <!--begin::Table-->
+        <table class="table align-middle table-row-dashed fs-6 gy-5" id="kt_medicine_table">
+            <!--begin::Table head-->
+            <thead>
+                <!--begin::Table row-->
+                <tr class="text-start text-gray-400 fw-bolder fs-7 text-uppercase gs-0">
+                    <th class="w-10px pe-2">
+                        <div class="form-check form-check-sm form-check-custom form-check-solid me-3">
+                            <input class="form-check-input" type="checkbox" data-kt-check="true" data-kt-check-target="#kt_medicine_table .form-check-input" value="1" />
+                        </div>
+                    </th>
+                    <th class="min-w-125px">İlaç Adı</th>
+                    <th class="min-w-125px">Son Kullanma Tarihi</th>
+                    <th class="min-w-125px">Gramaj</th>
+                    <th class="min-w-125px">Uretici</th>
+                    <th class="min-w-125px">Ucret</th>
+                    <th class="min-w-125px">Stok Durumu</th>
+
+                    <th class="text-end"></th>
+                    <th></th>
+                </tr>
+                <!--end::Table row-->
+            </thead>
+            <!--end::Table head-->
+            <!--begin::Table body-->
+            <tbody class="fw-bold text-gray-600">
+                @foreach (var medicine in Model.medicineList)
+                {
+                    <tr>
+                        <td>
+                            <div class="form-check form-check-sm form-check-custom form-check-solid">
+                                <input class="form-check-input" type="checkbox" value="@medicine.ID" name="DeleteUsers" />
+                            </div>
+                        </td>
+
+
+                        <td>
+                            @medicine.Name
+                        </td>
+                        <td>
+                            @medicine.ExpireDate
+                        </td>
+                        <td>
+                            @medicine.BasisWeight
+                        </td>
+                        <td>
+                            @medicine.Producer
+                        </td>
+                        <td>
+                            @medicine.Price
+                        </td>
+                        
+
+                     
+                    </tr>
+                }
+
+            </tbody>
+            <!--end::Table body-->
+        </table>
+        <!--end::Table-->
+    </form>
+</div>
+<!--end::Post
+@section Scripts
+{
+@*    <script src="~/assets/js/custom/apps/user-management/users/edit/edit.js"></script>*@
+
+
+        }
+
+      -->

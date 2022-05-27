@@ -21,6 +21,7 @@ namespace Medicine_Chest.Controllers
     public class OrderIslemleriController : Controller
     {
         private OrderManager _orderManager = new OrderManager(new DATA.Concrete.ORDERDAL());
+        private MedicineManager _medicineManager = new MedicineManager(new DATA.Concrete.MEDICINEDAL());
         [HttpPost]
         public async Task<ActionResult> FiltreleOrder(OrderViewModel model)
         {
@@ -88,6 +89,51 @@ namespace Medicine_Chest.Controllers
             model.OrderList = (IEnumerable<ORDER>)(await _orderManager.getAll());
             return View(model);
         }
+
+        public async Task<IActionResult> OrderDetail(string id)
+        {
+            //// AJAX metodlarında IIS adresi bize lazım olacağından
+            //// burada ilk değer atamasında bulunuyoruz
+            //Session["IISAdresi"] = System.Configuration.ConfigurationManager.AppSettings["IISAdresi"];
+
+
+            var order = (await _orderManager.getAll(x => x.ID == id)).FirstOrDefault();
+           
+                var medicine = order.MedicineID.Split(',');
+                var medicineList1 = new List<MEDICINE>();
+
+                foreach (var a in medicine)
+                {
+                    if (!string.IsNullOrEmpty(a))
+                    {
+                        var medicine2 = (await _medicineManager.getAll(x => x.ID == a)).FirstOrDefault();
+                    if(medicine2!=null)
+                        medicineList1.Add(medicine2);
+                    }
+                }
+
+                var detailViewModel = new OrderDetailViewModel()
+                {
+                    UserID = order.UserID,
+                    UserName = order.UserName,
+                    UserSurname = order.UserSurname,
+                    Address = order.Adress,
+                    Phonenumber = order.Phonenumber,
+                    MailAddress = order.MailAddress,
+                    medicineList = medicineList1,
+                    Price = order.Price
+                };
+             
+     
+            return View(detailViewModel);
+        }
+
+
+
+
+  
+   
+
 
         public IActionResult OrderListesi()
         {
