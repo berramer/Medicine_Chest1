@@ -53,6 +53,16 @@ namespace WebApi.Controllers
             return Ok(user);
         }
 
+        [HttpGet]
+        [Route("{id}")]
+        public async Task<IActionResult> getByUsername(string id)
+        {
+            var result = await _userManager.FindByNameAsync(id);
+
+            
+
+            return Ok(result);
+        }
         [HttpPost]
         public async Task<IActionResult> login(LoginModel model)
         {
@@ -73,10 +83,30 @@ namespace WebApi.Controllers
         }
 
         [HttpPut]
-        public async Task<IActionResult> Update(User user)
+        public async Task<IActionResult> Update(User model)
         {
-            await _userManager.UpdateAsync(user);
-            return Ok();
+            try
+            {
+                var user = await _userManager.FindByIdAsync(model.Id);
+                if (user != null)
+                {
+                    user.Name = model.Name;
+                    user.Surname = model.Surname;
+                    user.UserName = model.UserName;
+                    user.Email = model.Email;
+                    user.Address=model.Address;
+     
+                    user.PhoneNumber = model.PhoneNumber;
+                 
+                    //user.IsDelete = model.IsDelete;
+                    var result = await _userManager.UpdateAsync(user);
+                }
+            }
+            catch (Exception ex)
+            {
+                var a = 5;
+            }
+            return Ok(model);
         }
 
         [HttpDelete("{id}")]

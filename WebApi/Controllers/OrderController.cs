@@ -27,7 +27,15 @@ namespace WebApi.Controllers
         {
             return Ok(await _orderManager.getAll());
         }
+        [HttpGet]
+        [Route("{id}")]
+        public async Task<IActionResult> GetbyId(string id)
 
+        {
+            List<BUCKET> a = await _orderManager.getAll(x => x.UserId == id);
+
+            return Ok(a);
+        }
         [HttpPost]
         public async Task<IActionResult> Create(ORDER order)
         {

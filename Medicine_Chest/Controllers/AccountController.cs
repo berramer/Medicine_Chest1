@@ -236,6 +236,7 @@ namespace Medicine_Chest.Controllers
                     user.Surname = model.Surname;
                     user.UserName = model.UserName;
                     user.Email = model.Email;
+                    user.Address = model.Address;
                     //user.EmailConfirmed = model.EmailConfirmed;
                     user.PhoneNumber = model.PhoneNumber;
                     user.PharmaciesId = model.PharmaciesId;
