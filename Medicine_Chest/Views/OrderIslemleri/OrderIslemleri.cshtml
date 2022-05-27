@@ -6,7 +6,7 @@
 
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
-
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 @section Scripts{
     <script>
         // grid üzerinde herhangi bir kaydın silinmesi için tıklandığında
@@ -55,8 +55,8 @@
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLabel">Filtrele</h5>
-              <!--  <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <!--   <h5 class="modal-title" id="exampleModalLabel">Filtrele</h5>
+               <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button> -->
             </div>
@@ -108,18 +108,8 @@
                                         <label class="form-label fw-bolder text-dark fs-6">Telefon Numarası</label>
                                         <input class="form-control form-control-lg form-control-solid PhoneMask" type="text" placeholder="" name="PhonenumberSorgu" asp-for="PhonenumberSorgu" autocomplete="off" />
                                     </div>
-                                    <div class="fv-row mb-7">
-                                        <label class="form-label fw-bolder text-dark fs-6">Mail Adresi</label>
-                                        <input class="form-control form-control-lg form-control-solid PhoneMask" type="text" placeholder="" name="MailAddressSorgu" asp-for="MailAddressSorgu" autocomplete="off" />
-                                    </div>
-                                    <div class="fv-row mb-7">
-                                        <label class="form-label fw-bolder text-dark fs-6">Eczane ID</label>
-                                        <input class="form-control form-control-lg form-control-solid PhoneMask" type="text" placeholder="" name="PharmaciesIDSorgu" asp-for="PharmaciesIDSorgu" autocomplete="off" />
-                                    </div>
-                                    <div class="fv-row mb-7">
-                                        <label class="form-label fw-bolder text-dark fs-6">İlaç ID</label>
-                                        <input class="form-control form-control-lg form-control-solid PhoneMask" type="text" placeholder="" name="MedicineIDSorgu" asp-for="MedicineIDSorgu" autocomplete="off" />
-                                    </div>
+                                   
+                          
                                      <div class="fv-row mb-7">
                                         <label class="form-label fw-bolder text-dark fs-6">Ücret</label>
                                         <input class="form-control form-control-lg form-control-solid PhoneMask" type="text" placeholder="" name="PriceSorgu" asp-for="PriceSorgu" autocomplete="off" />

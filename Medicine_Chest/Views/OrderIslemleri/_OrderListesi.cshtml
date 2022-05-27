@@ -98,17 +98,14 @@
                                         <input class="form-check-input" type="checkbox" data-kt-check="true" data-kt-check-target="#kt_order_table .form-check-input" value="1" />
                                     </div>
                                 </th>
-                                <th class="min-w-125px">Kullanıcı ID</th>
+                               
                                 <th class="min-w-125px">Ad</th>
                                
                                 <th class="min-w-125px">Soyad</th>
                                  <th class="min-w-125px">Adres</th>
 
                                   <th class="min-w-125px">Telefon Numarası</th>
-                                <th class="min-w-125px"> Mail Adresi</th>
                                
-                                <th class="min-w-125px">Eczane ID</th>
-                                 <th class="min-w-125px">Ilaç ID</th>
                                  <th class="min-w-125px">Ucret</th>
                                
                                 <th class="text-end"></th>
@@ -129,9 +126,7 @@
                                     </td>
                                  
 
-                                    <td>
-                                        @order.UserID
-                                    </td>
+                            
                                     <td>
                                         @order.UserName
                                     </td>
@@ -142,18 +137,10 @@
                                         @order.Adress
                                     </td>
                                      <td>
-                                        @order.Phonenumber
+           
+                                      <a href="https://wa.me/@order.Phonenumber"><i class="fa fa-whatsapp" style="font-size:18px;color:green"></i> </a>  @order.Phonenumber
                                     </td>
-                                     <td>
-                                        @order.MailAddress
-                                    </td>
-                                     <td>
-                                        @order.PharmaciesID
-                                    </td>
-
-                                     <td>
-                                        @order.MedicineID
-                                    </td>
+                                    
                                      <td>
                                         @order.Price
                                     </td>
@@ -166,25 +153,13 @@
                                         </td>*@
                                     <td class="text-end">
                                         <!--begin::Edit-->
-                                        <a href='#' onclick="KayitEkraniAc('@order.ID', 'Guncelleme')"> Düzenle </a>
+                                        <a href='#' onclick="KayitEkraniAc('@order.ID', 'Guncelleme')"> Detay </a>
 
                                         <!--end::Edit-->
                                     </td>
                                     <td>
                                         <!--begin::Delete-->
-                                        <a href="#" class="btn btn-icon btn-active-light-primary w-30px h-30px me-3" data-bs-toggle="tooltip" title="Sil" data-kt-manager-method="delete" onclick="Sil('@order.ID');">
-                                            <!--begin::Svg Icon | path: icons/duotone/General/Trash.svg-->
-                                            <span class="svg-icon svg-icon-3 mt-n1">
-                                                <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="24px" height="24px" viewBox="0 0 24 24" version="1.1">
-                                                    <g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
-                                                        <rect x="0" y="0" width="24" height="24" />
-                                                        <path d="M6,8 L6,20.5 C6,21.3284271 6.67157288,22 7.5,22 L16.5,22 C17.3284271,22 18,21.3284271 18,20.5 L18,8 L6,8 Z" fill="#000000" fill-rule="nonzero" />
-                                                        <path d="M14,4.5 L14,4 C14,3.44771525 13.5522847,3 13,3 L11,3 C10.4477153,3 10,3.44771525 10,4 L10,4.5 L5.5,4.5 C5.22385763,4.5 5,4.72385763 5,5 L5,5.5 C5,5.77614237 5.22385763,6 5.5,6 L18.5,6 C18.7761424,6 19,5.77614237 19,5.5 L19,5 C19,4.72385763 18.7761424,4.5 18.5,4.5 L14,4.5 Z" fill="#000000" opacity="0.3" />
-                                                    </g>
-                                                </svg>
-                                            </span>
-                                            <!--end::Svg Icon-->
-                                        </a>
+                                      
                                         <!--end::Delete-->
                                     </td>
                                 </tr>
