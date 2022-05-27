@@ -7,7 +7,7 @@
     //// kaydı silebilmek için burada bu değişken tanımlandı
 
     //Layout = "~/Views/Shared/_Layout.cshtml";
-    ViewBag.Header = "Yeni Kayıt İşlemleri";
+    ViewBag.Header = "";
 }
 
 
@@ -124,7 +124,7 @@
                                 <div class="row fv-row mb-7">
                                     <!--begin::Col-->
                                     <div class="col-xl-6">
-                                        <label class="form-label fw-bolder text-dark fs-6">Prescription Code</label>
+                                        <label class="form-label fw-bolder text-dark fs-6">Reçete Kodu</label>
                                         <input class="form-control form-control-lg form-control-solid" type="text" placeholder="" name="PrescriptionCode" asp-for="PrescriptionCode" autocomplete="off" />
                                     </div>
                                     <!--end::Col-->
@@ -133,21 +133,21 @@
                                 <!--end::Input group-->
                                 <!--begin::Input group-->
                                 <div class="fv-row mb-7">
-                                    <label class="form-label fw-bolder text-dark fs-6">User ID</label>
+                                    <label class="form-label fw-bolder text-dark fs-6">Kullanıcı ID</label>
                                     <input class="form-control form-control-lg form-control-solid" type="text" placeholder="" name="ExpireDate" asp-for="UserID" autocomplete="off" />
                                     <span asp-validation-for="UserID" class="text-danger"></span>
                                 </div>
                                 <!--end::Input group-->
                                 <!--begin::Input group-->
                                 <div class="fv-row mb-7">
-                                    <label class="form-label fw-bolder text-dark fs-6">Validity Date</label>
+                                    <label class="form-label fw-bolder text-dark fs-6">Geçerlilik Tarihi</label>
                                     <input class="form-control form-control-lg form-control-solid PhoneMask" type="text" placeholder="" name="ValidityDate" asp-for="ValidityDate" autocomplete="off" />
                                 </div>
                                 <!--end::Input group-->
                                 <!--begin::Input group-->
                                 <!--end::Input group-->
                                  <div class="fv-row mb-7">
-                                    <label class="form-label fw-bolder text-dark fs-6">Medicine ID</label>
+                                    <label class="form-label fw-bolder text-dark fs-6">İlaç ID</label>
                                     <input class="form-control form-control-lg form-control-solid PhoneMask" type="text" placeholder="" name="MedicineID" asp-for="MedicineID" autocomplete="off" />
                                 </div>
 
@@ -161,7 +161,7 @@
                                 </div>
                                 <!--begin::Actions-->
                                 <div class="text-center">
-                                    <button type="submit" class="btn btn-primary">Register</button>
+                                    <button type="submit" class="btn btn-primary">Ekle</button>
                                     @*<button type="submit" id="kt_sign_up_submit" class="btn btn-lg btn-primary">
                                         <span class="indicator-label">kaydet</span>
                                     </button>*@
