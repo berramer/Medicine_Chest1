@@ -8,14 +8,14 @@
         margin-bottom: 1.75em;
     }
 </style>
-begin::Toolbar-->
+
 <div class="toolbar" id="kt_toolbar">
     <!--begin::Container-->
     <div id="kt_toolbar_container" class="container-fluid d-flex flex-stack">
         <!--begin::Page title-->
         <div data-kt-place="true" data-kt-place-mode="prepend" data-kt-place-parent="{default: '#kt_content_container', 'lg': '#kt_toolbar_container'}" class="page-title d-flex align-items-center me-3 flex-wrap mb-5 mb-lg-0 lh-1">
             <!--begin::Title-->
-            <h1 class="d-flex align-items-center text-dark fw-bolder my-1 fs-3">Siparişler</h1>
+            <h1 class="d-flex align-items-center text-dark fw-bolder my-1 fs-3">Sipariş</h1>
             <!--end::Title-->
             <!--begin::Separator-->
             <span class="h-20px border-gray-200 border-start mx-4"></span>
@@ -24,7 +24,7 @@ begin::Toolbar-->
             <ul class="breadcrumb breadcrumb-separatorless fw-bold fs-7 my-1">
                 <!--begin::Item-->
                 <li class="breadcrumb-item text-muted">
-                    <a href="/Admin/UserList" class="text-muted text-hover-primary">Kullanıcılar</a>
+                    <a href="/Admin/UserList" class="text-muted text-hover-primary">Anasayfa</a>
                 </li>
                 <!--end::Item-->
                 <!--begin::Item-->
@@ -33,7 +33,7 @@ begin::Toolbar-->
                 </li>
                 <!--end::Item-->
                 <!--begin::Item-->
-                <li class="breadcrumb-item text-dark">Siparişlerim</li>
+                <li class="breadcrumb-item text-dark">Sipariş Detay</li>
                 <!--end::Item-->
             </ul>
             <!--end::Breadcrumb-->
@@ -58,7 +58,7 @@ begin::Toolbar-->
                             <!--begin::Form Wizard-->
                             <!--begin::Step 1-->
                             <div class="pb-5" data-wizard-type="step-content" data-wizard-state="current">
-                                <h3 class="mb-10 font-weight-bold text-dark">Profil Bilgilerim:</h3>
+                                <h3 class="mb-10 font-weight-bold text-dark">Sipariş Bilgileri:</h3>
                                 <div class="row">
 
                                     <div class="col-xl-12">
@@ -69,7 +69,7 @@ begin::Toolbar-->
                                             </div>
                                         </div>
                                         <div class="form-group row fv-row">
-                                            <label class="col-xl-3 col-lg-3 col-form-label">Soyad</label>
+                                            <label class="col-xl-3 col-lg-3 col-form-label">Ad Soyad</label>
                                             <div class="col-lg-9 col-xl-9">
                                                 <input type="text" class="form-control form-control-lg form-control-solid" readonly asp-for="UserSurname" placeholder="" name="UserSurname" />
                                             </div>
@@ -119,7 +119,12 @@ begin::Toolbar-->
     </div>
     <!--end::Container-->
 </div>
+<div> 
+<br></br>
 
+</div>
+
+<div class="card card-custom">
 <div class="card-body pt-0">
     <form id="UserListForm">
         <!--begin::Table-->
@@ -129,9 +134,9 @@ begin::Toolbar-->
                 <!--begin::Table row-->
                 <tr class="text-start text-gray-400 fw-bolder fs-7 text-uppercase gs-0">
                     <th class="w-10px pe-2">
-                        <div class="form-check form-check-sm form-check-custom form-check-solid me-3">
+                       <!-- <div class="form-check form-check-sm form-check-custom form-check-solid me-3">
                             <input class="form-check-input" type="checkbox" data-kt-check="true" data-kt-check-target="#kt_medicine_table .form-check-input" value="1" />
-                        </div>
+                        </div>-->
                     </th>
                     <th class="min-w-125px">İlaç Adı</th>
                     <th class="min-w-125px">Son Kullanma Tarihi</th>
@@ -151,11 +156,8 @@ begin::Toolbar-->
                 @foreach (var medicine in Model.medicineList)
                 {
                     <tr>
-                        <td>
-                            <div class="form-check form-check-sm form-check-custom form-check-solid">
-                                <input class="form-check-input" type="checkbox" value="@medicine.ID" name="DeleteUsers" />
-                            </div>
-                        </td>
+                        <td></td>
+                     
 
 
                         <td>
@@ -184,7 +186,7 @@ begin::Toolbar-->
         </table>
         <!--end::Table-->
     </form>
-</div>
+</div>  </div>
 <!--end::Post
 @section Scripts
 {
