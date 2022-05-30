@@ -2,6 +2,36 @@
     ViewData["Title"] = "Home Page";
 }
 
+
+    <script>
+window.onload = function () {
+ 
+var chart = new CanvasJS.Chart("chartContainer", {
+	animationEnabled: true ,
+	title: {
+		text: "İlaç Kutusu ile Kazanılan Miktar"
+	},
+	axisX: {
+		valueFormatString: "MMM"
+	},
+	axisY: {
+		title: "Satış",
+		prefix: "₺"
+	},
+	data: [{
+		type: "spline",
+		xValueType: "dateTime",
+		xValueFormatString: "MMM",
+		yValueFormatString: "$#,###",					
+		dataPoints: @Html.Raw(ViewBag.DataPoints)
+	}]
+});
+chart.render();
+ 
+}
+</script>
+
+
 <!--begin::Toolbar-->
 <div class="toolbar" id="kt_toolbar">
     <!--begin::Container-->
@@ -32,14 +62,21 @@
     <!--begin::Container-->
     <div id="kt_content_container" class="container">
         <!--begin::Row-->
+        @if (!User.IsInRole("admin")) { 
         <div class="row gy-5 g-xl-8">
             <!--begin::Col-->
             <div class="col-xxl-12">
-                <img alt="Logo" src="/assets/media/logos/anamsayfamlogom.png" style="height:70vh!important;">
+                <div id="chartContainer" style="height: 370px; width: 100%;"></div>
+                    <script src="https://canvasjs.com/assets/script/canvasjs.min.js"></script>	
             </div>
             <!--end::Col-->
-
-        </div>
+          
+        </div>  }
+          <div class="row gy-5 g-xl-8">
+               <div class="col-xxl-12">
+                <img alt="Logo" src="/assets/media/logos/anamsayfamlogom.png" style="height:70vh!important;">
+            </div>
+              </div>
         <!--end::Row-->
         <!--end::Container-->
     </div>

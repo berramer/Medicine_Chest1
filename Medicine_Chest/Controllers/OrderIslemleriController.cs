@@ -10,6 +10,7 @@ using Medicine_Chest.Models.OrderIslemleri;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Rendering;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -37,8 +38,16 @@ namespace Medicine_Chest.Controllers
         {
             try
             {
+                IEnumerable<ORDER> kullanicilar = null;
                 user = await _userManager.GetUserAsync(User);
-                var kullanicilar = (IEnumerable<ORDER>)(await _orderManager.getAll(x=>x.PharmaciesID==user.PharmaciesId));
+                if (User.IsInRole("kargocu"))
+                {
+                   kullanicilar = (IEnumerable<ORDER>)(await _orderManager.getAll(x => x.PharmaciesID == user.PharmaciesId && x.CargoId == user.Id));
+                }
+                else if (!string.IsNullOrEmpty(user.PharmaciesId))
+                {
+                  kullanicilar = (IEnumerable<ORDER>)(await _orderManager.getAll(x => x.PharmaciesID == user.PharmaciesId));
+                }
 
 
 
@@ -97,7 +106,10 @@ namespace Medicine_Chest.Controllers
 
             var model = new OrderViewModel();
             user= await _userManager.GetUserAsync(User);
-            if (!string.IsNullOrEmpty(user.PharmaciesId))
+            if (User.IsInRole("kargocu"))
+            {
+                model.OrderList = (IEnumerable<ORDER>)(await _orderManager.getAll(x => x.PharmaciesID == user.PharmaciesId&& x.CargoId==user.Id));
+            }else if (!string.IsNullOrEmpty(user.PharmaciesId))
             {
                 model.OrderList = (IEnumerable<ORDER>)(await _orderManager.getAll(x => x.PharmaciesID == user.PharmaciesId));
             }
@@ -111,6 +123,14 @@ namespace Medicine_Chest.Controllers
             //Session["IISAdresi"] = System.Configuration.ConfigurationManager.AppSettings["IISAdresi"];
 
             user = await _userManager.GetUserAsync(User);
+            var kargolist = (await _userManager.GetUsersInRoleAsync("kargocu")).Where(x=>x.PharmaciesId==user.PharmaciesId)
+                        .Select(a => new SelectListItem()
+                        {
+                            Value = a.Id,
+                            Text = a.Name
+                        })
+                        .ToList();
+
             var order = (await _orderManager.getAll(x => x.ID == id)).FirstOrDefault();
            
                 var medicine = order.MedicineID.Split(',');
@@ -145,6 +165,7 @@ namespace Medicine_Chest.Controllers
 
             var detailViewModel = new OrderDetailViewModel()
             {
+                Id=order.ID,
                 UserID = order.UserID,
                 UserName = order.UserName,
                 UserSurname = order.UserSurname,
@@ -154,8 +175,9 @@ namespace Medicine_Chest.Controllers
                 medicineList = medicineList1,
                 ItemList = itemList,
                 stockList= stockList,
-                    Price = order.Price
-                };
+                Price = order.Price,
+                KargoList= kargolist
+            };
              
      
             return View(detailViewModel);
@@ -164,8 +186,57 @@ namespace Medicine_Chest.Controllers
 
 
 
-  
-   
+
+        [HttpPost]
+        public async Task<JsonResult> KabulEt(string id,string kargoId)
+        {
+            user = await _userManager.GetUserAsync(User);
+            var order = (await _orderManager.getAll(x => x.ID == id)).FirstOrDefault();
+
+            var medicine = order.MedicineID.Split(',');
+            var items = order.ItemList.Split(',');
+
+       
+            for (int i = 0; i < medicine.Length; i++)
+            {
+                if (!string.IsNullOrEmpty(medicine[i]))
+                {
+                        var stock = (await _stockManager.getAll(x => x.MedicineID == medicine[i] && x.PharmID == user.PharmaciesId)).FirstOrDefault();
+                    if (stock != null)
+                    {
+                        if (stock.Stock >= int.Parse(items[i]))
+                        {
+                            stock.Stock -= int.Parse(items[i]);
+                            _stockManager.update(stock);
+                        }
+                    }
+                    
+                    }
+                }
+
+            order.IsAccepted = 1;
+            order.CargoId = kargoId;
+            _orderManager.update(order);
+               return Json("Başarılı"); 
+        }
+
+
+
+
+
+        [HttpPost]
+        public async Task<JsonResult> RedEt(string id)
+        {
+           
+            var order = (await _orderManager.getAll(x => x.ID == id)).FirstOrDefault();
+
+          
+            order.IsAccepted = 2;
+            _orderManager.update(order);
+            return Json("Başarılı");
+        }
+
+
 
 
         public IActionResult OrderListesi()

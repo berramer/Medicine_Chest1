@@ -1,5 +1,7 @@
 ﻿using ENTITIES;
 using ENTITIES.Dtos;
+using Medicine_Chest.Identity;
+using Microsoft.AspNetCore.Mvc.Rendering;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -19,8 +21,12 @@ namespace Medicine_Chest.Models.OrderIslemleri
         public string EczaneAdi { get; set; }
         public string EczaneNo { get; set; }
         public string EczaneAdres { get; set; }
+        public string KargoId { get; set; }
+        public string OrderDate { get; set; }
+        public int IsAccepted { get; set; }
 
-
+        public int IsDeliveredKargo { get; set; }
+        public List<SelectListItem> KargoList { get; set; }
         public decimal? Price { get; set; }
         public List<MEDICINE> medicineList { get; set; }
         public List<string> ItemList { get; set; }

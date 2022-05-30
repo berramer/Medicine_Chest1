@@ -55,18 +55,22 @@ namespace WebApi.Controllers
 
                 var detailViewModel = new OrderDetailViewModel()
                 {
-                    Id=order.ID,
+                    Id = order.ID,
                     UserID = order.UserID,
                     UserName = order.UserName,
                     UserSurname = order.UserSurname,
                     Address = order.Adress,
                     Phonenumber = order.Phonenumber,
                     MailAddress = order.MailAddress,
-                    EczaneAdi=pharm.EczaneAdi,
-                    EczaneAdres=pharm.Adresi,
-                    EczaneNo=pharm.Telefon,
+                    EczaneAdi = pharm.EczaneAdi,
+                    EczaneAdres = pharm.Adresi,
+                    EczaneNo = pharm.Telefon,
                     medicineList = medicineList1,
-                    Price = order.Price
+                    Price = order.Price,
+                    IsAccepted = order.IsAccepted,
+                    IsDeliveredKargo = order.IsDeliveredKargo,
+                    OrderDate = order.OrderDate.ToString()
+                    
                 };
                 result.Add(detailViewModel);
             }
@@ -92,6 +96,8 @@ namespace WebApi.Controllers
             order.UserSurname =user.Name+" "+ user.Surname;
             order.OrderDate = System.DateTime.Now;
             order.Adress = user.Address;
+            order.IsAccepted = 0;
+            order.IsDeliveredKargo = 0;
             var bucketList = await _bucketManager.getAll(x => x.UserId == order.UserName);
             foreach(BUCKET a in bucketList)
             {

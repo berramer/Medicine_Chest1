@@ -62,7 +62,7 @@
                                     <div class="row">
                                         <input type="hidden" name="RoleId" value="@Model.Role.Id" />
                                         <input type="hidden" name="RoleName" value="@Model.Role.Name" />
-                                        <h6 class="bg-info text-white p-1">Ekle @Model.Role.Name</h6>
+                                        <h6 class="bg-info text-white p-1"> @Model.Role.Name Ekle</h6>
                                         <table class="table align-middle table-row-dashed fs-6 gy-5">
                                             @if (Model.NonMembers.Count() == 0)
                                             {
@@ -80,8 +80,8 @@
                     </td>
                 </tr>}}
                                         </table>
-                                        <div class="separator mb-15 mt-5"></div>
-                                        <h6 class="bg-info text-white p-1">Sil @Model.Role.Name</h6>
+                                        <div class="separator mb-15 mt-5" style="color: dimgray"></div>
+                                        <h6 class="bg-info text-white p-1">@Model.Role.Name Sil</h6>
                                         <table class="table table-bordered table-sm">
                                             @if (Model.Members.Count() == 0)
                                             {

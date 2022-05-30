@@ -27,7 +27,7 @@ namespace DATA.Concrete
                                   BasisWeight =medicine.BasisWeight,
                                   Price =medicine.Price,
                                   Producer =medicine.Producer,
-
+                                  Photo=medicine.Photo,
                                   MedicineID =medicine.ID,
                                    PharmID =stock.PharmID,
                                    Stock =stock.Stock
