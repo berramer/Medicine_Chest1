@@ -1,6 +1,7 @@
 ﻿using Business.Concrete;
 using ENTITIES;
 using Medicine_Chest.Identity;
+using Medicine_Chest.Models.OrderIslemleri;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using System;
@@ -17,6 +18,8 @@ namespace WebApi.Controllers
         private OrderManager _orderManager = new OrderManager(new DATA.Concrete.ORDERDAL());
         private UserManager<User> _userManager;
         private BucketManager _bucketManager = new BucketManager(new DATA.Concrete.BUCKETDAL());
+        private MedicineManager _medicineManager = new MedicineManager(new DATA.Concrete.MEDICINEDAL());
+        private PharmaciesManager _pharmaciesManager = new PharmaciesManager(new DATA.Concrete.PHARMACIESDAL());
         public OrderController(UserManager<User> userManager)
         {
             _userManager = userManager;
@@ -28,14 +31,55 @@ namespace WebApi.Controllers
             return Ok(await _orderManager.getAll());
         }
         [HttpGet]
-        [Route("{id}")]
-        public async Task<IActionResult> GetbyId(string id)
+        [Route("{username}")]
+        public async Task<IActionResult> getByUsername(string username)
 
         {
-            List<BUCKET> a = await _orderManager.getAll(x => x.UserId == id);
+                var orderList = (await _orderManager.getAll(x => x.UserName == username));
+            List<OrderDetailViewModel> result = new List<OrderDetailViewModel>();
 
-            return Ok(a);
-        }
+            foreach (ORDER order in orderList)
+            {
+                var medicine = order.MedicineID.Split(',');
+                var medicineList1 = new List<MEDICINE>();
+                var pharm = (await _pharmaciesManager.getAll(x => x.ID == order.PharmaciesID)).FirstOrDefault();
+                foreach (var a in medicine)
+                {
+                    if (!string.IsNullOrEmpty(a))
+                    {
+                        var medicine2 = (await _medicineManager.getAll(x => x.ID == a)).FirstOrDefault();
+                        if (medicine2 != null)
+                            medicineList1.Add(medicine2);
+                    }
+                }
+
+                var detailViewModel = new OrderDetailViewModel()
+                {
+                    Id=order.ID,
+                    UserID = order.UserID,
+                    UserName = order.UserName,
+                    UserSurname = order.UserSurname,
+                    Address = order.Adress,
+                    Phonenumber = order.Phonenumber,
+                    MailAddress = order.MailAddress,
+                    EczaneAdi=pharm.EczaneAdi,
+                    EczaneAdres=pharm.Adresi,
+                    EczaneNo=pharm.Telefon,
+                    medicineList = medicineList1,
+                    Price = order.Price
+                };
+                result.Add(detailViewModel);
+            }
+                return Ok(result);
+            }
+        
+
+
+
+
+
+
+
         [HttpPost]
         public async Task<IActionResult> Create(ORDER order)
         {

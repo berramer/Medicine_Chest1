@@ -138,6 +138,7 @@ begin::Toolbar-->
                     <th class="min-w-125px">Gramaj</th>
                     <th class="min-w-125px">Uretici</th>
                     <th class="min-w-125px">Ucret</th>
+                    <th class="min-w-125px">Miktar</th>
                     <th class="min-w-125px">Stok Durumu</th>
 
                     <th class="text-end"></th>
@@ -148,35 +149,42 @@ begin::Toolbar-->
             <!--end::Table head-->
             <!--begin::Table body-->
             <tbody class="fw-bold text-gray-600">
-                @foreach (var medicine in Model.medicineList)
+                @for (int i = 0; i < Model.medicineList.Count; i++)
                 {
-                    <tr>
-                        <td>
-                            <div class="form-check form-check-sm form-check-custom form-check-solid">
-                                <input class="form-check-input" type="checkbox" value="@medicine.ID" name="DeleteUsers" />
-                            </div>
-                        </td>
+                <tr>
+                    <td>
+                        @*<div class="form-check form-check-sm form-check-custom form-check-solid">
+                <input class="form-check-input" type="checkbox" value="@medicine.ID" name="DeleteUsers" />
+            </div>*@
+                    </td>
 
 
-                        <td>
-                            @medicine.Name
-                        </td>
-                        <td>
-                            @medicine.ExpireDate
-                        </td>
-                        <td>
-                            @medicine.BasisWeight
-                        </td>
-                        <td>
-                            @medicine.Producer
-                        </td>
-                        <td>
-                            @medicine.Price
-                        </td>
-                        
+                    <td>
+                        @Model.medicineList[i].Name
+                    </td>
+                    <td>
+                        @Model.medicineList[i].ExpireDate
+                    </td>
+                    <td>
+                        @Model.medicineList[i].BasisWeight
+                    </td>
+                    <td>
+                        @Model.medicineList[i].Producer
+                    </td>
+                    <td>
+                        @Model.medicineList[i].Price
+                    </td>
+                    <td>
+                        @Model.ItemList[i]
+                    </td>
 
-                     
-                    </tr>
+                    <td>
+                        @Model.stockList[i]
+                    </td>
+
+
+
+                </tr>
                 }
 
             </tbody>

@@ -16,6 +16,7 @@ namespace ENTITIES
 
         public string PharmaciesID { get; set; }
         public string MedicineID { get; set; }
+        public string ItemList { get; set; }
         public decimal Price { get; set; }
         public DateTime OrderDate { get; set; }
     }

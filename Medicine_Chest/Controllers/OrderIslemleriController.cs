@@ -1,5 +1,6 @@
 ﻿using Business.Concrete;
 using ENTITIES;
+using ENTITIES.Dtos;
 using Medicine_Chest.EmailServices;
 using Medicine_Chest.Helpers;
 using Medicine_Chest.Identity;
@@ -21,14 +22,23 @@ namespace Medicine_Chest.Controllers
     public class OrderIslemleriController : Controller
     {
         private OrderManager _orderManager = new OrderManager(new DATA.Concrete.ORDERDAL());
+        private UserManager<User> _userManager;
         private MedicineManager _medicineManager = new MedicineManager(new DATA.Concrete.MEDICINEDAL());
+        private StockManager _stockManager = new StockManager(new DATA.Concrete.STOCKDAL());
+        private User user ;
+
+        public OrderIslemleriController(UserManager<User> userManager)
+        {
+            _userManager = userManager;
+         
+        }
         [HttpPost]
         public async Task<ActionResult> FiltreleOrder(OrderViewModel model)
         {
             try
             {
-
-                var kullanicilar = (IEnumerable<ORDER>)(await _orderManager.getAll());
+                user = await _userManager.GetUserAsync(User);
+                var kullanicilar = (IEnumerable<ORDER>)(await _orderManager.getAll(x=>x.PharmaciesID==user.PharmaciesId));
 
 
 
@@ -86,7 +96,11 @@ namespace Medicine_Chest.Controllers
             //Session["IISAdresi"] = System.Configuration.ConfigurationManager.AppSettings["IISAdresi"];
 
             var model = new OrderViewModel();
-            model.OrderList = (IEnumerable<ORDER>)(await _orderManager.getAll());
+            user= await _userManager.GetUserAsync(User);
+            if (!string.IsNullOrEmpty(user.PharmaciesId))
+            {
+                model.OrderList = (IEnumerable<ORDER>)(await _orderManager.getAll(x => x.PharmaciesID == user.PharmaciesId));
+            }
             return View(model);
         }
 
@@ -96,31 +110,50 @@ namespace Medicine_Chest.Controllers
             //// burada ilk değer atamasında bulunuyoruz
             //Session["IISAdresi"] = System.Configuration.ConfigurationManager.AppSettings["IISAdresi"];
 
-
+            user = await _userManager.GetUserAsync(User);
             var order = (await _orderManager.getAll(x => x.ID == id)).FirstOrDefault();
            
                 var medicine = order.MedicineID.Split(',');
+                 var items = order.ItemList.Split(',');
+       
                 var medicineList1 = new List<MEDICINE>();
-
-                foreach (var a in medicine)
+                var itemList = new List<string>();
+            var stockList = new List<int>();
+                for (int i=0;i<medicine.Length;i++)
                 {
-                    if (!string.IsNullOrEmpty(a))
+                    if (!string.IsNullOrEmpty(medicine[i]))
                     {
-                        var medicine2 = (await _medicineManager.getAll(x => x.ID == a)).FirstOrDefault();
-                    if(medicine2!=null)
+                    var medicine2 = (await _medicineManager.getAll(x => x.ID == medicine[i])).FirstOrDefault();
+
+                    if (medicine2 != null)
+                    {
+                        var stock = (await _stockManager.getAll(x => x.MedicineID == medicine[i] && x.PharmID == user.PharmaciesId)).FirstOrDefault();
+                        if (stock != null)
+                        {
+                            stockList.Add(stock.Stock);
+                        }
+                        else
+                        {
+                            stockList.Add(0);
+                        }
+
                         medicineList1.Add(medicine2);
+                        itemList.Add(items[i]);
+                    }
                     }
                 }
 
-                var detailViewModel = new OrderDetailViewModel()
-                {
-                    UserID = order.UserID,
-                    UserName = order.UserName,
-                    UserSurname = order.UserSurname,
-                    Address = order.Adress,
-                    Phonenumber = order.Phonenumber,
-                    MailAddress = order.MailAddress,
-                    medicineList = medicineList1,
+            var detailViewModel = new OrderDetailViewModel()
+            {
+                UserID = order.UserID,
+                UserName = order.UserName,
+                UserSurname = order.UserSurname,
+                Address = order.Adress,
+                Phonenumber = order.Phonenumber,
+                MailAddress = order.MailAddress,
+                medicineList = medicineList1,
+                ItemList = itemList,
+                stockList= stockList,
                     Price = order.Price
                 };
              
