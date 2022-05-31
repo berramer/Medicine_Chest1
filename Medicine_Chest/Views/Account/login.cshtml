@@ -103,8 +103,33 @@ License: For each use you must have a valid license purchased only from above li
     <!--begin::Global Stylesheets Bundle(used by all pages)-->
     <link href="~/assets/plugins/global/plugins.bundle.css" rel="stylesheet" type="text/css" />
     <link href="~/assets/css/style.bundle.css" rel="stylesheet" type="text/css" />
+
+   
     <!--end::Global Stylesheets Bundle-->
 </head>
+<script>
+
+    function Reset() {
+           
+
+            $.ajax({
+                type: "POST",
+                url: iisAdresi + "/Account/ForgotPassword",
+                data: { email: document.getElementById("Name").value },
+                dataType: 'json',
+                success: function (data) {
+                  
+                },
+                error: function (error) {
+                    $("#loading").hide();
+                    Lobibox.notify('error', { size: 'large', msg: 'MesajSabitler.IslemBasarisiz' });
+                    // sonrasında ilgili ajax metodu buradan çağrılıyor
+                    $("#gridKodTankTuru").data("kendoGrid").dataSource.read();
+                }
+            });
+        };
+
+</script>
 <!--end::Head-->
 <!--begin::Body-->
 <body id="kt_body" class="" style= " background-color: #D3D3D3" >
@@ -165,7 +190,7 @@ License: For each use you must have a valid license purchased only from above li
                                 <label class="form-label fw-bolder text-dark fs-6 mb-0">Şifre</label>
                                 <!--end::Label-->
                                 <!--begin::Link-->
-                                <a href="/Account/ForgotPassword" class="link fs-6 fw-bolder">Şifremi Unuttum ?</a>
+                             @*   <a href="/Account/ForgotPassword" class="link fs-6 fw-bolder">Şifremi Unuttum ?</a>*@
             <button type="button" class="btn btn-sm btn-danger" style ="margin-right : 15px" data-toggle="modal" data-target="#exampleModal1"><i class="fa fa-filter"></i> Filtrele</button>
 
                                 <!--end::Link-->
@@ -212,17 +237,16 @@ License: For each use you must have a valid license purchased only from above li
                     <a href="#" class="text-muted text-hover-primary px-2">İletişim</a>
                 </div>
 
-                <div class="modal fade" id="exampleModal1" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-    <div class="modal-dialog" role="document">
-        <div class="modal-content">
-            <div class="modal-header">
-               <!-- <h5 class="modal-title" id="exampleModalLabel">Filtrele</h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>-->
+ 
+
+</div>
+
+        </div>
+    </div>
+</div> 
+                <!--end::Links-->
             </div>
-           </div>
-<div class="modal fade" id="exampleModal1" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+     <div class="modal fade" id="exampleModal1" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header">
@@ -240,51 +264,33 @@ License: For each use you must have a valid license purchased only from above li
                         <div class="post d-flex flex-column-fluid" id="kt_post">
                             <!--begin::Wrapper-->
                             <div class="w-lg-600px bg-white rounded shadow-sm p-10 p-lg-15 mx-auto">
-                                <!--begin::Form-->
-                                <form class="form w-100" novalidate="novalidate" id="kt_sign_up_form1" asp-controller="MedicineIslemleri" asp-action="FiltreleMedicine" method="post" enctype="multipart/form-data">
-                                    <!--begin::Heading-->
+                                <!--begin::Form-->           <!--begin::Heading-->
                                     <!--begin::Input group-->
                                     <div class="row fv-row mb-7">
                                         <!--begin::Col-->
                                         <div class="col-xl-6">
                                             <label class="form-label fw-bolder text-dark fs-6">İlaç Adı</label>
-                                            <input class="form-control form-control-lg form-control-solid" type="text" placeholder="" name="NameSorgu" asp-for="NameSorgu" autocomplete="off" />
+                                              <input class="form-control form-control-lg form-control-solid" type="text" placeholder="" id="Email" autocomplete="off" />
                                         </div>
                                         <!--end::Col-->
-                                        <!--begin::Col-->
-                                        <div class="col-xl-6">
-                                            <label class="form-label fw-bolder text-dark fs-6">Son Kullanma Tarihi</label>
-                                            <input class="form-control form-control-lg form-control-solid" type="text" placeholder="" name="ExpireDateSorgu" asp-for="ExpireDateSorgu" autocomplete="off" />
-                                        </div>
-                                        <!--end::Col-->
+                                       
                                     </div>
-                                    <!--end::Input group-->
-                                    <!--begin::Input group-->
-                                    <!--end::Input group-->
-                                    <!--begin::Input group-->
-                                    <div class="fv-row mb-7">
-                                        <label class="form-label fw-bolder text-dark fs-6">Gramaj</label>
-                                        <input class="form-control form-control-lg form-control-solid PhoneMask" type="text" placeholder="" name="BasisWeightSorgu" asp-for="BasisWeightSorgu" autocomplete="off" />
-                                    </div>
+                                    
+                                   
+                                
 
 
-                                    <!--begin::Input group-->
-                                    <div class="fv-row mb-7">
-                                        <label class="form-label fw-bolder text-dark fs-6">Üretici</label>
-                                        <input class="form-control form-control-lg form-control-solid" type="email" placeholder="" name="ProducerSorgu" asp-for="ProducerSorgu" autocomplete="off" />
-                                        <span asp-validation-for="ProducerSorgu" class="text-danger"></span>
-                                    </div>
+                                    
                                     <!--end::Input group-->
                                     <!--begin::Actions-->
                                     <div class="text-center">
                                         @*<button type="submit" class="btn btn-primary">Register</button>*@
-                                        <button type="submit" id="kt_sign_up_submit1" class="btn btn-lg btn-primary">
+                                        <button type="button" onclick="Reset()" class="btn btn-lg btn-primary">
                                             <span class="indicator-label">Sorgula</span>
                                         </button>
                                     </div>
                                     <!--end::Actions-->
-                                </form>
-                                <!--end::Form-->
+                  
                             </div>
                             <!--end::Wrapper-->
                         </div>
@@ -296,15 +302,7 @@ License: For each use you must have a valid license purchased only from above li
 
 
         </div>
-    </div>
-</div>
-
-        </div>
-    </div>
-</div> 
-                <!--end::Links-->
-            </div>
-            <!--end::Footer-->
+    </div>       <!--end::Footer-->
         </div>
         <!--end::Authentication - Sign-in-->
     </div>
@@ -315,7 +313,7 @@ License: For each use you must have a valid license purchased only from above li
     <script src="~/assets/js/scripts.bundle.js"></script>
     <!--end::Global Javascript Bundle-->
     <!--begin::Page Custom Javascript(used by this page)-->
-    <script src="~/assets/js/custom/authentication/sign-in/general.js"></script>
+
     <!--end::Page Custom Javascript-->
     <!--end::Javascript-->
 </body>
