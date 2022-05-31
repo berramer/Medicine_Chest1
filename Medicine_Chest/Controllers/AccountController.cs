@@ -87,9 +87,64 @@ namespace Medicine_Chest.Controllers
             }
             return View("UserDetailModel", new KullaniciIslemViewModel());
         }
-        
 
 
+        [HttpPost]
+        public async Task<ActionResult> ForgotPassword(string  email)
+        {
+            if (string.IsNullOrEmpty(email))
+            {
+                return View();
+            }
+            var user = await _userManager.FindByEmailAsync(email);
+            var token = await _userManager.GeneratePasswordResetTokenAsync(user);
+
+            var url = Url.Action("Repassword", "Account", new
+            {
+                userId = user.Id,
+                token = token
+            });
+
+            await _emailSender.SendEmailAsync(email, "Hesabınızı onaylayınız", $"Lütfen şifrenizi yenilemek için linke <a href='https://localhost:44303{url}'> tıklayınız.</a>");
+            return Json("basarılı");
+        }
+
+
+        public async Task<ActionResult> Repassword(string userId,string token)
+        {
+            if (userId == null || token==null)
+            {
+                RedirectToAction("login", "Account");
+            }
+            ResetPasswordModel model = new ResetPasswordModel
+            {
+                userId = userId,
+                token = token
+            };
+
+            return View(model);
+        }
+
+        [HttpPost]
+        public async Task<ActionResult> Repassword(ResetPasswordModel model)
+        {
+            if (model.userId == null)
+            {
+                RedirectToAction("login", "Account");
+            }
+            var user = await _userManager.FindByIdAsync(model.userId);
+            if (user == null)
+            {
+                RedirectToAction("login", "Account");
+            }
+            var result = await _userManager.ResetPasswordAsync(user, model.token, model.password);
+            if (result.Succeeded)
+            {
+                RedirectToAction("login", "Account");
+
+            }
+            return View(model);
+        }
         /// <summary>
         /// Sayfa ilk yüklendiğinde filtre ile ilgili elemanların hazırlanması için geçerli olan bir durumdur
         /// </summary>

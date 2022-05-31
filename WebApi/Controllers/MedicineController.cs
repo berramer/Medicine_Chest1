@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 namespace WebApi.Controllers
 {
     [ApiController]
-    [Route("api/[controller]")]
+    [Route("api/{controller}/{action}")]
     public class MedicineController : ControllerBase
     {
         private MedicineManager _medicineManager = new MedicineManager(new DATA.Concrete.MEDICINEDAL());
@@ -49,6 +49,22 @@ namespace WebApi.Controllers
             }
             return NotFound();
         }
+
+
+        [HttpGet]
+        [Route("{key}")]
+        public async Task<ActionResult> Search(string key)
+        {
+            var urunler = (await _medicineManager.getAll(oh => oh.Category.Contains(key) || oh.Name.Contains(key) || oh.Producer.Contains(key)));
+            //if (!string.IsNullOrEmpty(key))
+            //{
+            //    urunler = urunler.Where(oh => oh.Category.Contains(key) || oh.Name.Contains(key) || oh.Producer.Contains(key));
+            //}
+
+            return Ok(urunler);
+        }
     }
 }
+
+
 

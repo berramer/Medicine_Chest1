@@ -53,6 +53,26 @@ namespace WebApi.Controllers
             return Ok(user);
         }
 
+        [HttpPost]
+        public async Task<ActionResult> Repassword(ResetPasswordModel model)
+        {
+
+            var user = await _userManager.FindByEmailAsync(model.userId);
+            if (user == null)
+            {
+                return NotFound(model);
+            }
+            var token = await _userManager.GeneratePasswordResetTokenAsync(user);
+            var result = await _userManager.ResetPasswordAsync(user, token, model.password);
+            if (result.Succeeded)
+            {
+                return Ok(model);
+
+            }
+            return NotFound(model);
+
+        }
+
         [HttpGet]
         [Route("{id}")]
         public async Task<IActionResult> getByUsername(string id)
@@ -97,7 +117,7 @@ namespace WebApi.Controllers
                     user.Address=model.Address;
      
                     user.PhoneNumber = model.PhoneNumber;
-                 
+          
                     //user.IsDelete = model.IsDelete;
                     var result = await _userManager.UpdateAsync(user);
                 }
