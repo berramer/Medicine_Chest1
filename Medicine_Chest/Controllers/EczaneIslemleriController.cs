@@ -69,7 +69,7 @@ namespace Medicine_Chest.Controllers
             {
                 return null; /*Mesaj.Goster(ArayuzSabitler.SorgulamaBaslik, "Sorgulama İşlemi Sırasında Bir Hata Oluştu: " + exception.GetAllMessages(), MesajTip.Hata);*/
             }
-        }
+       }
 
         [HttpPost]
         public async Task<JsonResult> Sil(string Id)
