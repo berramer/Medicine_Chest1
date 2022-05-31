@@ -76,7 +76,7 @@ License: For each use you must have a valid license purchased only from above li
 </head>
 <!--end::Head-->
 <!--begin::Body-->
-<body id="kt_body" class="bg-white">
+<body id="kt_body" class="" style= " background-color: #D3D3D3" >
     <!--begin::Main-->
     <div class="d-flex flex-column flex-root">
         <!--begin::Authentication - Sign-in -->
@@ -88,6 +88,9 @@ License: For each use you must have a valid license purchased only from above li
                     <!--begin::Form-->
                     <form class="form w-100" novalidate="novalidate" id="kt_sign_in_form" asp-controller="Account" asp-action="Login" method="post">
                         <!--begin::Heading-->
+                         <div class="text-center mb-10" style= "margin-left: -40px">
+                            <center> <img alt="Logo" src="/assets/media/logos/loginresim.png" ></center> 
+                             </div>
                         <div class="text-center mb-10">
                             <!--begin::Title-->
                             <h1 class="text-dark mb-3">Uygulamaya Giriş Yap</h1>
@@ -131,25 +134,33 @@ License: For each use you must have a valid license purchased only from above li
                                 <label class="form-label fw-bolder text-dark fs-6 mb-0">Şifre</label>
                                 <!--end::Label-->
                                 <!--begin::Link-->
-                                <a href="/Account/ForgotPassword" class="link-primary fs-6 fw-bolder">Şifremi Unuttum ?</a>
+                                <a href="/Account/ForgotPassword" class="link fs-6 fw-bolder">Şifremi Unuttum ?</a>
                                 <!--end::Link-->
                             </div>
                             <!--end::Wrapper-->
                             <!--begin::Input-->
-                            <input class="form-control form-control-lg form-control-solid" type="password" name="password" autocomplete="off" asp-for="Password" />
+                            <input class="form-control form-control-lg form-control-solid" type="password" name="password" autocomlete="off" asp-for="Password" />
                             <!--end::Input-->
                         </div>
                         <!--end::Input group-->
                         <!--begin::Actions-->
                         <div class="text-center">
                             <!--begin::Submit button-->
-                            <button type="submit" id="kt_sign_in_submit" class="btn btn-lg btn-primary w-100 mb-5">
+                            <button type="submit" id="kt_sign_in_submit" class="btn btn-lg btn w-100 mb-5" style = "background-color: #74b424">
                                 <span class="indicator-label">Giriş Yap</span>
                                 <span class="indicator-progress">
                                     Please wait...
                                     <span class="spinner-border spinner-border-sm align-middle ms-2"></span>
                                 </span>
                             </button>
+                            <button type="submit" id="kt_sign_in_submit" class="btn btn-lg btn w-100 mb-5" style = "background-color: 	#DCDCDC">
+                                <span class="indicator-label">Üye Ol</span>
+                                <span class="indicator-progress">
+                                    Please wait...
+                                    <span class="spinner-border spinner-border-sm align-middle ms-2"></span>
+                                </span>
+                            </button>
+                           
                             <!--end::Submit button-->
                         </div>
                       
