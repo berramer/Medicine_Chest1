@@ -11,7 +11,7 @@ using System.Threading.Tasks;
 
 namespace Medicine_Chest.Controllers
 {
-    [Authorize]
+  
     public class HomeController : Controller
     {  
   
@@ -37,7 +37,8 @@ namespace Medicine_Chest.Controllers
         {
             return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
         }
-		public ActionResult Index()
+        [Authorize]
+        public ActionResult Index()
 		{
 			List<DataPoint> dataPoints = new List<DataPoint>();
 

@@ -13,7 +13,7 @@ namespace WebApi.Controllers
     public class PrescriptionController : ControllerBase
     {
         private PrescriptionManager _prescriptionManager = new PrescriptionManager(new DATA.Concrete.PRESCRIPTIONDAL());
-
+        private MedicineManager _medicineManager = new MedicineManager(new DATA.Concrete.MEDICINEDAL());
         [HttpGet]
         public async Task<IActionResult> Get()
         {
@@ -27,6 +27,43 @@ namespace WebApi.Controllers
             return Ok(prescription);
         }
 
+
+        [HttpGet]
+        [Route("{code}")]
+        public async Task<IActionResult> getByCode(string code)
+
+        {
+           
+            PRESCRIPTION prescription = (await _prescriptionManager.getAll(x => x.PrescriptionCode == code)).FirstOrDefault();
+            if (prescription.ValidityDate > DateTime.Now)
+            {
+               var medicineIdlist = prescription.MedicineID.Split(',');
+                List<MEDICINE> medicineList = new List<MEDICINE>();
+               foreach(string Id in medicineIdlist)
+                {
+                    if (!string.IsNullOrEmpty(Id))
+                    {
+                        var medicine = (await _medicineManager.getAll(x => x.ID == Id)).FirstOrDefault();
+                        if (medicine != null)
+                        {
+                            medicineList.Add(medicine);
+                        }
+                        
+                    }
+                }
+                var result = new
+                {
+                    Id = prescription.ID,
+                    User = prescription.UserID,
+                    ValidateTime = prescription.ValidityDate.ToString(),
+                    Medicinelist=medicineList
+
+                };
+              return Ok(result); 
+            }
+            return NotFound();
+         
+        }
 
         [HttpPut]
         public async Task<IActionResult> Update(PRESCRIPTION prescription)

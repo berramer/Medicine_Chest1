@@ -12,5 +12,9 @@ namespace ENTITIES
         public decimal Price { get; set; }
         public string Producer { get; set; }
 
+        public string Photo { get; set; }
+        public string Category { get; set; }
+
+
     }
 }

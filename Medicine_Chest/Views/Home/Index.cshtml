@@ -62,6 +62,7 @@ chart.render();
     <!--begin::Container-->
     <div id="kt_content_container" class="container">
         <!--begin::Row-->
+        @if (!User.IsInRole("admin")) { 
         <div class="row gy-5 g-xl-8">
             <!--begin::Col-->
             <div class="col-xxl-12">
@@ -69,8 +70,8 @@ chart.render();
                     <script src="https://canvasjs.com/assets/script/canvasjs.min.js"></script>	
             </div>
             <!--end::Col-->
-
-        </div>
+          
+        </div>  }
           <div class="row gy-5 g-xl-8">
                <div class="col-xxl-12">
                 <img alt="Logo" src="/assets/media/logos/anamsayfamlogom.png" style="height:70vh!important;">
