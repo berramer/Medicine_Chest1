@@ -30,11 +30,11 @@ namespace WebApi.Controllers
 
         [HttpGet]
         [Route("{code}")]
-        public async Task<IActionResult> getByCode(string code)
+        public async Task<IActionResult> getByCode(string code,string tckn)
 
         {
            
-            PRESCRIPTION prescription = (await _prescriptionManager.getAll(x => x.PrescriptionCode == code)).FirstOrDefault();
+            PRESCRIPTION prescription = (await _prescriptionManager.getAll(x => x.PrescriptionCode == code && x.UserID==tckn)).FirstOrDefault();
             if (prescription != null)
             {
                 if (prescription.ValidityDate > DateTime.Now)

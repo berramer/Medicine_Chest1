@@ -219,7 +219,9 @@ namespace Medicine_Chest.Controllers
             order.IsAccepted = 1;
             order.CargoId = kargoId;
             var kargo = await _userManager.FindByIdAsync(kargoId);
-            await _emailSender.SendEmailAsync(kargo.Email, "Hesabınızı onaylayınız", $"Lütfen şifrenizi yenilemek için linke ");
+            await _emailSender.SendEmailAsync(kargo.Email, "Siparişiniz var",$"dd");
+            var patient =  await _userManager.FindByNameAsync(order.UserName);
+            await _emailSender.SendEmailAsync(patient.Email, "Siparişiniz kargoya verildi.Teslimat Kodu" + order.TeslimatKodu, "ddd");
             if (!String.IsNullOrEmpty(order.ReceteKodu))
             {
                 var pres = (await _prescriptionManager.getAll(x => x.PrescriptionCode == order.ReceteKodu)).FirstOrDefault();
@@ -234,19 +236,21 @@ namespace Medicine_Chest.Controllers
 
 
         [HttpPost]
-        public async Task<JsonResult> TeslimEt(string id)
+        public async Task<JsonResult> TeslimEt(string id,string teslimKodu)
         {
             user = await _userManager.GetUserAsync(User);
             var order = (await _orderManager.getAll(x => x.ID == id)).FirstOrDefault();
             DateTime teslim = DateTime.Now;
                 TimeSpan sonuc = teslim - order.OrderDate; // Büyük tarihten küçük tarihi çıkardık
-            order.IsDeliveredKargo = 1;
-            _orderManager.update(order);
-            if (sonuc.Hours < 1)
+            if (teslimKodu.Equals(order.TeslimatKodu))
             {
-                user.Puan += 2;
+                order.IsDeliveredKargo = 1;
+                _orderManager.update(order);
+                if (sonuc.Hours < 1)
+                {
+                    user.Puan += 2;
+                }
             }
-
             return Json("Başarılı");
 
         }

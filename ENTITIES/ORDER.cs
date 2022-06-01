@@ -23,5 +23,6 @@ namespace ENTITIES
         public string CargoId { get; set; }
         public decimal Price { get; set; }
         public DateTime OrderDate { get; set; }
+        public string TeslimatKodu { get; set; }
     }
 }

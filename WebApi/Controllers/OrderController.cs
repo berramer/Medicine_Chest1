@@ -101,10 +101,14 @@ namespace WebApi.Controllers
             order.UserSurname =user.Name+" "+ user.Surname;
             order.OrderDate = System.DateTime.Now;
             order.Adress = user.Address;
+
+            Random rastgele = new Random();
+            order.TeslimatKodu = rastgele.Next(10000).ToString();
             order.IsAccepted = 0;
             order.IsDeliveredKargo = 0;
             var bucketList = await _bucketManager.getAll(x => x.UserId == order.UserName);
-            foreach(BUCKET a in bucketList)
+      
+            foreach (BUCKET a in bucketList)
             {
                await _bucketManager.deleteasync(a);
             }

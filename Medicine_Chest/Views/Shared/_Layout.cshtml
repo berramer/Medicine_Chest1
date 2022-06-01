@@ -189,6 +189,9 @@ License: For each use you must have a valid license purchased only from above li
                                     </div>
                                 </div>
                             }
+
+                            @if (User.IsInRole("eczacı")||User.IsInRole("kargocu"))
+                            {
                             <div data-kt-menu-trigger="click" class="menu-item menu-accordion">
                                 <span class="menu-link">
                                     <span class="menu-icon">
@@ -216,7 +219,9 @@ License: For each use you must have a valid license purchased only from above li
 
                                 </div>
                             </div>
+                            }
                          
+                           @if (User.IsInRole("eczacı")) {
 
                             <div data-kt-menu-trigger="click" class="menu-item menu-accordion">
                                 <span class="menu-link">
@@ -254,8 +259,10 @@ License: For each use you must have a valid license purchased only from above li
                                 </div>
 
                             </div>
-                 
 
+                           }
+                           @if (User.IsInRole("eczacı")||User.IsInRole("admin"))
+                           {
                             <div data-kt-menu-trigger="click" class="menu-item menu-accordion mb-1">
                                 <span class="menu-link">
                                     <span class="menu-icon">
@@ -319,7 +326,7 @@ License: For each use you must have a valid license purchased only from above li
                                     }
                                 </div>
                             </div>
-
+                           }
                         </div>
                         <!--end::Menu-->
                     </div>

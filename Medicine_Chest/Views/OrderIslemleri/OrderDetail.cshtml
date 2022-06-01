@@ -53,13 +53,13 @@
 
 
     function TeslimEt(Id) {
-        $("#loading").show();
+        var teslim = document.getElementById("#TeslimatKodu");
 
         $.ajax({
             type: "Post",
             url: "/OrderIslemleri/TeslimEt",
             datatype: "Json",
-            data: { id: Id },
+            data: { id: Id, teslimKodu: teslim },
             success: function (data) {
 
                 return false;
@@ -126,7 +126,7 @@
                 @if (User.IsInRole("kargocu"))
                 {
                     <br /><br />
-                    <button class="btn btn-sm btn-success" type="button" style="margin-left : 1000px" id="btnYeniKayit" data-toggle="modal" data-target="#exampleModal1" onclick="TeslimEt('@Model.Id')"><i class="fa fa-plus"></i> Teslim et</button>
+                    <button class="btn btn-sm btn-success" type="button" style="margin-left : 1000px" id="btnYeniKayit" data-toggle="modal" data-target="#exampleModal1" ><i class="fa fa-plus"></i> Teslim et</button>
                 }
                 else
                 {
@@ -327,7 +327,7 @@
                                         <div class="col-xl-12">
                                            <center> <h2>Teslim Kodunu Girin</h2></center> <br />
                                             <label class="form-label fw-bolder text-dark fs-6">Teslim Kodu:</label>
-                                            <input class="form-control form-control-lg form-control-solid" type="text" placeholder="" id="Email" autocomplete="off"  />
+                                            <input class="form-control form-control-lg form-control-solid" type="text" placeholder="" id="TeslimatKodu" autocomplete="off" required />
                                         </div>
                                         <!--end::Col-->
 
@@ -338,7 +338,7 @@
                                     <!--begin::Actions-->
                                     <div class="text-center">
                                         @*<button type="submit" class="btn btn-primary">Register</button>*@
-                                        <button type="button" onclick="TeslimEt(Id)" class="btn btn-lg btn-primary">
+                                        <button type="button" onclick="TeslimEt('@Model.Id')" class="btn btn-lg btn-primary">
                                             <span class="indicator-label">Gönder</span>
                                         </button>
                                     </div>
