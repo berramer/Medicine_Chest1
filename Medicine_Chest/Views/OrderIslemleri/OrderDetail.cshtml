@@ -125,7 +125,8 @@
             <div class="block-options-simple ">
                 @if (User.IsInRole("kargocu"))
                 {
-                    <button class="btn btn-sm btn-success" type="button" style="margin-right : 35px" id="btnYeniKayit" onclick="TeslimEt('@Model.Id')"><i class="fa fa-plus"></i> Teslim et</button>
+                    <br /><br />
+                    <button class="btn btn-sm btn-success" type="button" style="margin-left : 1000px" id="btnYeniKayit" data-toggle="modal" data-target="#exampleModal1" onclick="TeslimEt('@Model.Id')"><i class="fa fa-plus"></i> Teslim et</button>
                 }
                 else
                 {
@@ -299,9 +300,70 @@
         </form>
     </div>
 </div>
+
+         
+     <div class="modal fade" id="exampleModal1" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+               <!-- <h5 class="modal-title" id="exampleModalLabel">Filtrele</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>-->
+            </div>
+            <div class="modal-body">
+
+                    <div class="block block-bordered">
+
+                        <div class="block-content">
+
+                            <div class="post d-flex flex-column-fluid" id="kt_post">
+                                <!--begin::Wrapper-->
+                                <div class="w-lg-600px bg-white rounded shadow-sm p-10 p-lg-15 mx-auto">
+                                    <!--begin::Form-->           <!--begin::Heading-->
+                                    <!--begin::Input group-->
+                                    <div class="row fv-row mb-7">
+                                        <!--begin::Col-->
+                                        <div class="col-xl-12">
+                                           <center> <h2>Teslim Kodunu Girin</h2></center> <br />
+                                            <label class="form-label fw-bolder text-dark fs-6">Teslim Kodu:</label>
+                                            <input class="form-control form-control-lg form-control-solid" type="text" placeholder="" id="Email" autocomplete="off"  />
+                                        </div>
+                                        <!--end::Col-->
+
+                                    </div>
+                                    
+                                   
+                                    <!--end::Input group-->
+                                    <!--begin::Actions-->
+                                    <div class="text-center">
+                                        @*<button type="submit" class="btn btn-primary">Register</button>*@
+                                        <button type="button" onclick="TeslimEt(Id)" class="btn btn-lg btn-primary">
+                                            <span class="indicator-label">Gönder</span>
+                                        </button>
+                                    </div>
+                                    <!--end::Actions-->
+
+                                </div>
+                                <!--end::Wrapper-->
+                            </div>
+                        </div>
+
+                    </div>
+
+                </div>
+
+
+        </div>
+    </div>       <!--end::Footer-->
+        </div>
 <!--end::Post
 @section Scripts
 {
+   <!--begin::Global Javascript Bundle(used by all pages)-->
+    <script src="~/assets/plugins/global/plugins.bundle.js"></script>
+    <script src="~/assets/js/scripts.bundle.js"></script>
+        <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
 @*    <script src="~/assets/js/custom/apps/user-management/users/edit/edit.js"></script>*@
 
 

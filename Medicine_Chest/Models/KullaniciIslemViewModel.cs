@@ -37,6 +37,8 @@ namespace Medicine_Chest.Models
         [Required]
         public  string UserName { get; set; }
 
+        public int Puan { get; set; }
+
         public string PharmaciesId { get; set; }
 
         public List<SelectListItem> EczaneList { get; set; }

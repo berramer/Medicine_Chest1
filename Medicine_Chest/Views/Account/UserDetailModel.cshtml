@@ -3,7 +3,7 @@
     ViewData["Title"] = "UserEdit";
 }
 
-
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 <style>
     .form-group {
         margin-bottom: 1.75em;
@@ -63,6 +63,15 @@
                                     <h3 class="mb-10 font-weight-bold text-dark">Profil Bilgilerim:</h3>
                                     <div class="row">
                                         <input type="hidden" name="UserId" value="@Model.Id" />
+                                        @if(User.IsInRole("kargocu")){
+                                       
+                                        <div class="col-xl-2" style="margin-left: 750px; background-color:  #74b424" ; color: white">
+                                            <h2>Skor:</h2>
+                                             <h2>  @Model.Puan /100 </h2>
+                                            
+                                             </div>
+
+                                        }
                                         <div class="col-xl-12">
                                             <div class="form-group row fv-row">
                                                 <label class="col-xl-3 col-lg-3 col-form-label">Ad</label>

@@ -79,6 +79,7 @@ namespace Medicine_Chest.Controllers
                     //EmailConfirmed = user.EmailConfirmed,
                     PhoneNumber = user.PhoneNumber,
                     Address= user.Address,
+                    Puan=user.Puan,
                     //IsDelete = user.IsDelete,
                     //SelectedRoles = selectedRoles
                    

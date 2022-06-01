@@ -194,7 +194,6 @@ License: For each use you must have a valid license purchased only from above li
                                 <!--end::Label-->
                                 <!--begin::Link-->
                                 @*   <a href="/Account/ForgotPassword" class="link fs-6 fw-bolder">Şifremi Unuttum ?</a>*@
-                                <button type="button" class="btn btn-sm btn-danger" style="margin-right : 15px" data-toggle="modal" data-target="#exampleModal1"><i class="fa fa-filter"></i> Filtrele</button>
 
                                 <!--end::Link-->
                             </div>
@@ -214,20 +213,27 @@ License: For each use you must have a valid license purchased only from above li
                                     <span class="spinner-border spinner-border-sm align-middle ms-2"></span>
                                 </span>
                             </button>
-                            <button type="submit" id="kt_sign_in_submit" class="btn btn-lg btn w-100 mb-5" style="background-color: 	#DCDCDC">
+                            <button type="button" id="kt_sign_in_submit" class="btn btn-lg btn w-100 mb-5" style="background-color: 	#DCDCDC">
                                 <span class="indicator-label">Üye Ol</span>
                                 <span class="indicator-progress">
                                     Please wait...
                                     <span class="spinner-border spinner-border-sm align-middle ms-2"></span>
                                 </span>
                             </button>
-
+                
                             <!--end::Submit button-->
                         </div>
 
                         <!--end::Actions-->
                     </form>
+                    
+                            <button type="button" class="btn btn-lg btn w-20 mb-5 " style="background-color:white; margin-left:230px" data-toggle="modal" data-target="#exampleModal1">
+                          <span class="indicator-label"> Şifremi Unuttum </span>
+                                <span class="indicator-progress"></span>
+                        </button>
+                      
                     <!--end::Form-->
+                       
                 </div>
                 <!--end::Wrapper-->
             </div>
@@ -271,9 +277,10 @@ License: For each use you must have a valid license purchased only from above li
                                     <!--begin::Input group-->
                                     <div class="row fv-row mb-7">
                                         <!--begin::Col-->
-                                        <div class="col-xl-6">
-                                            <label class="form-label fw-bolder text-dark fs-6">İlaç Adı</label>
-                                            <input class="form-control form-control-lg form-control-solid" type="text" placeholder="" id="Email" autocomplete="off" />
+                                        <div class="col-xl-12">
+                                           <center> <h2>Şifremi Yenile</h2></center> <br />
+                                            <label class="form-label fw-bolder text-dark fs-6">Email Adresi:</label>
+                                            <input class="form-control form-control-lg form-control-solid" type="text" placeholder="" id="Email" autocomplete="off"  />
                                         </div>
                                         <!--end::Col-->
 
@@ -285,7 +292,7 @@ License: For each use you must have a valid license purchased only from above li
                                     <div class="text-center">
                                         @*<button type="submit" class="btn btn-primary">Register</button>*@
                                         <button type="button" onclick="Reset()" class="btn btn-lg btn-primary">
-                                            <span class="indicator-label">Sorgula</span>
+                                            <span class="indicator-label">Gönder</span>
                                         </button>
                                     </div>
                                     <!--end::Actions-->
