@@ -18,7 +18,7 @@ namespace ENTITIES
         public string MedicineID { get; set; }
         public string ItemList { get; set; }
         public int IsAccepted { get; set; }
-
+        public string ReceteKodu { get; set; }
         public int IsDeliveredKargo { get; set; }
         public string CargoId { get; set; }
         public decimal Price { get; set; }

@@ -52,6 +52,28 @@
     };
 
 
+    function TeslimEt(Id) {
+        $("#loading").show();
+
+        $.ajax({
+            type: "Post",
+            url: "/OrderIslemleri/TeslimEt",
+            datatype: "Json",
+            data: { id: Id },
+            success: function (data) {
+
+                return false;
+            },
+            error: function (error) {
+                $("#loading").hide();
+                Lobibox.notify('error', { size: 'large', msg: "Arıza Türü Kayıt Ekranı Açma İşlemi Başarısız" });
+                event.preventDefault();
+                return false;
+            }
+        });
+    };
+
+
 </script>
 <style>
     .form-group {
@@ -103,7 +125,7 @@
             <div class="block-options-simple ">
                 @if (User.IsInRole("kargocu"))
                 {
-                    <button class="btn btn-sm btn-success" type="button" style="margin-right : 35px" id="btnYeniKayit" onclick="RedEt('@Model.Id')"><i class="fa fa-plus"></i> Teslim et</button>
+                    <button class="btn btn-sm btn-success" type="button" style="margin-right : 35px" id="btnYeniKayit" onclick="TeslimEt('@Model.Id')"><i class="fa fa-plus"></i> Teslim et</button>
                 }
                 else
                 {

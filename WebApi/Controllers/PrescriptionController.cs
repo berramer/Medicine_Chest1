@@ -35,31 +35,34 @@ namespace WebApi.Controllers
         {
            
             PRESCRIPTION prescription = (await _prescriptionManager.getAll(x => x.PrescriptionCode == code)).FirstOrDefault();
-            if (prescription.ValidityDate > DateTime.Now)
+            if (prescription != null)
             {
-               var medicineIdlist = prescription.MedicineID.Split(',');
-                List<MEDICINE> medicineList = new List<MEDICINE>();
-               foreach(string Id in medicineIdlist)
+                if (prescription.ValidityDate > DateTime.Now)
                 {
-                    if (!string.IsNullOrEmpty(Id))
+                    var medicineIdlist = prescription.MedicineID.Split(',');
+                    List<MEDICINE> medicineList = new List<MEDICINE>();
+                    foreach (string Id in medicineIdlist)
                     {
-                        var medicine = (await _medicineManager.getAll(x => x.ID == Id)).FirstOrDefault();
-                        if (medicine != null)
+                        if (!string.IsNullOrEmpty(Id))
                         {
-                            medicineList.Add(medicine);
-                        }
-                        
-                    }
-                }
-                var result = new
-                {
-                    Id = prescription.ID,
-                    User = prescription.UserID,
-                    ValidateTime = prescription.ValidityDate.ToString(),
-                    Medicinelist=medicineList
+                            var medicine = (await _medicineManager.getAll(x => x.ID == Id)).FirstOrDefault();
+                            if (medicine != null)
+                            {
+                                medicineList.Add(medicine);
+                            }
 
-                };
-              return Ok(result); 
+                        }
+                    }
+                    var result = new
+                    {
+                        Id = prescription.ID,
+                        User = prescription.UserID,
+                        ValidateTime = prescription.ValidityDate.ToString(),
+                        Medicinelist = medicineList
+
+                    };
+                    return Ok(result);
+                }
             }
             return NotFound();
          

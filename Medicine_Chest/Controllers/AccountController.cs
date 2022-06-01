@@ -105,7 +105,7 @@ namespace Medicine_Chest.Controllers
                 token = token
             });
 
-            await _emailSender.SendEmailAsync(email, "Hesabınızı onaylayınız", $"Lütfen şifrenizi yenilemek için linke <a href='https://localhost:44303{url}'> tıklayınız.</a>");
+            await _emailSender.SendEmailAsync(email, "Hesabınızı onaylayınız", $"Lütfen şifrenizi yenilemek için linke <a href='http://localhost:3578{url}'> tıklayınız.</a>");
             return Json("basarılı");
         }
 

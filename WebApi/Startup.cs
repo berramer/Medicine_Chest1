@@ -32,7 +32,7 @@ namespace WebApi
 
             services.AddControllersWithViews();
 
-            services.AddDbContext<ApplicationContext>(options => options.UseSqlServer("Server=LAPTOP-VISABIIJ;Database=Eczane; UserId=sa; Password=berra123;"));
+            services.AddDbContext<ApplicationContext>(options => options.UseSqlServer("Server=DESKTOP-L9VVCQO;Database=Eczane;User Id=sa;Password=a123@456;"));
             services.AddIdentity<User, IdentityRole>().AddEntityFrameworkStores<ApplicationContext>().AddDefaultTokenProviders();
 
             services.Configure<IdentityOptions>(options =>

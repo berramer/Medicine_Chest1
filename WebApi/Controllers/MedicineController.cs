@@ -19,6 +19,12 @@ namespace WebApi.Controllers
         {
             return Ok(await _medicineManager.getAll());
         }
+        [HttpGet]
+        public async Task<IActionResult> GetRecetesiz()
+        {
+            var urunler = (await _medicineManager.getAll(oh => oh.IsPrescription.Equals(0)));
+            return Ok(urunler);
+        }
 
         [HttpPost]
         public async Task<IActionResult> Create(MEDICINE medicine)
@@ -55,7 +61,21 @@ namespace WebApi.Controllers
         [Route("{key}")]
         public async Task<ActionResult> Search(string key)
         {
-            var urunler = (await _medicineManager.getAll(oh => oh.Category.Contains(key) || oh.Name.Contains(key) || oh.Producer.Contains(key)));
+            var urunler = (await _medicineManager.getAll(oh =>( oh.Category.Contains(key) || oh.Name.Contains(key) || oh.Producer.Contains(key)) && oh.IsPrescription.Equals(0)));
+            //if (!string.IsNullOrEmpty(key))
+            //{
+            //    urunler = urunler.Where(oh => oh.Category.Contains(key) || oh.Name.Contains(key) || oh.Producer.Contains(key));
+            //}
+
+            return Ok(urunler);
+        }
+
+
+        [HttpGet]
+        [Route("{key}")]
+        public async Task<ActionResult> SearchCat(string key)
+        {
+            var urunler = (await _medicineManager.getAll(oh => oh.Category.Contains(key) && oh.IsPrescription.Equals(0)));
             //if (!string.IsNullOrEmpty(key))
             //{
             //    urunler = urunler.Where(oh => oh.Category.Contains(key) || oh.Name.Contains(key) || oh.Producer.Contains(key));
