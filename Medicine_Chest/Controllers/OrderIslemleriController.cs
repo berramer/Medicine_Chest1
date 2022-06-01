@@ -24,14 +24,16 @@ namespace Medicine_Chest.Controllers
     {
         private OrderManager _orderManager = new OrderManager(new DATA.Concrete.ORDERDAL());
         private UserManager<User> _userManager;
+        private IEmailSender _emailSender;
         private MedicineManager _medicineManager = new MedicineManager(new DATA.Concrete.MEDICINEDAL());
         private StockManager _stockManager = new StockManager(new DATA.Concrete.STOCKDAL());
         private User user ;
+        private PrescriptionManager _prescriptionManager = new PrescriptionManager(new DATA.Concrete.PRESCRIPTIONDAL());
 
-        public OrderIslemleriController(UserManager<User> userManager)
+        public OrderIslemleriController(UserManager<User> userManager, IEmailSender emailSender)
         {
             _userManager = userManager;
-         
+            _emailSender = emailSender;
         }
         [HttpPost]
         public async Task<ActionResult> FiltreleOrder(OrderViewModel model)
@@ -216,6 +218,13 @@ namespace Medicine_Chest.Controllers
 
             order.IsAccepted = 1;
             order.CargoId = kargoId;
+            var kargo = await _userManager.FindByIdAsync(kargoId);
+            await _emailSender.SendEmailAsync(kargo.Email, "Hesabınızı onaylayınız", $"Lütfen şifrenizi yenilemek için linke ");
+            if (!String.IsNullOrEmpty(order.ReceteKodu))
+            {
+                var pres = (await _prescriptionManager.getAll(x => x.PrescriptionCode == order.ReceteKodu)).FirstOrDefault();
+                _prescriptionManager.delete(pres);
+            }
             _orderManager.update(order);
                return Json("Başarılı"); 
         }
@@ -225,12 +234,31 @@ namespace Medicine_Chest.Controllers
 
 
         [HttpPost]
+        public async Task<JsonResult> TeslimEt(string id)
+        {
+            user = await _userManager.GetUserAsync(User);
+            var order = (await _orderManager.getAll(x => x.ID == id)).FirstOrDefault();
+            DateTime teslim = DateTime.Now;
+                TimeSpan sonuc = teslim - order.OrderDate; // Büyük tarihten küçük tarihi çıkardık
+            order.IsDeliveredKargo = 1;
+            _orderManager.update(order);
+            if (sonuc.Hours < 1)
+            {
+                user.Puan += 2;
+            }
+
+            return Json("Başarılı");
+
+        }
+
+
+        [HttpPost]
         public async Task<JsonResult> RedEt(string id)
         {
-           
+
             var order = (await _orderManager.getAll(x => x.ID == id)).FirstOrDefault();
 
-          
+
             order.IsAccepted = 2;
             _orderManager.update(order);
             return Json("Başarılı");

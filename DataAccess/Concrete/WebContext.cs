@@ -20,7 +20,7 @@ namespace DATA.Concrete
         public DbSet<STOCK> STOCK { get; set; }
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
-            optionsBuilder.UseSqlServer(@"Server=.\MSSQLSERVER2019;Database=IlacKutusu;User Id=suko;Password=67719899Ah.;");
+            optionsBuilder.UseSqlServer("Server=DESKTOP-L9VVCQO;Database=Eczane;User Id=sa;Password=a123@456;");
         }
 
     }

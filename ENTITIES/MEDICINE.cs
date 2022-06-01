@@ -14,7 +14,7 @@ namespace ENTITIES
 
         public string Photo { get; set; }
         public string Category { get; set; }
-
+        public int IsPrescription { get; set; }
 
     }
 }

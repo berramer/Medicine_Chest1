@@ -1,5 +1,6 @@
 ﻿using Business.Concrete;
 using ENTITIES;
+using Medicine_Chest.EmailServices;
 using Medicine_Chest.Identity;
 using Medicine_Chest.Models.OrderIslemleri;
 using Microsoft.AspNetCore.Identity;
@@ -17,13 +18,17 @@ namespace WebApi.Controllers
     {
         private OrderManager _orderManager = new OrderManager(new DATA.Concrete.ORDERDAL());
         private UserManager<User> _userManager;
+        private IEmailSender _emailSender;
+      
+       
         private BucketManager _bucketManager = new BucketManager(new DATA.Concrete.BUCKETDAL());
         private MedicineManager _medicineManager = new MedicineManager(new DATA.Concrete.MEDICINEDAL());
         private PharmaciesManager _pharmaciesManager = new PharmaciesManager(new DATA.Concrete.PHARMACIESDAL());
-        public OrderController(UserManager<User> userManager)
+        public OrderController(UserManager<User> userManager, IEmailSender emailSender)
         {
             _userManager = userManager;
-       
+    
+            _emailSender = emailSender;
         }
         [HttpGet]
         public async Task<IActionResult> Get()
@@ -105,9 +110,17 @@ namespace WebApi.Controllers
             }
 
             try
-            {
+            { 
                 await _orderManager.addAsync(order);
-            }catch(Exception ex)
+             
+                var eczacılar = (await _userManager.GetUsersInRoleAsync("eczacı")).Where(x => x.PharmaciesId == order.PharmaciesID);
+                foreach(var users in eczacılar)
+                {
+                    await _emailSender.SendEmailAsync(users.Email, "Yeni şiparişiniz var ", "ddd");
+                }
+
+            }
+            catch(Exception ex)
             {
                 var a = 5;
             }
