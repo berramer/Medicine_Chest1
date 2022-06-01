@@ -114,8 +114,8 @@ License: For each use you must have a valid license purchased only from above li
 
             $.ajax({
                 type: "POST",
-                url: iisAdresi + "/Account/ForgotPassword",
-                data: { email: document.getElementById("Name").value },
+                url:"/Account/ForgotPassword",
+                data: { email: document.getElementById("Email").value },
                 dataType: 'json',
                 success: function (data) {
                   
@@ -243,9 +243,9 @@ License: For each use you must have a valid license purchased only from above li
 
         </div>
     </div>
-</div> 
+
                 <!--end::Links-->
-            </div>
+          
      <div class="modal fade" id="exampleModal1" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
@@ -277,10 +277,6 @@ License: For each use you must have a valid license purchased only from above li
                                     </div>
                                     
                                    
-                                
-
-
-                                    
                                     <!--end::Input group-->
                                     <!--begin::Actions-->
                                     <div class="text-center">
@@ -305,12 +301,14 @@ License: For each use you must have a valid license purchased only from above li
     </div>       <!--end::Footer-->
         </div>
         <!--end::Authentication - Sign-in-->
-    </div>
+ 
     <!--end::Main-->
     <!--begin::Javascript-->
     <!--begin::Global Javascript Bundle(used by all pages)-->
     <script src="~/assets/plugins/global/plugins.bundle.js"></script>
     <script src="~/assets/js/scripts.bundle.js"></script>
+        <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+
     <!--end::Global Javascript Bundle-->
     <!--begin::Page Custom Javascript(used by this page)-->
 

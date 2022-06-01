@@ -32,7 +32,7 @@ namespace Medicine_Chest
            
             services.AddControllersWithViews();
 
-            services.AddDbContext<ApplicationContext>(options => options.UseSqlServer("Server=LAPTOP-VISABIIJ;Database=Eczane;User Id=sa;Password=berra123;"));
+            services.AddDbContext<ApplicationContext>(options => options.UseSqlServer(@"Server=.\MSSQLSERVER2019;Database=IlacKutusu;User Id=suko;Password=67719899Ah.;"));
             services.AddIdentity<User, IdentityRole>().AddEntityFrameworkStores<ApplicationContext>().AddDefaultTokenProviders();
 
             services.Configure<IdentityOptions>(options =>
