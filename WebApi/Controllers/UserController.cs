@@ -17,12 +17,12 @@ namespace WebApi.Controllers
     {
         private UserManager<User> _userManager;
         private SignInManager<User> _signInManager;
-        private IEmailSender _emailSender;
-        public UserController(UserManager<User> userManager, SignInManager<User> signInManager, IEmailSender emailSender)
+
+        public UserController(UserManager<User> userManager, SignInManager<User> signInManager)
         {
             _userManager = userManager;
             _signInManager = signInManager;
-            _emailSender = emailSender;
+       
         }
         [HttpGet]
         public IActionResult Get()

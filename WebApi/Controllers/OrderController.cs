@@ -103,7 +103,7 @@ namespace WebApi.Controllers
             order.Adress = user.Address;
 
             Random rastgele = new Random();
-            order.TeslimatKodu = rastgele.Next(10000).ToString();
+            order.TeslimatKodu =Convert.ToString(rastgele.Next(10000));
             order.IsAccepted = 0;
             order.IsDeliveredKargo = 0;
             var bucketList = await _bucketManager.getAll(x => x.UserId == order.UserName);
@@ -120,7 +120,7 @@ namespace WebApi.Controllers
                 var eczacılar = (await _userManager.GetUsersInRoleAsync("eczacı")).Where(x => x.PharmaciesId == order.PharmaciesID);
                 foreach(var users in eczacılar)
                 {
-                    await _emailSender.SendEmailAsync(users.Email, "Yeni şiparişiniz var ", "ddd");
+                   // await _emailSender.SendEmailAsync(users.Email, "Yeni şiparişiniz var ", $"Yeni sipariş var");
                 }
 
             }

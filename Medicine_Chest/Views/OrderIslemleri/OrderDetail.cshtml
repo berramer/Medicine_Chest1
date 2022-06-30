@@ -53,7 +53,8 @@
 
 
     function TeslimEt(Id) {
-        var teslim = document.getElementById("#TeslimatKodu");
+        debugger;
+        var teslim = document.getElementById("teslim").value;
 
         $.ajax({
             type: "Post",
@@ -327,7 +328,7 @@
                                         <div class="col-xl-12">
                                            <center> <h2>Teslim Kodunu Girin</h2></center> <br />
                                             <label class="form-label fw-bolder text-dark fs-6">Teslim Kodu:</label>
-                                            <input class="form-control form-control-lg form-control-solid" type="text" placeholder="" id="TeslimatKodu" autocomplete="off" required />
+                                            <input class="form-control form-control-lg form-control-solid" type="text" placeholder="" id="teslim" autocomplete="off" />
                                         </div>
                                         <!--end::Col-->
 

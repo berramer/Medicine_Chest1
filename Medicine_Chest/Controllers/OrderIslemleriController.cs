@@ -221,7 +221,7 @@ namespace Medicine_Chest.Controllers
             var kargo = await _userManager.FindByIdAsync(kargoId);
             await _emailSender.SendEmailAsync(kargo.Email, "Siparişiniz var",$"dd");
             var patient =  await _userManager.FindByNameAsync(order.UserName);
-            await _emailSender.SendEmailAsync(patient.Email, "Siparişiniz kargoya verildi.Teslimat Kodu" + order.TeslimatKodu, "ddd");
+            await _emailSender.SendEmailAsync(patient.Email, "Siparişiniz kargoya verildi.Teslimat Kodu" + order.TeslimatKodu, $"teslimat kodu");
             if (!String.IsNullOrEmpty(order.ReceteKodu))
             {
                 var pres = (await _prescriptionManager.getAll(x => x.PrescriptionCode == order.ReceteKodu)).FirstOrDefault();
